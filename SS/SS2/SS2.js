@@ -1,4 +1,43 @@
 
+let textHeight = 30
+let numRows = 13
+let pageColor = 255
+let interfaceColor = 230
+let interfaceColor1 = 150
+
+//SS2
+let chat
+let infoMember, sideIcon, sideName, sideNameArray, sideDivider, sideDividerArray, sideTextArray, sideTextArray1, chatText, chatTextArray
+let infoTab 
+let mouseDrag, infoName, infoNameArray, infoMemberArray, infoWindow, infoChange
+let infoLocShare, infoMemNum, infoDivider, infoLocSend
+let infoToggle = true
+let infoDis, infoButton
+let removeToggle = false
+let friendInQ, leftBound, removeButton
+
+function setup(){
+  createCanvas(windowWidth, windowHeight)
+
+  chat = new SS2(150, 50, 1000, 700)
+  chat.openChat()
+}
+
+function draw(){
+  background(220)
+
+  // chat.infoTab()
+
+}
+
+function mousePressed(){
+  // chat.removeFriend()
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 
 class SS2{
 

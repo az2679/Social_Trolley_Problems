@@ -1,4 +1,38 @@
 
+
+let textHeight = 30
+let numRows = 13
+let pageColor = 255
+let interfaceColor = 230
+let interfaceColor1 = 150
+
+
+//SS3
+let email 
+let inboxEmailReply, replyHeading, sendHeading, inboxDividerArray
+let interactionElement, textCursor, autoComplete, tabToggle, backSpaceExtended, contextQuestion2
+
+
+function setup(){
+  createCanvas(windowWidth, windowHeight)
+
+  email =  new SS3(50, 50, windowWidth*0.9, windowHeight*0.9)
+  email.openEmail()
+}
+
+function draw(){
+  background(220)
+}
+
+function keyReleased(){
+  email.type()
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 class SS3{
     constructor(x, y, w, h){
       this.x = x

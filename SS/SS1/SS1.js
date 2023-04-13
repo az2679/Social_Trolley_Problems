@@ -1,4 +1,45 @@
 
+let textHeight = 30
+let numRows = 13
+let pageColor = 255
+let interfaceColor = 230
+let interfaceColor1 = 150
+
+
+//SS1
+let jira
+let page, pageLine, headerLine, sideBarLine, projectLine
+let toggleNewHire = false
+let toggleHire1 = false
+let toggleHire2 = false
+let toggleAssignBox = true
+let assignGroup, assignIconGroup, assignArray, assignIconArray
+let newHireBox, hire1Box, hire2Box, personSelect
+
+
+function setup(){
+  createCanvas(windowWidth, windowHeight)
+
+  jira = new SS1(200, 50, 1000, 700)
+  jira.openJira()
+  jira.makeTable()
+}
+
+function draw(){
+  background(220)
+  jira.hired()
+}
+
+function mousePressed(){
+  jira.assign()
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+
 class SS1{
     constructor(x, y, w, h){
       //now i can use corner as origin when calling this class
