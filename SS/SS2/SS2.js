@@ -26,12 +26,12 @@ function setup(){
 function draw(){
   background(220)
 
-  // chat.infoTab()
+  chat.infoTab()
 
 }
 
 function mousePressed(){
-  // chat.removeFriend()
+  chat.removeFriend()
 }
 
 function windowResized() {

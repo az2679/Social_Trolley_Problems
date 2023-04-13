@@ -352,7 +352,7 @@ class SS3{
         interactionElement.collider = 's'
         interactionElement.color = 255
         interactionElement.visible = true
-  
+
       autoComplete = new interactionElement.Sprite()
         autoComplete.w = contextQuestion1.w * 0.577
         autoComplete.x = contextQuestion1.x+contextQuestion1.w/2 - autoComplete.w/2
@@ -360,13 +360,16 @@ class SS3{
         autoComplete.y = contextQuestion1.y
         autoComplete.textSize = 15
         autoComplete.textColor = 200
-        autoComplete.text = 'veryone participated?                                             '
+        // autoComplete.text = 'veryone participated?                                             '
+        autoComplete.text = 'veryone participated?                                                       '
         autoComplete.color = 255
         autoComplete.stroke = autoComplete.color
-  
+
+
       let tabButton = new interactionElement.Sprite()
         tabButton.w = textEditor.w * 0.075
-        tabButton.x = contextQuestion1.x+contextQuestion1.w/4
+        // tabButton.x = contextQuestion1.x+contextQuestion1.w/4
+        tabButton.x = textEditor.x * 1.15
         tabButton.h = autoComplete.h
         tabButton.y = autoComplete.y
         autoComplete.color = 255
@@ -378,7 +381,8 @@ class SS3{
   
       textCursor = new Sprite()
         textCursor.w = 1
-        textCursor.x = autoComplete.x - autoComplete.w/2 -7
+        // textCursor.x = autoComplete.x - autoComplete.w/2 -7
+        textCursor.x = autoComplete.x - autoComplete.w/2 
         textCursor.h = autoComplete.textSize
         textCursor.y = autoComplete.y
         textCursor.collider = 's'
@@ -405,7 +409,7 @@ class SS3{
         backSpaceExtended.collider = 's'
         backSpaceExtended.visible = false
   
-  
+
   
     }
   
