@@ -229,14 +229,15 @@ class SS1{
         assignGroup.collider = 's'
         assignGroup.layer = 1
         assignGroup.w = colmAssign.x - colmStat.x
+        assignGroup.h = textHeight
         assignGroup.x = colmAssign.x - (assignGroup.w /2)
       assignArray = []
       while (assignArray.length< (numRows-1)){
         let assignText = new assignGroup.Sprite()
         assignArray.push(assignText)
         assignText.w = colmAssign.x - colmStat.x
-        assignText.x = colmAssign.x - (assignText.w /2)
         assignText.h = textHeight
+        assignText.x = colmAssign.x - (assignText.w /2)
         assignText.y = (page.y-page.h/2) + (projectLine.y - (page.y-page.h/2)) + textHeight*2.75 + (textHeight*assignArray.length) - assignText.h/2
       }
       assignArray[0].text='Assignee'
@@ -429,7 +430,10 @@ class SS1{
   
     if (mouseX > (assignArray[4].x - (assignArray[4].w)) && mouseX < (assignArray[4].x + (assignArray[4].w/2)) && mouseY > (assignArray[4].y - (assignArray[4].h/2)) && mouseY < (assignArray[4].y + (assignArray[4].h/2))){
       toggleAssignBox = !toggleAssignBox
+
     }
+
+    
   
     }
   
