@@ -4,40 +4,48 @@ let pageColor = 255
 let interfaceColor = 230
 let interfaceColor1 = 150
 
-
+let SS1Button
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  let door1 = createA("SS/SS1", "SS1");
-  door1.position(50, 150);
+
+  SS1Button = createImg('assets/jiraApp.png');
+  SS1Button.size(50,50)
+  SS1Button.position(100, 150)
+  SS1Button.mouseClicked(openSS1)
+
+
+  let SS2Button = createImg('assets/imsgApp.png');
+  SS2Button.size(50,50)
+	SS2Button.position(200, 150)
+	SS2Button.mouseClicked(openSS2)
+
+  let SS3Button = createImg('assets/emailApp.png');
+  SS3Button.size(50,50)
+	SS3Button.position(300, 150)
+	SS3Button.mouseClicked(openSS3)
+
+  let notif = new Sprite()
+  notif.x = SS1Button.x+ 45
+  notif.y = SS1Button.y + 5
+  notif.d = 10
+  notif.layer = 50
   
-  let door2 = createA("SS/SS2", "SS2");
-  door2.position(50, 200);
 
-  let door3 = createA("SS/SS3", "SS3");
-  door3.position(50, 250);
-
-	let SS1Button = createButton('SS1');
-	SS1Button.position(100, 150)
-	SS1Button.mousePressed(openSS1)
-
-  let SS2Button = createButton('SS2');
-	SS2Button.position(100, 200)
-	SS2Button.mousePressed(openSS2)
-
-  let SS3Button = createButton('SS3');
-	SS3Button.position(100, 250)
-	SS3Button.mousePressed(openSS3)
-
-
+  // button = createImg('mod.png');
+  // button.position(19, 19);
+  // button.mousePressed(changeBG);
 }
+
 
 
 
 function draw() {
   background(220);
-  textSize(36);
-  text("Which one?", 50, 100)
+  // textSize(36);
+  // text("Which one?", 50, 100)
+
+
 
 }
 
