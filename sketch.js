@@ -121,7 +121,10 @@ function setup() {
   cameraMan.text = 'camera man'
   cameraMan.visible = false
 
-  asyncCall();
+  camera.x = width/2
+  camera.y = height/2
+
+  // asyncCall();
 }
 
 
@@ -192,7 +195,7 @@ function resolveAfter1Seconds() {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve('resolved');
-    }, 1000);
+    }, 500);
   });
 }
 
@@ -203,6 +206,8 @@ async function asyncCall() {
   if(window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')){
     agent.visible = true
     noCursor()
+
+
   }
 }
 

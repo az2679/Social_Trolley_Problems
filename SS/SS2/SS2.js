@@ -16,11 +16,131 @@ let infoDis, infoButton
 let removeToggle = false
 let friendInQ, leftBound, removeButton
 
+
+let searchBar, searchIcon, instructionBox, closeSearch
+let instructTextArray, instructTextBox
+
 function setup(){
   createCanvas(windowWidth, windowHeight)
 
   chat = new SS2(150, 50, 1000, 700)
   chat.openChat()
+
+
+  instructionBox = new Group()
+  instructionBox.collider = 's'
+  instructionBox.color = 245
+  instructionBox.stroke = instructionBox.color + 10
+  instructionBox.visible = false
+
+
+  searchBox = new instructionBox.Sprite(325, (150- 22.5))
+  searchBox.h = textHeight + 2
+  searchBox.w = 310 + 2
+  searchBox.stroke = color(150, 200, 255)
+  searchBox.strokeWeight = 2
+  searchBox.layer = 15
+  searchBox.visible = false
+
+  let searchBoxBackground = new instructionBox.Sprite()
+  searchBoxBackground.w = searchBox.w + 40 - 4 -4
+  searchBoxBackground.h = 700- 115
+  searchBoxBackground.x = searchBox.x
+  searchBoxBackground.y = 50 + searchBoxBackground.h/2 + 115 - 2 -4
+  searchBoxBackground.color = 230
+  searchBoxBackground.stroke = searchBoxBackground.color
+  // searchBoxBackground.layer = searchBox.layer
+
+  let searchChatArray = []
+  while (searchChatArray.length < 8){
+    let searchChatIcon = new instructionBox.Sprite()
+    searchChatIcon.d = 50
+    searchChatIcon.x = (searchBox.x-searchBox.w*0.4) + (searchChatIcon.d * (searchChatArray.length/2) * 1.63)
+    searchChatIcon.y = searchBox.y + searchChatIcon.r + textHeight*1.5
+    searchChatIcon.stroke = searchChatIcon.color
+    searchChatArray.push(searchChatIcon)
+    
+
+    let searchChatName = new instructionBox.Sprite()
+    searchChatName.h = textHeight*0.5
+    searchChatName.w = searchBox.w*0.2
+    searchChatName.x = (searchBox.x-searchBox.w*0.4) - searchChatName.w*0.6 + ((searchChatName.w) * (searchChatArray.length/2) * 1.3)
+    searchChatName.y = searchChatIcon.y + textHeight* 1.25
+    searchChatName.stroke = searchChatName.color
+    searchChatArray.push(searchChatName)
+  }
+ 
+
+  let linkBox = new instructionBox.Sprite()
+  linkBox.w = searchBox.w *0.17
+  linkBox.h = textHeight * 0.75
+  linkBox.x = searchBox.x - searchBox.w/2 + linkBox.w/2 
+  linkBox.y = searchBox.y + searchBox.h/2 + 50 + textHeight*3.5
+
+  let showMoreBox = new instructionBox.Sprite()
+  showMoreBox.w = searchBox.w *0.27
+  showMoreBox.h = textHeight * 0.75
+  showMoreBox.x = searchBox.x + searchBox.w/2 - showMoreBox.w/2 
+  showMoreBox.y = searchBox.y + searchBox.h/2 + 50 + textHeight*3.5
+
+  let instructions = new instructionBox.Sprite()
+  instructions.w = searchBox.w
+  instructions.h = searchBoxBackground.h * 0.45
+  instructions.x = searchBoxBackground.x
+  instructions.y = searchBoxBackground.y + instructions.h*0.1
+  instructions.color = 255
+
+  // instructions.text = 'This is a messaging app, opened to the friend group chat. Interact with the information tab on the top right corner, as well as the items on the information tabs panel.'
+
+
+  instructTextArray = []
+  while (instructTextArray.length < 8){
+    instructTextBox = new instructionBox.Sprite()
+    instructTextBox.w = searchBox.w 
+    instructTextBox.h = textHeight
+    instructTextBox.x = searchBoxBackground.x
+    instructTextBox.y = (instructions.y - instructions.h*0.35) + (textHeight * instructTextArray.length)
+    instructTextBox.color = 255
+    // instructTextBox.stroke = 0
+    instructTextBox.textColor =0
+    instructTextBox.textSize = 14
+  instructTextArray.push(instructTextBox)
+  }
+
+  instructTextArray[0].text = 'Hello!'
+  instructTextArray[1].text = 'This is a messaging app,'
+  instructTextArray[2].text = 'Currently, a chat between a group of friends'
+  instructTextArray[3].text = 'is being displayed.'
+  instructTextArray[4].text = 'Read the context about the situation provided'
+  instructTextArray[5].text = ' and make a decision by interacting with the'
+  instructTextArray[6].text = 'information tab on the top right corner.'
+  // instructTextArray[7].text = 'as well as the items on the information tabs panel.'
+
+
+
+  let photosBox = new instructionBox.Sprite()
+  photosBox.w = searchBox.w *0.17
+  photosBox.h = textHeight * 0.75
+  photosBox.x = searchBox.x - searchBox.w/2 + photosBox.w/2 
+  photosBox.y = instructions.y + instructions.h/2 + photosBox.h/2 + textHeight
+
+
+  let showMoreBox1 = new instructionBox.Sprite()
+  showMoreBox1.w = searchBox.w *0.27
+  showMoreBox1.h = textHeight * 0.75
+  showMoreBox1.x = searchBox.x + searchBox.w/2 - showMoreBox1.w/2 
+  showMoreBox1.y = instructions.y + instructions.h/2 + showMoreBox1.h/2 + textHeight
+
+  closeSearch = new instructionBox.Sprite()
+  closeSearch.h = searchBox.h -5
+  closeSearch.w = closeSearch.h -5
+  closeSearch.y = searchBox.y
+  closeSearch.x = searchBox.x+ searchBox.w/2 - closeSearch.w/2 - 2.5
+  closeSearch.text = 'x'
+  closeSearch.layer = 50
+
+
+
 }
 
 function draw(){
@@ -28,10 +148,22 @@ function draw(){
 
   chat.infoTab()
 
+  if(searchBar.mouse.released() || searchIcon.mouse.released()){
+    instructionBox.visible = true
+  }
+
+  if(closeSearch.mouse.released()){
+    instructionBox.visible = false
+  }
+
+
+
 }
 
 function mousePressed(){
   chat.removeFriend()
+
+
 }
 
 function windowResized() {
@@ -259,12 +391,20 @@ class SS2{
     windowButtons.h = 25
     windowButtons.y = (sideBar.y - sideBar.h/2) + windowButtons.h*1.2
 
-    let searchBar = new chatElement.Sprite()
+    searchBar = new chatElement.Sprite()
     searchBar.w = sideBar.w - ((windowButtons.x-windowButtons.w/2)-(sideBar.x-sideBar.w/2))*2
       //margin between buttons and edge of side bar. *2 for two margins
     searchBar.x = sideBar.x
     searchBar.h = textHeight
     searchBar.y = (sideBar.y - sideBar.h/2) + searchBar.h/2 + windowButtons.h*2.5
+    searchBar.text = 'For help, click here                                         '
+
+    searchIcon = new chatElement.Sprite()
+    searchIcon.w = textHeight -5
+    searchIcon.h = textHeight -5
+    searchIcon.y = searchBar.y
+    searchIcon.x = searchBar.x - searchBar.w/2 + searchIcon.w/2 + 2.5
+
 
     let contextElement = new Group()
     contextElement.collider='s'
