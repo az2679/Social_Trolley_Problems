@@ -41,8 +41,8 @@ function setup() {
     toolBarApps = new Sprite()
     toolBarApps.w = appSize
     toolBarApps.h = appSize
-    toolBarApps.y = windowHeight - toolBarApps.h*2
-    toolBarApps.x = windowWidth*0.25 + (toolBarApps.w * toolBarArray.length * 1.25)
+    toolBarApps.y = height - toolBarApps.h*2
+    toolBarApps.x = width*0.25 + (toolBarApps.w * toolBarArray.length * 1.25)
     toolBarApps.color = 245
     toolBarApps.stroke = toolBarApps.color
     toolBarApps.collider ='s'
@@ -52,8 +52,8 @@ function setup() {
 
   let toolBar = new Sprite()
   toolBar.collider = 's'
-  toolBar.x = windowWidth/2 + ((appSize * 1.25)/2)
-  toolBar.y = windowHeight - appSize*2
+  toolBar.x = width/2 + ((appSize * 1.25)/2)
+  toolBar.y = height - appSize*2
   toolBar.h = appSize*2
   toolBar.w = (toolBarArray.length+1) * appSize * 1.25
   toolBar.layer = 1
@@ -111,34 +111,17 @@ function setup() {
   ss3Notif.x = ss3App.x + notif.d*1.5
   ss3Notif.y = ss3App.y - notif.d*1.5
 
-  // asyncCall();
 
-  // agent = new Sprite()
-  // // agent.collider = 'd'
-  // agent.x = windowWidth/2
-  // agent.y = windowHeight/2
-  // agent.d = 25
-  // agent.visible = true
-  // agent.color =255
-
-  // agent.overlaps(toolBar)
-  // agent.overlaps(toolBarArray[2])
-  // agent.overlaps(ss1App)
-
-
-  // cursor(CROSS)
-  // noCursor()
-
-  // camera.x = windowWidth/2
-  // camera.y = windowHeight/2
-
-
-
-  // testCursor = new Sprite(width/2, height/2, 25)
   agent = new Sprite(width/2, height/2, 25)
+  agent.color =255
+  // agent.text = 'agent'
+  agent.visible = false
   cameraMan = new Sprite(width/2, height/2, 25)
+  cameraMan.color = 200
+  cameraMan.text = 'camera man'
   cameraMan.visible = false
-  noCursor()
+
+  asyncCall();
 }
 
 
@@ -149,252 +132,18 @@ function setup() {
 function draw() {
   background(220);
 
-  //agent movement 1: sprite limited range of motion, not v responsive
-  // agent.x = mouseX
-  // agent.y = mouseY
-
-  // testCursor.x = mouseX
-  // testCursor.y = mouseY
-
   cameraMan.x = mouseX
   cameraMan.y = mouseY
 
- 
-
-  //agent movement 2 - doc: good when dragging but too sensitive if moving around
-  // agent.moveTowards(
-  //   mouse.x + agent.mouse.x,
-  //   mouse.y + agent.mouse.y,
-  //   1 // full tracking
-  // );
-
-  //agent movement 3 - doc 
-  // agent.moveTowards(mouse, 0.5);
-  // agent.moveTowards(mouse, 0.05);
-
-
-
-  //agent movement 5 - trolley
-  // agent.vel.x = ((mouse.x ))
-  // agent.vel.y = ((mouse.y))
-
-  // camera.x = cameraMan.x
-  // camera.y = cameraMan.y
-  // cameraMan.visible = false
-
-  // camera.x = agent.x
-  // camera.y = agent.y
-
-  // camera.x = testCursor.x
-  // camera.y = testCursor.y
   camera.x = cameraMan.x
   camera.y = cameraMan.y
   
-
-  // camera.x = mouse.x
-  // camera.Y= mouse.y
-
-  // if (mouseX > 500){test.x = mouseX + 500}
-  // if (mouseX < 500 ){test.x = mouseX-500}
-
   correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
   correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
 
-  // cameraMan.x = mouseX
-  // cameraMan.y = mouseY
-  // cameraMan.color = 0
-  cameraMan.text = 'camera'
-  
-  // camera.x = cameraMan.x
-  // camera.Y= cameraMan.y
-
-  // agent.collider = 'n'
-  // agent.x = correctionX
-  // agent.y = correctionY
-  agent.text = 'agent'
-
-  // console.log (windowHeight)
-  // testCursor.x = correctionX
-  // testCursor.y = correctionY
   agent.x = correctionX
   agent.y = correctionY
-
-    // cameraMan.moveTowards(agent, 0.05);
-
-
-  // camera.x = agent.x
-  // camera.y = agent.y
-
-  // test.x = mouseX
-
-  // testCursor.collider = 'n'
-// console.log (test.x)
-
-  // cameraMan.x = correctionX
-
-  // cameraMan.x = mouseX
-  // test.y = mouseY
-
-
-  // test.y = mouseY + abs(mouseY - camera.y) 
-  // test.y = windowHeight/2
-  // test.collider = 'n'
-
-  // console.log('mouse', mouseX, mouseY, 'camera', camera.x, camera.y, 'test', test.x)
-
-//0, -470; 1439, 2408
-
-  // if (camera.x > windowWidth){
-  //   camera.x = windowWidth
-  // }
-  // if(camera.x < 0){
-  //   camera.x= 0
-  // }
-  // if (camera.y > windowHeight*1.5){
-  //   camera.y = windowHeight*1.5
-  // }
-
-
-  // camera.moveTowards(mouse.x, mouse.y)
-
-  // camera.x = mouseX 
-  // camera.y = mouseY
-
-
-  // test.x = agent.x
-  // test.y = agent.y
-
-
-  // camera.moveTowards(mouse)
-
-
-  // camera.zoomTo(agent.x, agent.y, 0.5)
-
-  // camera.moveTowards(
-  //     mouse.x + agent.mouse.x,
-  //     mouse.y + agent.mouse.y,
-  //     1 // full tracking
-  //   );
-
-    // camera.on()
-
-
-
-    /*
-    ok. so, if i have fixed camera, agent sprite follows mouse cursor directly
-      agent.x = agent.x
-      agent.Y= agent.y
-
-    this also works:
-      agent.moveTowards(
-      mouse.x + agent.mouse.x,
-      mouse.y + agent.mouse.y,
-      1 // full tracking
-     );
-
-    if I have moving camera (following agent, which is following mouse), then the movement range is only a fraction of where the cursor is - results in choppy and limited view 
-      agent.x = mouse.x
-      agent.y = mouse.y
-      camera.x = agent.x
-      camera.Y= agent.y
-
-    ok what if i have moving camera that follows mouse too 
-      moves wayy too fast and sensitive
-      camera.moveTowards(mouse) > doesnt work either 
-    
-    ok, but i like moveTowards() so maybe make a pseudo camera.moveTowards(). like how about having a camera man sprite (camera pos is set to camera man) that trails/move towards the agent/cursor. 
-      agent.x = mouse.x
-      agent.y = mouse.y
-      cameraMan.moveTowards(agent, 0.05);
-      camera.x = cameraMan.x
-      camera.Y= cameraMan.y
-
-    alright, the cameras less jarring. but never fixed issue of agent sprite being offset from cursor when camera starts moving 
-        happened here too > 
-      agent.x = mouse.x
-      agent.y = mouse.y
-      camera.x = agent.x
-      camera.Y= agent.y
-        actually all this was supposed to fix that..
-
-    learned that camera is offset from canvas
-      cursor seems to be moving camera but the agent is fixed at camera center
-      so agent at mouse position is like camera cross hair centerpoint 
-      would need agent at cursor to act as visual
-      camera following mouse seems fine, need cameraman? makes it a bit more smooth i suppose
-
-      need some correction - i think its bc camera view is larger than canvas 
-      correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-      correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-
-    ok this is good!
-      agent.x = mouseX
-      agent.y = mouseY
-      camera.x = agent.x
-      camera.Y= agent.y
-      correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-      correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-      testCursor.x = correctionX
-      testCursor.y = correctionY
-    
-    do i need cameraman still?
-      its moving waaay too fast
-        agent.x = mouseX
-        agent.y = mouseY
-        camera.x = mouse.x
-        camera.Y= mouse.y
-        correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-        correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-        testCursor.x = correctionX
-        testCursor.y = correctionY
-
-      doing that just created same displacement issue but with the test cursor and the agent
-        agent.x = mouseX
-        agent.y = mouseY
-        correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-        correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-        testCursor.x = correctionX
-        testCursor.y = correctionY
-        cameraMan.moveTowards(agent, 0.05);
-        camera.x = cameraMan.x
-        camera.y = cameraMan.y
-
-      lets try to clean up naming
-        agent.x = mouseX; agent.y = mouseY; >> agent is new cameraman like the camera crosshair center that im viewing screen through
-
-        camera.x = agent.x
-        camera.Y= agent.y
-
-        correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-        correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-        testCursor.x = correctionX; testCursor.y = correctionY; >> what I want my visible cursor to be, the agent sprite that follows the cursor
-
-        so..matching the right variable names to position mappings
-
-        cameraMan.x = mouseX
-        cameraMan.y = mouseY
-        camera.x = cameraMan.x
-        camera.Y= cameraMan.y
-
-        correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-        correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
-        agent.x = correctionX
-        agent.y = correctionY
-
-    
-    */
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
@@ -452,10 +201,8 @@ async function asyncCall() {
   const result = await resolveAfter1Seconds();
   console.log(result);
   if(window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')){
-    // agent.visible = true
-    // noCursor()
-
-
+    agent.visible = true
+    noCursor()
   }
 }
 
