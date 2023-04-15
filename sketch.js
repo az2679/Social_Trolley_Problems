@@ -4,11 +4,15 @@ let pageColor = 255
 let interfaceColor = 230
 let interfaceColor1 = 150
 
-let ss1Button
+let appSize = 50
+
 let ss1App, ss2App, ss3App
 
 let jiraImg, imsgImg, emailImg
 let jiraNotif, imsgNotif, emailNotif
+
+let toolBarArray, toolBarApps
+
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -19,38 +23,62 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // ss1Button = createImg('assets/jiraApp.png');
-  // ss1Button.size(50,50)
-  // ss1Button.position(100, 150)
-  // ss1Button.mouseClicked(openSS1)
+  
+  toolBarArray = []
 
+  while(toolBarArray.length < 13){
+    toolBarApps = new Sprite()
+    toolBarApps.w = appSize
+    toolBarApps.h = appSize
+    toolBarApps.y = windowHeight - toolBarApps.h*2
+    toolBarApps.x = windowWidth*0.25 + (toolBarApps.w * toolBarArray.length * 1.25)
+    toolBarApps.color = 245
+    toolBarApps.stroke = toolBarApps.color
+    toolBarApps.collider ='s'
+    toolBarApps.layer = 2
+    toolBarArray.push(toolBarApps)
+  }
 
-  // let ss2Button = createImg('assets/imsgApp.png');
-  // ss2Button.size(50,50)
-	// ss2Button.position(200, 150)
-	// ss2Button.mouseClicked(openSS2)
+  let toolBar = new Sprite()
+  toolBar.collider = 's'
+  toolBar.x = windowWidth/2 + ((appSize * 1.25)/2)
+  toolBar.y = windowHeight - appSize*2
+  toolBar.h = appSize*2
+  toolBar.w = (toolBarArray.length+1) * appSize * 1.25
+  toolBar.layer = 1
+  toolBar.color = 235
+  toolBar.stroke = toolBar.color
+  // toolBar.visible = false
 
-  // let ss3Button = createImg('assets/emailApp.png');
-  // ss3Button.size(50,50)
-	// ss3Button.position(300, 150)
-	// ss3Button.mouseClicked(openSS3)
+  toolBarArray[9].w = 0
+  toolBarArray[9].stroke = 0
+  toolBarArray[2].visible = false
+  toolBarArray[5].visible = false
+  toolBarArray[7].visible = false
+
 
   let app = new Group()
   app.w = 50
   app.h = 50
   app.collider = 's'
 
-  jiraImg.resize(50,50)
-  ss1App = new app.Sprite(100, 150)
+  jiraImg.resize(50, 50)
+  ss1App = new app.Sprite()
   ss1App.img = jiraImg
+  ss1App.x = toolBarArray[2].x
+  ss1App.y = toolBarArray[2].y
 
   imsgImg.resize(50,50)
-  ss2App = new app.Sprite(200,150)
+  ss2App = new app.Sprite()
   ss2App.img = imsgImg
+  ss2App.x = toolBarArray[5].x
+  ss2App.y = toolBarArray[5].y
 
   emailImg.resize(50,50)
-  ss3App = new app.Sprite(300,150)
+  ss3App = new app.Sprite()
   ss3App.img = emailImg
+  ss3App.x = toolBarArray[7].x
+  ss3App.y = toolBarArray[7].y
 
   let notif = new Group()
   notif.collider='s'
@@ -62,17 +90,19 @@ function setup() {
   notif.visible = true
 
   ss1Notif = new notif.Sprite()
-  ss1Notif.x = ss1App.x + 22
-  ss1Notif.y = ss1App.y -22
+  ss1Notif.x = ss1App.x + notif.d*1.5
+  ss1Notif.y = ss1App.y - notif.d*1.5
 
   ss2Notif = new notif.Sprite()
-  ss2Notif.x = ss2App.x + 22
-  ss2Notif.y = ss2App.y -22
+  ss2Notif.x = ss2App.x + notif.d*1.5
+  ss2Notif.y = ss2App.y - notif.d*1.5
 
   ss3Notif = new notif.Sprite()
-  ss3Notif.x = ss3App.x + 22
-  ss3Notif.y = ss3App.y -22
-  
+  ss3Notif.x = ss3App.x + notif.d*1.5
+  ss3Notif.y = ss3App.y - notif.d*1.5
+
+  window.alert('test')
+
 
 }
 
@@ -81,8 +111,6 @@ function setup() {
 
 function draw() {
   background(220);
-  // textSize(36);
-  // text("Which one?", 50, 100)
 
   if(ss1App.mouse.released()){
     openSS1()
@@ -100,6 +128,13 @@ function draw() {
 
 }
 
+
+
+
+
+
+
+
 function openSS1() {
 	window.open('SS/SS1');
 }
@@ -109,7 +144,6 @@ function openSS2() {
 function openSS3() {
 	window.open('SS/SS3');
 }
-
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
