@@ -13,6 +13,10 @@ let jiraNotif, imsgNotif, emailNotif
 
 let toolBarArray, toolBarApps
 
+let pageLoadPromise;
+
+let agent
+
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -101,16 +105,50 @@ function setup() {
   ss3Notif.x = ss3App.x + notif.d*1.5
   ss3Notif.y = ss3App.y - notif.d*1.5
 
-  window.alert('test')
+  // asyncCall();
 
+  // agent = new Sprite()
+  // agent.collider = 's'
+  // agent.x = mouseX
+  // agent.y = mouseY
+  // agent.d = 25
+}
+
+// function resolveAfter1Seconds() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve('resolved');
+//     }, 1000);
+//   });
+// }
+
+async function asyncCall() {
+  console.log('calling');
+  const result = await resolveAfter1Seconds();
+  console.log(result);
+  // window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')
+
+  // if (confirm("Press a button!")) {
+  //   txt = "You pressed OK!";
+  // } else {
+  //   txt = "You pressed Cancel!";
+  // }
+
+  
 
 }
 
 
 
 
+
+
 function draw() {
   background(220);
+
+  // agent.x = mouseX
+  // agent.y = mouseY
+  // noCursor()
 
   if(ss1App.mouse.released()){
     openSS1()
