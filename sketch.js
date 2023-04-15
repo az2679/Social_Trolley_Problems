@@ -5,64 +5,75 @@ let interfaceColor = 230
 let interfaceColor1 = 150
 
 let ss1Button
-let ss1App
+let ss1App, ss2App, ss3App
+
+let jiraImg, imsgImg, emailImg
+let jiraNotif, imsgNotif, emailNotif
 
 function preload(){
-  jira = loadImage('assets/jiraApp.png')
+  jiraImg = loadImage('assets/jiraApp.png')
+  imsgImg = loadImage('assets/imsgApp.png')
+  emailImg = loadImage('assets/emailApp.png')
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  ss1Button = createImg('assets/jiraApp.png');
-  ss1Button.size(50,50)
-  ss1Button.position(100, 150)
-  ss1Button.mouseClicked(openSS1)
+  // ss1Button = createImg('assets/jiraApp.png');
+  // ss1Button.size(50,50)
+  // ss1Button.position(100, 150)
+  // ss1Button.mouseClicked(openSS1)
 
 
-  let ss2Button = createImg('assets/imsgApp.png');
-  ss2Button.size(50,50)
-	ss2Button.position(200, 150)
-	ss2Button.mouseClicked(openSS2)
+  // let ss2Button = createImg('assets/imsgApp.png');
+  // ss2Button.size(50,50)
+	// ss2Button.position(200, 150)
+	// ss2Button.mouseClicked(openSS2)
 
-  let ss3Button = createImg('assets/emailApp.png');
-  ss3Button.size(50,50)
-	ss3Button.position(300, 150)
-	ss3Button.mouseClicked(openSS3)
+  // let ss3Button = createImg('assets/emailApp.png');
+  // ss3Button.size(50,50)
+	// ss3Button.position(300, 150)
+	// ss3Button.mouseClicked(openSS3)
 
-  jira.resize(50,50)
-  ss1App = new Sprite(125, 250)
-  ss1App.img = jira
-  ss1App.w = 50
-  ss1App.h = 50
-  ss1App.collider ='s'
-  // let app = loadImage('assets/jiraApp.png')
-  // ss1App.addImage('assets/jiraApp.png')
-  // image(app, ss1App.x, ss1App.y)
+  let app = new Group()
+  app.w = 50
+  app.h = 50
+  app.collider = 's'
 
-  let notif = new Sprite()
-  notif.x = ss1Button.x+ 45
-  notif.y = ss1Button.y + 5
-  notif.d = 15
+  jiraImg.resize(50,50)
+  ss1App = new app.Sprite(100, 150)
+  ss1App.img = jiraImg
+
+  imsgImg.resize(50,50)
+  ss2App = new app.Sprite(200,150)
+  ss2App.img = imsgImg
+
+  emailImg.resize(50,50)
+  ss3App = new app.Sprite(300,150)
+  ss3App.img = emailImg
+
+  let notif = new Group()
+  notif.collider='s'
   notif.color = 'red'
   notif.stroke = 'red'
   notif.textColor = 255
   notif.text = '1'
+  notif.d = 15
+  notif.visible = true
 
-  let notif1 = new Sprite()
-  notif1.x = ss1App.x + 22
-  notif1.y = ss1App.y -22
-  notif1.d = 15
-  notif1.collider='s'
-  notif1.color = 'red'
-  notif1.stroke = 'red'
-  notif1.textColor = 255
-  notif1.text = '1'
+  ss1Notif = new notif.Sprite()
+  ss1Notif.x = ss1App.x + 22
+  ss1Notif.y = ss1App.y -22
+
+  ss2Notif = new notif.Sprite()
+  ss2Notif.x = ss2App.x + 22
+  ss2Notif.y = ss2App.y -22
+
+  ss3Notif = new notif.Sprite()
+  ss3Notif.x = ss3App.x + 22
+  ss3Notif.y = ss3App.y -22
   
 
-  // button = createImg('mod.png');
-  // button.position(19, 19);
-  // button.mousePressed(changeBG);
 }
 
 
@@ -75,6 +86,15 @@ function draw() {
 
   if(ss1App.mouse.released()){
     openSS1()
+    ss1Notif.visible = false
+  }
+  if(ss2App.mouse.released()){
+    openSS2()
+    ss2Notif.visible = false
+  }
+  if(ss3App.mouse.released()){
+    openSS3()
+    ss3Notif.visible = false
   }
 
 
