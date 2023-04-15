@@ -4,32 +4,60 @@ let pageColor = 255
 let interfaceColor = 230
 let interfaceColor1 = 150
 
-let SS1Button
+let ss1Button
+let ss1App
+
+function preload(){
+  jira = loadImage('assets/jiraApp.png')
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  SS1Button = createImg('assets/jiraApp.png');
-  SS1Button.size(50,50)
-  SS1Button.position(100, 150)
-  SS1Button.mouseClicked(openSS1)
+  ss1Button = createImg('assets/jiraApp.png');
+  ss1Button.size(50,50)
+  ss1Button.position(100, 150)
+  ss1Button.mouseClicked(openSS1)
 
 
-  let SS2Button = createImg('assets/imsgApp.png');
-  SS2Button.size(50,50)
-	SS2Button.position(200, 150)
-	SS2Button.mouseClicked(openSS2)
+  let ss2Button = createImg('assets/imsgApp.png');
+  ss2Button.size(50,50)
+	ss2Button.position(200, 150)
+	ss2Button.mouseClicked(openSS2)
 
-  let SS3Button = createImg('assets/emailApp.png');
-  SS3Button.size(50,50)
-	SS3Button.position(300, 150)
-	SS3Button.mouseClicked(openSS3)
+  let ss3Button = createImg('assets/emailApp.png');
+  ss3Button.size(50,50)
+	ss3Button.position(300, 150)
+	ss3Button.mouseClicked(openSS3)
+
+  jira.resize(50,50)
+  ss1App = new Sprite(125, 250)
+  ss1App.img = jira
+  ss1App.w = 50
+  ss1App.h = 50
+  ss1App.collider ='s'
+  // let app = loadImage('assets/jiraApp.png')
+  // ss1App.addImage('assets/jiraApp.png')
+  // image(app, ss1App.x, ss1App.y)
 
   let notif = new Sprite()
-  notif.x = SS1Button.x+ 45
-  notif.y = SS1Button.y + 5
-  notif.d = 10
-  notif.layer = 50
+  notif.x = ss1Button.x+ 45
+  notif.y = ss1Button.y + 5
+  notif.d = 15
+  notif.color = 'red'
+  notif.stroke = 'red'
+  notif.textColor = 255
+  notif.text = '1'
+
+  let notif1 = new Sprite()
+  notif1.x = ss1App.x + 22
+  notif1.y = ss1App.y -22
+  notif1.d = 15
+  notif1.collider='s'
+  notif1.color = 'red'
+  notif1.stroke = 'red'
+  notif1.textColor = 255
+  notif1.text = '1'
   
 
   // button = createImg('mod.png');
@@ -45,6 +73,9 @@ function draw() {
   // textSize(36);
   // text("Which one?", 50, 100)
 
+  if(ss1App.mouse.released()){
+    openSS1()
+  }
 
 
 }
