@@ -44,9 +44,9 @@ function setup(){
 
   let searchBoxBackground = new instructionBox.Sprite()
   searchBoxBackground.w = searchBox.w + 40 - 4 -4
-  searchBoxBackground.h = 700- 115
+  searchBoxBackground.h = 700- 100
   searchBoxBackground.x = searchBox.x
-  searchBoxBackground.y = 50 + searchBoxBackground.h/2 + 115 - 2 -4
+  searchBoxBackground.y = 50 + searchBoxBackground.h/2 + 100 - 2 -4
   searchBoxBackground.color = 230
   searchBoxBackground.stroke = searchBoxBackground.color
   // searchBoxBackground.layer = searchBox.layer
@@ -455,6 +455,9 @@ class SS2{
     sideDivider.stroke = 250
   }
 
+
+
+
   sideTextArray = []
   while(sideTextArray.length < 7){
     let sideText = new contextElement.Sprite()
@@ -478,13 +481,24 @@ class SS2{
     sideText1.stroke = sideText1.color
   }
 
-  sideTextArray[0].text = 'There is a friend group of 5 people.          '
-  sideTextArray[1].text ='However, one of the friends has been the'
-  sideTextArray1[1].text ='the target of rumors going around,           '
-  sideTextArray[2].text ='leading to distrust and tension/conflicts    '
-  sideTextArray1[2].text = 'within the friend group.                             '
-  sideTextArray[4].text = 'The friends turn to the unspoken leader    '
-  sideTextArray1[4].text = 'of their group for a solution.                      '
+  sideTextArray[1].text = 'There is a friend group of 5 people.          '
+  sideTextArray[2].text ='However, one of the friends has been the'
+  sideTextArray1[2].text ='the target of rumors going around,           '
+  sideTextArray[3].text ='leading to distrust and tension/conflicts    '
+  sideTextArray1[3].text = 'within the friend group.                             '
+  sideTextArray[5].text = 'The friends turn to the unspoken leader    '
+  sideTextArray1[5].text = 'of their group for a solution.                      '
+
+  let selectedChat = new chatElement.Sprite()
+    selectedChat.w = searchBar.w
+    selectedChat.x = sideDividerArray[0].x -40
+    selectedChat.h = sideIcon.d + textHeight
+    selectedChat.y = sideDividerArray[0].y - selectedChat.w*0.11
+    selectedChat.color = 200
+    selectedChat.stroke = selectedChat.color
+
+    sideIconArray[0].layer = selectedChat.layer+1
+    sideNameArray[0].layer = selectedChat.layer+1
 
   let hideChatBlock = new chatElement.Sprite()
       hideChatBlock.x = sideIconArray[7].x

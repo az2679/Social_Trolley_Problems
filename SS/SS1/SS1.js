@@ -16,6 +16,7 @@ let toggleAssignBox = true
 let assignGroup, assignIconGroup, assignArray, assignIconArray
 let newHireBox, hire1Box, hire2Box, personSelect
 
+let projectMembers, instructionBox, searchBox, closeSearch
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
@@ -23,11 +24,75 @@ function setup(){
   jira = new SS1(200, 50, 1000, 700)
   jira.openJira()
   jira.makeTable()
+
+  instructionBox = new Group()
+  instructionBox.collider = 's'
+  instructionBox.color = 230
+  instructionBox.visible = false
+
+  searchBox = new Sprite()
+  searchBox.w = 200
+  searchBox.x = 570
+  searchBox.h = textHeight
+  searchBox.y = 230
+  searchBox.color = 245
+  searchBox.stroke = searchBox.color
+  searchBox.textSize = 10
+  searchBox.collider = 's'
+  searchBox.text = 'For help, click here!                 '
+
+  let searchDropDown = new instructionBox.Sprite()
+  searchDropDown.w = searchBox.w
+  searchDropDown.x = searchBox.x
+  searchDropDown.h = 150
+  searchDropDown.y = searchBox.y + searchBox.h/2 + searchDropDown.h/2 +5
+  searchDropDown.color = 245
+  searchDropDown.stroke = searchDropDown.color
+
+  let instructTextArray = []
+  while (instructTextArray.length < 7){
+    let instructTextBox = new instructionBox.Sprite()
+    instructTextBox.w = searchDropDown.w
+    instructTextBox.x = searchDropDown.x
+    instructTextBox.h = textHeight
+    instructTextBox.y = (searchDropDown.y - searchDropDown.h/2) + instructTextBox.h/2 + (instructTextBox.h * instructTextArray.length)
+    instructTextBox.stroke = instructTextBox.color
+    instructTextBox.textSize = 12
+    instructTextBox.textColor = 0
+    instructTextArray.push(instructTextBox)
+  }
+
+  instructTextArray[0].text = 'Hello! '
+  instructTextArray[1].text = 'This is a table used to manage'
+  instructTextArray[2].text = 'subtasks within a project.'
+  instructTextArray[3].text = 'Read the context about the situation'
+  instructTextArray[4].text = 'provided and make a decision by'
+  instructTextArray[5].text = 'interacting with the'
+  instructTextArray[6].text = 'drop down menu.'
+
+
+  closeSearch = new instructionBox.Sprite()
+  closeSearch.w = 50 
+  closeSearch.x = searchBox.x + searchBox.w/2  - closeSearch.w/2 -4
+  closeSearch.h = searchBox.h -4
+  closeSearch.y = searchBox.y
+  closeSearch.text = 'x'
+  closeSearch.stroke = 255
+
 }
 
 function draw(){
   background(220)
   jira.hired()
+
+  if (searchBox.mouse.released()){
+    instructionBox.visible = true
+  }
+
+  if (closeSearch.mouse.released()){
+    instructionBox.visible = false
+  }
+
 }
 
 function mousePressed(){
@@ -143,11 +208,12 @@ class SS1{
             projectTitle.w = projectLine.w * 0.3
             projectTitle.x = (projectLine.x - projectLine.w/2) + (projectTitle.w/2)
   
-          let projectMembers = new project.Sprite()
+          projectMembers = new project.Sprite()
             projectMembers.y = projectLine.y + textHeight
             projectMembers.h = textHeight * 1.25
             projectMembers.w = projectLine.w * 0.4
             projectMembers.x = (projectLine.x - projectLine.w/2) + (projectMembers.w/2)
+
             
           let projectSettings = new project.Sprite()
             projectSettings.y = projectLine.y + textHeight
