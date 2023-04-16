@@ -177,12 +177,15 @@ function draw() {
   //Option2
   if (ss1App.mouse.released()){
     openSS1()
+    ss1Notif.visible = false
   }
   if (ss2App.mouse.released()){
     openSS2()
+    ss2Notif.visible = false
   }
   if (ss3App.mouse.released()){
     openSS3()
+    ss3Notif.visible = false
   }
 
 

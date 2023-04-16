@@ -18,6 +18,10 @@ let newHireBox, hire1Box, hire2Box, personSelect
 
 let projectMembers, instructionBox, searchBox, closeSearch
 
+let searchPerson
+
+
+
 function setup(){
   createCanvas(windowWidth, windowHeight)
 
@@ -79,11 +83,31 @@ function setup(){
   closeSearch.text = 'x'
   closeSearch.stroke = 255
 
+
+  assignIconGroup.overlap(assignGroup)
+  
+  newHireBox.y = assignArray[7].y + 7
+  newHireBox.w = assignGroup.w -10
+
+  noCursor()
+  agent = new Sprite(width/2, height/2, 20)
+  agent.color =255
+  // agent.text = 'agent'
+  agent.visible = true
+  agent.color = 0
+  cameraMan = new Sprite(width/2, height/2, 25)
+  cameraMan.color = 200
+  cameraMan.text = 'camera man'
+  cameraMan.visible = false
+
+  camera.x = width/2
+  camera.y = height/2
+
+
 }
 
 function draw(){
   background(220)
-  jira.hired()
 
   if (searchBox.mouse.released()){
     instructionBox.visible = true
@@ -93,11 +117,66 @@ function draw(){
     instructionBox.visible = false
   }
 
+
+  cameraMan.x = mouseX
+  cameraMan.y = mouseY
+
+  camera.x = cameraMan.x
+  camera.y = cameraMan.y
+  
+  correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+
+  agent.x = correctionX
+  agent.y = correctionY
+
+
+  if (assignArray[4].mouse.released() || searchPerson.mouse.released()){
+    toggleAssignBox = !toggleAssignBox
+  }
+ 
+  if (!toggleAssignBox){
+    personSelect.visible = false
+    assignIconArray[12].visible = false
+    assignIconArray[13].visible = false
+    assignIconArray[14].visible = false
+  }
+  if(toggleAssignBox){
+    personSelect.visible = true
+    assignIconArray[12].visible = true
+    assignIconArray[13].visible = true
+    assignIconArray[14].visible = true
+  } 
+
+  newHireBox.color = 255
+  hire1Box.color = 255
+  hire2Box.color = 255
+
+  if (newHireBox.mouse.hovering()) newHireBox.color = interfaceColor;
+  if (hire1Box.mouse.hovering()) hire1Box.color = interfaceColor;
+  if (hire2Box.mouse.hovering()) hire2Box.color = interfaceColor;
+
+  if(newHireBox.mouse.released()){
+    assignIconArray[3].color = assignIconArray[11].color
+    assignArray[4].text = 'new hire'
+    toggleAssignBox = !toggleAssignBox
+  }
+  if(hire1Box.mouse.released()){
+    assignIconArray[3].color = assignIconArray[10].color
+    assignArray[4].text = 'hire 1'
+    toggleAssignBox = !toggleAssignBox
+  }
+  if(hire2Box.mouse.released()){
+    assignIconArray[3].color = assignIconArray[12].color
+    assignArray[4].text = 'hire 2'
+    toggleAssignBox = !toggleAssignBox
+  }
+
+
+
+
 }
 
-function mousePressed(){
-  jira.assign()
-}
 
 
 function windowResized() {
@@ -342,15 +421,15 @@ class SS1{
       dropDownBox.h = (textHeight * 5) + (textHeight/2)
       dropDownBox.color = 255
   
-    let searchBox = new personSelect.Sprite()
-      searchBox.x = assignArray[4].x
-      searchBox.y = assignArray[4].y
-      searchBox.w = colmAssign.x - colmStat.x
-      searchBox.h = textHeight
-      searchBox.layer = 5
-      searchBox.color = 210
-      searchBox.textColor = 0
-      searchBox.text = 'Search for a person...      '
+    searchPerson = new personSelect.Sprite()
+    searchPerson.x = assignArray[4].x
+    searchPerson.y = assignArray[4].y
+    searchPerson.w = colmAssign.x - colmStat.x
+    searchPerson.h = textHeight
+    searchPerson.layer = 5
+    searchPerson.color = 210
+    searchPerson.textColor = 0
+    searchPerson.text = 'Search for a person...      '
   
     let instructionBox = new personSelect.Sprite()
       instructionBox.x = assignArray[4].x
@@ -414,98 +493,4 @@ class SS1{
   
     }
   
-  // goes into draw
-    hired(){
-    assignIconGroup.overlap(assignGroup)
-  
-    newHireBox.y = assignArray[7].y + 7
-    newHireBox.w = assignGroup.w -10
-    newHireBox.color = 255
-    hire1Box.color = 255
-    hire2Box.color = 255
-  
-  
-    if (mouseX > (assignGroup.x - (assignGroup.w/2)) && mouseX < (assignGroup.x + (assignGroup.w/2))){
-      if (mouseY  > (newHireBox.y - (newHireBox.h/2)) && mouseY < (newHireBox.y + (newHireBox.h/2))){
-        newHireBox.color = interfaceColor
-      } else if (mouseY  > (hire1Box.y - (hire1Box.h/2)) && mouseY < (hire1Box.y + (hire1Box.h/2))) {
-        hire1Box.color = interfaceColor
-      } else if (mouseY  > (hire2Box.y - (hire2Box.h/2)) && mouseY < (hire2Box.y + (hire2Box.h/2))){
-        hire2Box.color = interfaceColor
-      } 
-    } 
-  
-    if (!toggleAssignBox){
-      personSelect.visible = false
-      assignIconArray[12].visible = false
-      assignIconArray[13].visible = false
-      assignIconArray[14].visible = false
-    }
-    if(toggleAssignBox){
-      personSelect.visible = true
-      assignIconArray[12].visible = true
-      assignIconArray[13].visible = true
-      assignIconArray[14].visible = true
-    } 
-  
-    if (toggleHire1){
-      assignIconArray[3].color = assignIconArray[10].color
-      assignArray[4].text = 'hire 1'
-    } 
-    if (toggleNewHire){
-      assignIconArray[3].color = assignIconArray[11].color
-      assignArray[4].text = 'new hire'
-    }
-    if (toggleHire2){
-      assignIconArray[3].color = assignIconArray[12].color
-      assignArray[4].text = 'hire 2'
-    }
-  
-  
-    }
-  
-  
-    //goes into mouse pressed
-    assign(){
-  
-  
-    if (mouseX > (assignGroup.x - (assignGroup.w/2)) && mouseX < (assignGroup.x + (assignGroup.w/2))) {
-      
-      if (mouseY  > (newHireBox.y - (newHireBox.h/2)) && mouseY < (newHireBox.y + (newHireBox.h/2))){
-        toggleNewHire = !toggleNewHire
-        toggleAssignBox = !toggleAssignBox
-        toggleHire1 = false
-        toggleHire2 = false
-      } 
-      if (mouseY  > (hire1Box.y - (hire1Box.h/2)) && mouseY < (hire1Box.y + (hire1Box.h/2))){
-        toggleHire1 = !toggleHire1
-        toggleAssignBox = !toggleAssignBox
-        toggleNewHire = false
-        toggleHire2 = false
-  
-      } 
-      if (mouseY  > (hire2Box.y - (hire2Box.h/2)) && mouseY < (hire2Box.y + (hire2Box.h/2))) {
-        toggleHire2 = !toggleHire2
-        // toggleHire2 = true
-        toggleAssignBox = !toggleAssignBox
-  
-        toggleNewHire = false
-        toggleHire1 = false
-      }
-    }
-  
-    if (mouseX > (assignArray[4].x - (assignArray[4].w)) && mouseX < (assignArray[4].x + (assignArray[4].w/2)) && mouseY > (assignArray[4].y - (assignArray[4].h/2)) && mouseY < (assignArray[4].y + (assignArray[4].h/2))){
-      toggleAssignBox = !toggleAssignBox
-
-    }
-
-    
-  
-    }
-  
-  
-  
   }
-  
-  
-  
