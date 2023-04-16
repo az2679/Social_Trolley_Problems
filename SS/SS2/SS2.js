@@ -140,6 +140,7 @@ function setup(){
   closeSearch.layer = 50
 
 
+ 
 
 }
 
@@ -205,6 +206,18 @@ class SS2{
     chatName.x = (sideBar.x + (sideBar.w/2)) + (chatName.w/2)
     chatName.h = chatWindow.h*0.12
     chatName.y = (chatWindow.y - (chatWindow.h/2)) + (chatName.h/2)
+
+    // let to = new chat.Sprite()
+    // to.w = chatName.w*0.2
+    // to.x = chatName.x-chatName.w/2 + to.w*0.75
+    // to.h = textHeight*1.5
+    // to.y = chatName.y
+    // to.textSize = 14
+    // to.TextColor = 200
+    // to.text = '  To:                            '
+    // to.color = 255
+    // to.stroke = to.color
+
 
   infoButton = new chat.Sprite()
     infoButton.d = chatName.h*0.3

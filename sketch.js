@@ -1,3 +1,5 @@
+
+
 let textHeight = 30
 let numRows = 13
 let pageColor = 255
@@ -186,7 +188,6 @@ function draw() {
 
 
 
-
 }
 
 
@@ -227,7 +228,4 @@ function openSS3() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-
-
-
 

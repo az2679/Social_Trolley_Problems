@@ -12,16 +12,85 @@ let email
 let inboxEmailReply, replyHeading, sendHeading, inboxDividerArray
 let interactionElement, textCursor, autoComplete, tabToggle, backSpaceExtended, contextQuestion2
 
+let searchBar, instructionBox, closeSearch, searchBox
+
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
 
   email =  new SS3(50, 50, windowWidth*0.9, windowHeight*0.9)
   email.openEmail()
+
+  instructionBox = new Group()
+  instructionBox.collider ='s'
+  instructionBox.color = 255
+  instructionBox.stroke =0
+  instructionBox.visible = false
+  
+  searchBox = new instructionBox.Sprite()
+  searchBox.x = 755
+  searchBox.w = 665
+  searchBox.h = textHeight*1.25 + 4
+  searchBox.y = 50 + searchBox.h/2 + 8
+  searchBox.textColor = 0
+
+
+  let currentMail = new instructionBox.Sprite()
+  currentMail.w = 112.5
+  currentMail.x = searchBox.x - searchBox.w/2 - currentMail.w/2 
+  currentMail.h = searchBox.h
+  currentMail.y = searchBox.y
+  currentMail.color = 100
+
+  let searchDropDown = new instructionBox.Sprite()
+  searchDropDown.x = searchBox.x
+  searchDropDown.w = searchBox.w
+  searchDropDown.h = 300
+  searchDropDown.y = 50 + searchDropDown.h*0.62 + 8 + 5
+
+  let instructTextArray = []
+  while (instructTextArray.length < 7){
+    let instructTextBox = new instructionBox.Sprite()
+    instructTextBox.w = searchDropDown.w - 4
+    instructTextBox.h = textHeight *1.25 -4
+    instructTextBox.x = searchDropDown.x
+    instructTextBox.y = (searchDropDown.y - searchDropDown.h/2) + (instructTextBox.h * instructTextArray.length) + instructTextBox.h/2 +2
+    instructTextBox.stroke = 255
+    instructTextBox.textSize = 14
+    instructTextBox.textColor = 0
+    instructTextArray.push(instructTextBox)
+  }
+
+  instructTextArray[1].text = 'Dear User, '
+  instructTextArray[2].text = 'This is an email inbox with an email draft open.'
+  // instructTextArray[2].text = 'Press "tab" to accept the suggestion or "backspace" to reject the suggestion. ' 
+  instructTextArray[3].text = 'Read the context about the situation provided'
+  instructTextArray[4].text = ' and make a decision by interacting with'
+  instructTextArray[5].text = 'your keyboard ("tab", "backspace" or "w").'
+
+  closeSearch = new instructionBox.Sprite()
+  closeSearch.w = 50 
+  closeSearch.x = searchBox.x + searchBox.w/2  - closeSearch.w/2 -4
+  closeSearch.h = searchBox.h -4
+  closeSearch.y = searchBox.y
+  closeSearch.text = 'x'
+  closeSearch.stroke = 255
+
 }
 
 function draw(){
   background(220)
+
+  if (searchBar.mouse.released() || searchBox.mouse.released()){
+    instructionBox.visible = true
+  }
+
+  if (closeSearch.mouse.released()){
+    instructionBox.visible = false
+  }
+
+
+
 }
 
 function keyReleased(){
@@ -95,13 +164,15 @@ class SS3{
         emailInterface.color = pageColor-10
         emailInterface.stroke = emailInterface.color 
   
-      let searchBar = new emailInterface.Sprite()
+      searchBar = new emailInterface.Sprite()
         searchBar.w = emailWindowTab1.w*0.6
         searchBar.x = emailWindowTab1.x
         searchBar.h = emailWindowTab1.h - margin *1.5
         searchBar.y = emailWindowTab1.y
         searchBar.color = interfaceColor1+30
         searchBar.stroke = searchBar.color 
+
+        searchBar.text = 'For help, click here!'
   
       let windowButtons = new emailInterface.Sprite()
         windowButtons.w = 60
