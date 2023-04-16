@@ -218,7 +218,7 @@ class SS3{
         windowButtons.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h
         // windowButtons.color = interfaceColor1+30
         windowButtons.color = color(150, 0, 0, 150)
-        windowButtons.stroke = windowButtons.color 
+        windowButtons.stroke = 0
         windowButtons.text = 'close'
   
       let windowButtons1 = new emailInterface.Sprite()
@@ -227,7 +227,7 @@ class SS3{
         windowButtons1.h = 25
         windowButtons1.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h
         windowButtons1.color = interfaceColor1+30
-        windowButtons1.stroke = windowButtons.color 
+        windowButtons1.stroke = windowButtons1.color 
   
   
       let emailDraftTab = new emailInterface.Sprite()
