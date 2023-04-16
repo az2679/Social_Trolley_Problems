@@ -114,19 +114,19 @@ function setup() {
   ss3Notif.y = ss3App.y - notif.d*1.5
 
 
-  agent = new Sprite(width/2, height/2, 25)
-  agent.color =255
-  // agent.text = 'agent'
-  agent.visible = false
-  cameraMan = new Sprite(width/2, height/2, 25)
-  cameraMan.color = 200
-  cameraMan.text = 'camera man'
-  cameraMan.visible = false
+  // agent = new Sprite(width/2, height/2, 25)
+  // agent.color =255
+  // // agent.text = 'agent'
+  // agent.visible = false
+  // cameraMan = new Sprite(width/2, height/2, 25)
+  // cameraMan.color = 200
+  // cameraMan.text = 'camera man'
+  // cameraMan.visible = false
 
-  camera.x = width/2
-  camera.y = height/2
+  // camera.x = width/2
+  // camera.y = height/2
 
-  // asyncCall();
+  asyncCall();
 }
 
 
@@ -137,17 +137,17 @@ function setup() {
 function draw() {
   background(220);
 
-  cameraMan.x = mouseX
-  cameraMan.y = mouseY
+  // cameraMan.x = mouseX
+  // cameraMan.y = mouseY
 
-  camera.x = cameraMan.x
-  camera.y = cameraMan.y
+  // camera.x = cameraMan.x
+  // camera.y = cameraMan.y
   
-  correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-  correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+  // correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  // correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
 
-  agent.x = correctionX
-  agent.y = correctionY
+  // agent.x = correctionX
+  // agent.y = correctionY
   
 
 
@@ -208,8 +208,8 @@ async function asyncCall() {
   const result = await resolveAfter1Seconds();
   console.log(result);
   if(window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')){
-    agent.visible = true
-    noCursor()
+    // agent.visible = true
+    // noCursor()
 
 
   }

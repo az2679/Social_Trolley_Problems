@@ -16,9 +16,10 @@ let toggleAssignBox = true
 let assignGroup, assignIconGroup, assignArray, assignIconArray
 let newHireBox, hire1Box, hire2Box, personSelect
 
-let projectMembers, instructionBox, searchBox, closeSearch
-
+let projectMembers, ss1Instruction, ss1SearchBox, ss1CloseSearch
 let searchPerson
+
+let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 
 
 
@@ -29,59 +30,59 @@ function setup(){
   jira.openJira()
   jira.makeTable()
 
-  instructionBox = new Group()
-  instructionBox.collider = 's'
-  instructionBox.color = 230
-  instructionBox.visible = false
+  ss1Instruction = new Group()
+  ss1Instruction.collider = 's'
+  ss1Instruction.color = 230
+  ss1Instruction.visible = false
 
-  searchBox = new Sprite()
-  searchBox.w = 200
-  searchBox.x = 570
-  searchBox.h = textHeight
-  searchBox.y = 230
-  searchBox.color = 245
-  searchBox.stroke = searchBox.color
-  searchBox.textSize = 10
-  searchBox.collider = 's'
-  searchBox.text = 'For help, click here!                 '
+  ss1SearchBox = new Sprite()
+  ss1SearchBox.w = 200
+  ss1SearchBox.x = 570
+  ss1SearchBox.h = textHeight
+  ss1SearchBox.y = 230
+  ss1SearchBox.color = 245
+  ss1SearchBox.stroke = ss1SearchBox.color
+  ss1SearchBox.textSize = 10
+  ss1SearchBox.collider = 's'
+  ss1SearchBox.text = 'For help, click here!                 '
 
-  let searchDropDown = new instructionBox.Sprite()
-  searchDropDown.w = searchBox.w
-  searchDropDown.x = searchBox.x
-  searchDropDown.h = 150
-  searchDropDown.y = searchBox.y + searchBox.h/2 + searchDropDown.h/2 +5
-  searchDropDown.color = 245
-  searchDropDown.stroke = searchDropDown.color
+  let ss1DropDown = new ss1Instruction.Sprite()
+  ss1DropDown.w = ss1SearchBox.w
+  ss1DropDown.x = ss1SearchBox.x
+  ss1DropDown.h = 150
+  ss1DropDown.y = ss1SearchBox.y + ss1SearchBox.h/2 + ss1DropDown.h/2 +5
+  ss1DropDown.color = 245
+  ss1DropDown.stroke = ss1DropDown.color
 
-  let instructTextArray = []
-  while (instructTextArray.length < 7){
-    let instructTextBox = new instructionBox.Sprite()
-    instructTextBox.w = searchDropDown.w
-    instructTextBox.x = searchDropDown.x
-    instructTextBox.h = textHeight
-    instructTextBox.y = (searchDropDown.y - searchDropDown.h/2) + instructTextBox.h/2 + (instructTextBox.h * instructTextArray.length)
-    instructTextBox.stroke = instructTextBox.color
-    instructTextBox.textSize = 12
-    instructTextBox.textColor = 0
-    instructTextArray.push(instructTextBox)
+  let ss1InstructionArray = []
+  while (ss1InstructionArray.length < 7){
+    let ss1InstructionText = new ss1Instruction.Sprite()
+    ss1InstructionText.w = ss1DropDown.w
+    ss1InstructionText.x = ss1DropDown.x
+    ss1InstructionText.h = textHeight
+    ss1InstructionText.y = (ss1DropDown.y - ss1DropDown.h/2) + ss1InstructionText.h/2 + (ss1InstructionText.h * ss1InstructionArray.length)
+    ss1InstructionText.stroke = ss1InstructionText.color
+    ss1InstructionText.textSize = 12
+    ss1InstructionText.textColor = 0
+    ss1InstructionArray.push(ss1InstructionText)
   }
 
-  instructTextArray[0].text = 'Hello! '
-  instructTextArray[1].text = 'This is a table used to manage'
-  instructTextArray[2].text = 'subtasks within a project.'
-  instructTextArray[3].text = 'Read the context about the situation'
-  instructTextArray[4].text = 'provided and make a decision by'
-  instructTextArray[5].text = 'interacting with the'
-  instructTextArray[6].text = 'drop down menu.'
+  ss1InstructionArray[0].text = 'Hello! '
+  ss1InstructionArray[1].text = 'This is a table used to manage'
+  ss1InstructionArray[2].text = 'subtasks within a project.'
+  ss1InstructionArray[3].text = 'Read the context about the situation'
+  ss1InstructionArray[4].text = 'provided and make a decision by'
+  ss1InstructionArray[5].text = 'interacting with the'
+  ss1InstructionArray[6].text = 'drop down menu.'
 
 
-  closeSearch = new instructionBox.Sprite()
-  closeSearch.w = 50 
-  closeSearch.x = searchBox.x + searchBox.w/2  - closeSearch.w/2 -4
-  closeSearch.h = searchBox.h -4
-  closeSearch.y = searchBox.y
-  closeSearch.text = 'x'
-  closeSearch.stroke = 255
+  ss1CloseSearch = new ss1Instruction.Sprite()
+  ss1CloseSearch.w = 50 
+  ss1CloseSearch.x = ss1SearchBox.x + ss1SearchBox.w/2  - ss1CloseSearch.w/2 -4
+  ss1CloseSearch.h = ss1SearchBox.h -4
+  ss1CloseSearch.y = ss1SearchBox.y
+  ss1CloseSearch.text = 'x'
+  ss1CloseSearch.stroke = 255
 
 
   assignIconGroup.overlap(assignGroup)
@@ -89,19 +90,20 @@ function setup(){
   newHireBox.y = assignArray[7].y + 7
   newHireBox.w = assignGroup.w -10
 
-  noCursor()
-  agent = new Sprite(width/2, height/2, 20)
-  agent.color =255
-  // agent.text = 'agent'
-  agent.visible = true
-  agent.color = 0
-  cameraMan = new Sprite(width/2, height/2, 25)
-  cameraMan.color = 200
-  cameraMan.text = 'camera man'
-  cameraMan.visible = false
+  // noCursor()
+  // ss1Agent = new Sprite(width/2, height/2, 20)
+  // ss1Agent.color =255
+  // // ss1Agent.text = 'agent'
+  // ss1Agent.visible = true
+  // ss1Agent.color = 0
+  // ss1CameraMan = new Sprite(width/2, height/2, 25)
+  // ss1CameraMan.color = 200
+  // ss1CameraMan.text = 'camera man'
+  // ss1CameraMan.visible = false
 
-  camera.x = width/2
-  camera.y = height/2
+  // camera.x = width/2
+  // camera.y = height/2
+
 
 
 }
@@ -109,25 +111,25 @@ function setup(){
 function draw(){
   background(220)
 
-  if (searchBox.mouse.released()){
-    instructionBox.visible = true
+  if (ss1SearchBox.mouse.released()){
+    ss1Instruction.visible = true
   }
-  if (closeSearch.mouse.released()){
-    instructionBox.visible = false
+  if (ss1CloseSearch.mouse.released()){
+    ss1Instruction.visible = false
   }
 
 
-  cameraMan.x = mouseX
-  cameraMan.y = mouseY
+  // ss1CameraMan.x = mouseX
+  // ss1CameraMan.y = mouseY
 
-  camera.x = cameraMan.x
-  camera.y = cameraMan.y
+  // camera.x = ss1CameraMan.x
+  // camera.y = ss1CameraMan.y
   
-  correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-  correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+  // ss1CorrectionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  // ss1CorrectionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
 
-  agent.x = correctionX
-  agent.y = correctionY
+  // ss1Agent.x = ss1CorrectionX
+  // ss1Agent.y = ss1CorrectionY
 
 
   if (assignArray[4].mouse.released() || searchPerson.mouse.released()){
@@ -430,16 +432,16 @@ class SS1{
     searchPerson.textColor = 0
     searchPerson.text = 'Search for a person...      '
   
-    let instructionBox = new personSelect.Sprite()
-      instructionBox.x = assignArray[4].x
-      instructionBox.y = assignArray[5].y
-      instructionBox.w = (colmAssign.x - colmStat.x)- 8
-      instructionBox.h = textHeight - 8
-      instructionBox.layer = personSelect.layer + 1
-      instructionBox.color = 255
-      instructionBox.stroke = instructionBox.color 
-      instructionBox.textSize = 10
-      instructionBox.text = 'Select one or more person'
+    let selectInstruct = new personSelect.Sprite()
+    selectInstruct.x = assignArray[4].x
+    selectInstruct.y = assignArray[5].y
+    selectInstruct.w = (colmAssign.x - colmStat.x)- 8
+    selectInstruct.h = textHeight - 8
+    selectInstruct.layer = personSelect.layer + 1
+    selectInstruct.color = 255
+    selectInstruct.stroke = selectInstruct.color 
+    selectInstruct.textSize = 10
+    selectInstruct.text = 'Select one or more person'
   
     newHireBox = new personSelect.Sprite()
       newHireBox.x = assignArray[4].x

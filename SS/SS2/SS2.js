@@ -17,8 +17,10 @@ let removeToggle = false
 let friendInQ, leftBound, removeButton
 
 
-let searchBar, searchIcon, instructionBox, closeSearch
-let instructTextArray, instructTextBox
+let searchBar, searchIcon, ss2Instruction, ss2CloseSearch
+let ss2InstructionArray, ss2InstructionText
+
+let ss2Agent, ss2CameraMan, ss2CorrectionX, ss2CorrectionY
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
@@ -27,136 +29,138 @@ function setup(){
   chat.openChat()
 
 
-  instructionBox = new Group()
-  instructionBox.collider = 's'
-  instructionBox.color = 245
-  instructionBox.stroke = instructionBox.color + 10
-  instructionBox.visible = false
+  ss2Instruction = new Group()
+  ss2Instruction.collider = 's'
+  ss2Instruction.color = 245
+  ss2Instruction.stroke = ss2Instruction.color + 10
+  ss2Instruction.visible = false
 
 
-  searchBox = new instructionBox.Sprite(325, (150- 22.5))
-  searchBox.h = textHeight + 2
-  searchBox.w = 310 + 2
-  searchBox.stroke = color(150, 200, 255)
-  searchBox.strokeWeight = 2
-  searchBox.layer = 15
-  searchBox.visible = false
+  ss2SearchBox = new ss2Instruction.Sprite(325, (150- 22.5))
+  ss2SearchBox.h = textHeight + 2
+  ss2SearchBox.w = 310 + 2
+  ss2SearchBox.stroke = color(150, 200, 255)
+  ss2SearchBox.strokeWeight = 2
+  ss2SearchBox.layer = 15
+  ss2SearchBox.visible = false
 
-  let searchBoxBackground = new instructionBox.Sprite()
-  searchBoxBackground.w = searchBox.w + 40 - 4 -4
-  searchBoxBackground.h = 700- 100
-  searchBoxBackground.x = searchBox.x
-  searchBoxBackground.y = 50 + searchBoxBackground.h/2 + 100 - 2 -4
-  searchBoxBackground.color = 230
-  searchBoxBackground.stroke = searchBoxBackground.color
-  // searchBoxBackground.layer = searchBox.layer
+  let ss2SearchBG = new ss2Instruction.Sprite()
+  ss2SearchBG.w = ss2SearchBox.w + 40 - 4 -4
+  ss2SearchBG.h = 700- 100
+  ss2SearchBG.x = ss2SearchBox.x
+  ss2SearchBG.y = 50 + ss2SearchBG.h/2 + 100 - 2 -4
+  ss2SearchBG.color = 230
+  ss2SearchBG.stroke = ss2SearchBG.color
+  // ss2SearchBG.layer = ss2SearchBox.layer
 
   let searchChatArray = []
   while (searchChatArray.length < 8){
-    let searchChatIcon = new instructionBox.Sprite()
+    let searchChatIcon = new ss2Instruction.Sprite()
     searchChatIcon.d = 50
-    searchChatIcon.x = (searchBox.x-searchBox.w*0.4) + (searchChatIcon.d * (searchChatArray.length/2) * 1.63)
-    searchChatIcon.y = searchBox.y + searchChatIcon.r + textHeight*1.5
+    searchChatIcon.x = (ss2SearchBox.x-ss2SearchBox.w*0.4) + (searchChatIcon.d * (searchChatArray.length/2) * 1.63)
+    searchChatIcon.y = ss2SearchBox.y + searchChatIcon.r + textHeight*1.5
     searchChatIcon.stroke = searchChatIcon.color
     searchChatArray.push(searchChatIcon)
     
 
-    let searchChatName = new instructionBox.Sprite()
+    let searchChatName = new ss2Instruction.Sprite()
     searchChatName.h = textHeight*0.5
-    searchChatName.w = searchBox.w*0.2
-    searchChatName.x = (searchBox.x-searchBox.w*0.4) - searchChatName.w*0.6 + ((searchChatName.w) * (searchChatArray.length/2) * 1.3)
+    searchChatName.w = ss2SearchBox.w*0.2
+    searchChatName.x = (ss2SearchBox.x-ss2SearchBox.w*0.4) - searchChatName.w*0.6 + ((searchChatName.w) * (searchChatArray.length/2) * 1.3)
     searchChatName.y = searchChatIcon.y + textHeight* 1.25
     searchChatName.stroke = searchChatName.color
     searchChatArray.push(searchChatName)
   }
  
 
-  let linkBox = new instructionBox.Sprite()
-  linkBox.w = searchBox.w *0.17
+  let linkBox = new ss2Instruction.Sprite()
+  linkBox.w = ss2SearchBox.w *0.17
   linkBox.h = textHeight * 0.75
-  linkBox.x = searchBox.x - searchBox.w/2 + linkBox.w/2 
-  linkBox.y = searchBox.y + searchBox.h/2 + 50 + textHeight*3.5
+  linkBox.x = ss2SearchBox.x - ss2SearchBox.w/2 + linkBox.w/2 
+  linkBox.y = ss2SearchBox.y + ss2SearchBox.h/2 + 50 + textHeight*3.5
 
-  let showMoreBox = new instructionBox.Sprite()
-  showMoreBox.w = searchBox.w *0.27
+  let showMoreBox = new ss2Instruction.Sprite()
+  showMoreBox.w = ss2SearchBox.w *0.27
   showMoreBox.h = textHeight * 0.75
-  showMoreBox.x = searchBox.x + searchBox.w/2 - showMoreBox.w/2 
-  showMoreBox.y = searchBox.y + searchBox.h/2 + 50 + textHeight*3.5
+  showMoreBox.x = ss2SearchBox.x + ss2SearchBox.w/2 - showMoreBox.w/2 
+  showMoreBox.y = ss2SearchBox.y + ss2SearchBox.h/2 + 50 + textHeight*3.5
 
-  let instructions = new instructionBox.Sprite()
-  instructions.w = searchBox.w
-  instructions.h = searchBoxBackground.h * 0.45
-  instructions.x = searchBoxBackground.x
-  instructions.y = searchBoxBackground.y + instructions.h*0.1
-  instructions.color = 255
+  let ss2InstructionBG = new ss2Instruction.Sprite()
+  ss2InstructionBG.w = ss2SearchBox.w
+  ss2InstructionBG.h = ss2SearchBG.h * 0.45
+  ss2InstructionBG.x = ss2SearchBG.x
+  ss2InstructionBG.y = ss2SearchBG.y + ss2InstructionBG.h*0.1
+  ss2InstructionBG.color = 255
 
-  // instructions.text = 'This is a messaging app, opened to the friend group chat. Interact with the information tab on the top right corner, as well as the items on the information tabs panel.'
+  // ss2InstructionBG.text = 'This is a messaging app, opened to the friend group chat. Interact with the information tab on the top right corner, as well as the items on the information tabs panel.'
 
 
-  instructTextArray = []
-  while (instructTextArray.length < 8){
-    instructTextBox = new instructionBox.Sprite()
-    instructTextBox.w = searchBox.w 
-    instructTextBox.h = textHeight
-    instructTextBox.x = searchBoxBackground.x
-    instructTextBox.y = (instructions.y - instructions.h*0.35) + (textHeight * instructTextArray.length)
-    instructTextBox.color = 255
-    // instructTextBox.stroke = 0
-    instructTextBox.textColor =0
-    instructTextBox.textSize = 14
-  instructTextArray.push(instructTextBox)
+  ss2InstructionArray = []
+  while (ss2InstructionArray.length < 8){
+    ss2InstructionText = new ss2Instruction.Sprite()
+    ss2InstructionText.w = ss2SearchBox.w 
+    ss2InstructionText.h = textHeight
+    ss2InstructionText.x = ss2SearchBG.x
+    ss2InstructionText.y = (ss2InstructionBG.y - ss2InstructionBG.h*0.35) + (textHeight * ss2InstructionArray.length)
+    ss2InstructionText.color = 255
+    // ss2InstructionText.stroke = 0
+    ss2InstructionText.textColor =0
+    ss2InstructionText.textSize = 14
+  ss2InstructionArray.push(ss2InstructionText)
   }
 
-  instructTextArray[0].text = 'Hello!'
-  instructTextArray[1].text = 'This is a messaging app,'
-  instructTextArray[2].text = 'Currently, a chat between a group of friends'
-  instructTextArray[3].text = 'is being displayed.'
-  instructTextArray[4].text = 'Read the context about the situation provided'
-  instructTextArray[5].text = ' and make a decision by interacting with the'
-  instructTextArray[6].text = 'information tab on the top right corner.'
-  // instructTextArray[7].text = 'as well as the items on the information tabs panel.'
+  ss2InstructionArray[0].text = 'Hello!'
+  ss2InstructionArray[1].text = 'This is a messaging app,'
+  ss2InstructionArray[2].text = 'Currently, a chat between a group of friends'
+  ss2InstructionArray[3].text = 'is being displayed.'
+  ss2InstructionArray[4].text = 'Read the context about the situation provided'
+  ss2InstructionArray[5].text = ' and make a decision by interacting with the'
+  ss2InstructionArray[6].text = 'information tab on the top right corner.'
+  // ss2InstructionArray[7].text = 'as well as the items on the information tabs panel.'
 
 
 
-  let photosBox = new instructionBox.Sprite()
-  photosBox.w = searchBox.w *0.17
+  let photosBox = new ss2Instruction.Sprite()
+  photosBox.w = ss2SearchBox.w *0.17
   photosBox.h = textHeight * 0.75
-  photosBox.x = searchBox.x - searchBox.w/2 + photosBox.w/2 
-  photosBox.y = instructions.y + instructions.h/2 + photosBox.h/2 + textHeight
+  photosBox.x = ss2SearchBox.x - ss2SearchBox.w/2 + photosBox.w/2 
+  photosBox.y = ss2InstructionBG.y + ss2InstructionBG.h/2 + photosBox.h/2 + textHeight
 
 
-  let showMoreBox1 = new instructionBox.Sprite()
-  showMoreBox1.w = searchBox.w *0.27
+  let showMoreBox1 = new ss2Instruction.Sprite()
+  showMoreBox1.w = ss2SearchBox.w *0.27
   showMoreBox1.h = textHeight * 0.75
-  showMoreBox1.x = searchBox.x + searchBox.w/2 - showMoreBox1.w/2 
-  showMoreBox1.y = instructions.y + instructions.h/2 + showMoreBox1.h/2 + textHeight
+  showMoreBox1.x = ss2SearchBox.x + ss2SearchBox.w/2 - showMoreBox1.w/2 
+  showMoreBox1.y = ss2InstructionBG.y + ss2InstructionBG.h/2 + showMoreBox1.h/2 + textHeight
 
-  closeSearch = new instructionBox.Sprite()
-  closeSearch.h = searchBox.h -5
-  closeSearch.w = closeSearch.h -5
-  closeSearch.y = searchBox.y
-  closeSearch.x = searchBox.x+ searchBox.w/2 - closeSearch.w/2 - 2.5
-  closeSearch.text = 'x'
-  closeSearch.layer = 50
+  ss2CloseSearch = new ss2Instruction.Sprite()
+  ss2CloseSearch.h = ss2SearchBox.h -5
+  ss2CloseSearch.w = ss2CloseSearch.h -5
+  ss2CloseSearch.y = ss2SearchBox.y
+  ss2CloseSearch.x = ss2SearchBox.x+ ss2SearchBox.w/2 - ss2CloseSearch.w/2 - 2.5
+  ss2CloseSearch.text = 'x'
+  ss2CloseSearch.layer = 50
+
+  infoTab.visible = true
 
 
 
   // noCursor()
-  agent = new Sprite(width/2, height/2, 20)
-  agent.color =255
-  // agent.text = 'agent'
-  agent.visible = true
-  agent.color = 0
-  cameraMan = new Sprite(width/2, height/2, 25)
-  cameraMan.color = 200
-  cameraMan.text = 'camera man'
-  cameraMan.visible = false
+  // ss2Agent = new Sprite(width/2, height/2, 20)
+  // ss2Agent.color =255
+  // // ss2Agent.text = 'agent'
+  // ss2Agent.visible = true
+  // ss2Agent.color = 0
+  // ss2CameraMan = new Sprite(width/2, height/2, 25)
+  // ss2CameraMan.color = 200
+  // ss2CameraMan.text = 'camera man'
+  // ss2CameraMan.visible = false
 
-  camera.x = width/2
-  camera.y = height/2
+  // camera.x = width/2
+  // camera.y = height/2
 
 
-  infoTab.visible = true
+
  
 
 }
@@ -164,28 +168,27 @@ function setup(){
 function draw(){
   background(220)
 
-  chat.infoTab()
 
   if(searchBar.mouse.released() || searchIcon.mouse.released()){
-    instructionBox.visible = true
+    ss2Instruction.visible = true
   }
 
-  if(closeSearch.mouse.released()){
-    instructionBox.visible = false
+  if(ss2CloseSearch.mouse.released()){
+    ss2Instruction.visible = false
   }
 
 
-  cameraMan.x = mouseX
-  cameraMan.y = mouseY
+  // ss2CameraMan.x = mouseX
+  // ss2CameraMan.y = mouseY
 
-  camera.x = cameraMan.x
-  camera.y = cameraMan.y
+  // camera.x = ss2CameraMan.x
+  // camera.y = ss2CameraMan.y
   
-  correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
-  correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+  // ss2CorrectionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  // ss2CorrectionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
 
-  agent.x = correctionX
-  agent.y = correctionY
+  // ss2Agent.x = ss2CorrectionX
+  // ss2Agent.y = ss2CorrectionY
 
 
   if (infoButton.mouse.released()){
@@ -633,70 +636,4 @@ class SS2{
     chatMessageName.stroke = chatMessageName.color
   }
 
-
-  infoTab(){
-      // if (infoToggle){
-      //   infoTab.visible = true
-      // }
-      // if (!infoToggle){
-      //   infoTab.visible = false
-      // } 
-    
-      // infoDis = dist(mouseX, mouseY, infoButton.x, infoButton.y)
-      
-      mouseDrag = pmouseX - mouseX
-    
-      if(!removeToggle){
-      if (mouseIsPressed === true){
-        if (mouseX > (friendInQ.x-friendInQ.w/2) && mouseX < (friendInQ.x+friendInQ.w/2) && mouseY > (friendInQ.y-friendInQ.h/2) && mouseY < (friendInQ.y+friendInQ.h/2)){
-          // friendInQ.x = mouseX
-          friendInQ.x = friendInQ.x - mouseDrag
-          //trying to move by changes in mouseX. less jarring, more drag
-          infoMemberArray[3].x = infoMemberArray[3].x - mouseDrag
-          infoNameArray[3].x = infoNameArray[3].x - mouseDrag
-        }
-
-        if(friendInQ.x >= infoWindow.x-10){
-          friendInQ.x = infoWindow.x
-          infoMemberArray[3].x = infoChange.x - infoChange.w/2 + infoMember.r
-          infoNameArray[3].x = infoMember.x + infoMember.r + infoName.w/2 + 10
-        }
-        if (friendInQ.x <= leftBound){
-          friendInQ.x = leftBound 
-          infoMemberArray[3].x = ((leftBound - friendInQ.w/2) + infoMemberArray[3].d*1.3)
-          infoNameArray[3].x = ((leftBound - friendInQ.w/2) + infoNameArray[3].w)
-        }
-      }
-    }
-    
-      if (removeToggle){
-        friendInQ.visible = false
-        removeButton.visible = false
-        infoMemberArray[3].visible = false
-        infoNameArray[3].visible = false
-    
-        infoMemberArray[4].y = infoMemberArray[3].y 
-        infoNameArray[4].y = infoNameArray[3].y
-        //moves up one in array
-    
-        infoLocShare.y = infoMemNum.y + (infoMemNum.h/2) + (infoMember.d * (infoMemberArray.length)) + infoLocShare.h*1.25
-          //same as original, just changed array.length
-    
-        infoDivider.y = infoLocShare.y + infoLocShare.h/2 + 10
-        // infoLocSend.visible = true
-        infoLocSend.y = infoDivider.y + 10 + infoLocSend.h/2
-      } else{ infoLocSend.visible = false}
-  }
-
-  removeFriend(){
-      // if (infoDis < infoButton.r){
-      //     infoToggle = !infoToggle
-      // }
-
-      
-  
-      if (friendInQ.x<=leftBound && mouseX>(removeButton.x) && mouseX<(removeButton.x+removeButton.w/2) && mouseY>(removeButton.y-removeButton.h/2) && mouseY<(removeButton.y+removeButton.h/2)){
-          removeToggle = !removeToggle
-      }
-  }
 }

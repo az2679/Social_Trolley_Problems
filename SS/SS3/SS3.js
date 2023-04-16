@@ -12,7 +12,9 @@ let email
 let inboxEmailReply, replyHeading, sendHeading, inboxDividerArray
 let interactionElement, textCursor, autoComplete, tabToggle, backSpaceExtended, contextQuestion2
 
-let searchBar, instructionBox, closeSearch, searchBox
+let searchBar, ss3Instruction, ss3CloseSearch, ss3SearchBox
+
+let ss3Agent, ss3CameraMan, ss3CorrectionX, ss3CorrectionY
 
 
 function setup(){
@@ -21,36 +23,36 @@ function setup(){
   email =  new SS3(50, 50, windowWidth*0.9, windowHeight*0.9)
   email.openEmail()
 
-  instructionBox = new Group()
-  instructionBox.collider ='s'
-  instructionBox.color = 255
-  instructionBox.stroke =0
-  instructionBox.visible = false
+  ss3Instruction = new Group()
+  ss3Instruction.collider ='s'
+  ss3Instruction.color = 255
+  ss3Instruction.stroke =0
+  ss3Instruction.visible = false
   
-  searchBox = new instructionBox.Sprite()
-  searchBox.x = 755
-  searchBox.w = 665
-  searchBox.h = textHeight*1.25 + 4
-  searchBox.y = 50 + searchBox.h/2 + 8
-  searchBox.textColor = 0
+  ss3SearchBox = new ss3Instruction.Sprite()
+  ss3SearchBox.x = 755
+  ss3SearchBox.w = 665
+  ss3SearchBox.h = textHeight*1.25 + 4
+  ss3SearchBox.y = 50 + ss3SearchBox.h/2 + 8
+  ss3SearchBox.textColor = 0
 
 
-  let currentMail = new instructionBox.Sprite()
+  let currentMail = new ss3Instruction.Sprite()
   currentMail.w = 112.5
-  currentMail.x = searchBox.x - searchBox.w/2 - currentMail.w/2 
-  currentMail.h = searchBox.h
-  currentMail.y = searchBox.y
+  currentMail.x = ss3SearchBox.x - ss3SearchBox.w/2 - currentMail.w/2 
+  currentMail.h = ss3SearchBox.h
+  currentMail.y = ss3SearchBox.y
   currentMail.color = 100
 
-  let searchDropDown = new instructionBox.Sprite()
-  searchDropDown.x = searchBox.x
-  searchDropDown.w = searchBox.w
+  let searchDropDown = new ss3Instruction.Sprite()
+  searchDropDown.x = ss3SearchBox.x
+  searchDropDown.w = ss3SearchBox.w
   searchDropDown.h = 300
   searchDropDown.y = 50 + searchDropDown.h*0.62 + 8 + 5
 
   let instructTextArray = []
   while (instructTextArray.length < 7){
-    let instructTextBox = new instructionBox.Sprite()
+    let instructTextBox = new ss3Instruction.Sprite()
     instructTextBox.w = searchDropDown.w - 4
     instructTextBox.h = textHeight *1.25 -4
     instructTextBox.x = searchDropDown.x
@@ -68,26 +70,54 @@ function setup(){
   instructTextArray[4].text = ' and make a decision by interacting with'
   instructTextArray[5].text = 'your keyboard ("tab", "backspace" or "w").'
 
-  closeSearch = new instructionBox.Sprite()
-  closeSearch.w = 50 
-  closeSearch.x = searchBox.x + searchBox.w/2  - closeSearch.w/2 -4
-  closeSearch.h = searchBox.h -4
-  closeSearch.y = searchBox.y
-  closeSearch.text = 'x'
-  closeSearch.stroke = 255
+  ss3CloseSearch = new ss3Instruction.Sprite()
+  ss3CloseSearch.w = 50 
+  ss3CloseSearch.x = ss3SearchBox.x + ss3SearchBox.w/2  - ss3CloseSearch.w/2 -4
+  ss3CloseSearch.h = ss3SearchBox.h -4
+  ss3CloseSearch.y = ss3SearchBox.y
+  ss3CloseSearch.text = 'x'
+  ss3CloseSearch.stroke = 255
+
+
+  // noCursor()
+  // ss3Agent = new Sprite(width/2, height/2, 20)
+  // ss3Agent.color =255
+  // // ss3Agent.text = 'agent'
+  // ss3Agent.visible = true
+  // ss3Agent.color = 0
+  // ss3CameraMan = new Sprite(width/2, height/2, 25)
+  // ss3CameraMan.color = 200
+  // ss3CameraMan.text = 'camera man'
+  // ss3CameraMan.visible = false
+
+  // camera.x = width/2
+  // camera.y = height/2
 
 }
 
 function draw(){
   background(220)
 
-  if (searchBar.mouse.released() || searchBox.mouse.released()){
-    instructionBox.visible = true
+  if (searchBar.mouse.released() || ss3SearchBox.mouse.released()){
+    ss3Instruction.visible = true
   }
 
-  if (closeSearch.mouse.released()){
-    instructionBox.visible = false
+  if (ss3CloseSearch.mouse.released()){
+    ss3Instruction.visible = false
   }
+
+
+  // ss3CameraMan.x = mouseX
+  // ss3CameraMan.y = mouseY
+
+  // camera.x = ss3CameraMan.x
+  // camera.y = ss3CameraMan.y
+  
+  // ss3CorrectionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  // ss3CorrectionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+
+  // ss3Agent.x = ss3CorrectionX
+  // ss3Agent.y = ss3CorrectionY
 
 
 
