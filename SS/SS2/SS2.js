@@ -140,6 +140,23 @@ function setup(){
   closeSearch.layer = 50
 
 
+
+  // noCursor()
+  agent = new Sprite(width/2, height/2, 20)
+  agent.color =255
+  // agent.text = 'agent'
+  agent.visible = true
+  agent.color = 0
+  cameraMan = new Sprite(width/2, height/2, 25)
+  cameraMan.color = 200
+  cameraMan.text = 'camera man'
+  cameraMan.visible = false
+
+  camera.x = width/2
+  camera.y = height/2
+
+
+  infoTab.visible = true
  
 
 }
@@ -158,14 +175,72 @@ function draw(){
   }
 
 
+  cameraMan.x = mouseX
+  cameraMan.y = mouseY
 
+  camera.x = cameraMan.x
+  camera.y = cameraMan.y
+  
+  correctionX = map (mouseX, 0, width, (0-width/2), (width + width/2))
+  correctionY = map (mouseY, 0, height, (0-height/2), (height+ height/2))
+
+  agent.x = correctionX
+  agent.y = correctionY
+
+
+  if (infoButton.mouse.released()){
+  infoToggle = !infoToggle
+  }
+  if (infoToggle){
+    infoTab.visible = true
+  }
+  if (!infoToggle){
+    infoTab.visible = false
+  } 
+
+  if (friendInQ.x<=leftBound && removeButton.mouse.released()){
+    removeToggle = !removeToggle
 }
 
-function mousePressed(){
-  chat.removeFriend()
+  if (removeToggle){
+    friendInQ.visible = false
+    removeButton.visible = false
+    infoMemberArray[3].visible = false
+    infoNameArray[3].visible = false
 
+    infoMemberArray[4].y = infoMemberArray[3].y 
+    infoNameArray[4].y = infoNameArray[3].y
 
+    infoLocShare.y = infoMemNum.y + (infoMemNum.h/2) + (infoMember.d * (infoMemberArray.length)) + infoLocShare.h*1.25
+
+    infoDivider.y = infoLocShare.y + infoLocShare.h/2 + 10
+    infoLocSend.y = infoDivider.y + 10 + infoLocSend.h/2
+  } else{ infoLocSend.visible = false}
+
+    
+  if(!removeToggle){
+    if(friendInQ.mouse.dragging() || infoMemberArray[3].mouse.dragging() || infoNameArray[3].mouse.dragging()){
+      friendInQ.moveTowards(mouse.x + friendInQ.mouse.x, friendInQ.y, 1);
+      infoMemberArray[3].moveTowards(mouse.x + infoMemberArray[3].mouse.x, infoMemberArray[3].y, 1);
+      infoNameArray[3].moveTowards(mouse.x + infoNameArray[3].mouse.x, infoNameArray[3].y, 1);
+    }
+
+    if(friendInQ.x >= infoWindow.x-10){
+      friendInQ.x = infoWindow.x
+      infoMemberArray[3].x = infoChange.x - infoChange.w/2 + infoMember.r
+      infoNameArray[3].x = infoMember.x + infoMember.r + infoName.w/2 + 10
+    }
+    if (friendInQ.x <= leftBound){
+      friendInQ.x = leftBound 
+      infoMemberArray[3].x = ((leftBound - friendInQ.w/2) + infoMemberArray[3].d*1.3)
+      infoNameArray[3].x = ((leftBound - friendInQ.w/2) + infoNameArray[3].w)
+    }
+  }
+    
+  
 }
+
+
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -338,7 +413,7 @@ class SS2{
   friendInQ.y = infoNameArray[3].y
   friendInQ.w = infoWindow.w - 2
   friendInQ.h = infoNameArray[3].h + 10
-  friendInQ.collider='s'
+  friendInQ.collider='k'
   friendInQ.color= infoWindow.color
   friendInQ.stroke= infoWindow.color
   friendInQ.layer = 17
@@ -560,14 +635,15 @@ class SS2{
 
 
   infoTab(){
-      if (infoToggle){
-        infoTab.visible = true
-      }
-      if (!infoToggle){
-        infoTab.visible = false
-      } 
+      // if (infoToggle){
+      //   infoTab.visible = true
+      // }
+      // if (!infoToggle){
+      //   infoTab.visible = false
+      // } 
     
-      infoDis = dist(mouseX, mouseY, infoButton.x, infoButton.y)
+      // infoDis = dist(mouseX, mouseY, infoButton.x, infoButton.y)
+      
       mouseDrag = pmouseX - mouseX
     
       if(!removeToggle){
@@ -613,9 +689,9 @@ class SS2{
   }
 
   removeFriend(){
-      if (infoDis < infoButton.r){
-          infoToggle = !infoToggle
-      }
+      // if (infoDis < infoButton.r){
+      //     infoToggle = !infoToggle
+      // }
 
       
   

@@ -112,7 +112,6 @@ function draw(){
   if (searchBox.mouse.released()){
     instructionBox.visible = true
   }
-
   if (closeSearch.mouse.released()){
     instructionBox.visible = false
   }
