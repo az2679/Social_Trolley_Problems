@@ -22,6 +22,8 @@ let ss2InstructionArray, ss2InstructionText
 
 let ss2Agent, ss2CameraMan, ss2CorrectionX, ss2CorrectionY
 
+let windowButtons
+
 function setup(){
   createCanvas(windowWidth, windowHeight)
 
@@ -240,6 +242,13 @@ function draw(){
     }
   }
     
+
+
+  if (windowButtons.mouse.released()){
+    window.close()
+  }
+
+
   
 }
 
@@ -475,12 +484,14 @@ class SS2{
     chatElement.collider='s'
     chatElement.color = 245
 
-    let windowButtons = new chatElement.Sprite()
+    windowButtons = new chatElement.Sprite()
     //doesn't resize so hard code placement
     windowButtons.w = 60
     windowButtons.x = (sideBar.x - sideBar.w/2) + windowButtons.h
     windowButtons.h = 25
     windowButtons.y = (sideBar.y - sideBar.h/2) + windowButtons.h*1.2
+    windowButtons.color = color(150, 0, 0, 150)
+    windowButtons.text='close'
 
     searchBar = new chatElement.Sprite()
     searchBar.w = sideBar.w - ((windowButtons.x-windowButtons.w/2)-(sideBar.x-sideBar.w/2))*2

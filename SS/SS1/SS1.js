@@ -21,6 +21,8 @@ let searchPerson
 
 let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 
+let exitButton
+
 
 
 function setup(){
@@ -175,6 +177,11 @@ function draw(){
 
 
 
+  if(exitButton.mouse.released()){
+    window.close()
+  }
+  console.log(exitButton.mouse.released())
+
 
 }
 
@@ -209,6 +216,24 @@ class SS1{
         pageLine.collider = 's'
         pageLine.stroke = interfaceColor
         pageLine.layer = 2
+
+        let topTab = new pageLine.Sprite()
+        topTab.w = page.w +2
+        topTab.x = page.x-page.w/2 + topTab.w/2 -1
+        topTab.h = textHeight*0.75
+        topTab.y = page.y-page.h/2 - topTab.h/2
+        topTab.color = 200
+        topTab.stroke = 0
+
+        exitButton = new pageLine.Sprite()
+        exitButton.w = 40
+        exitButton.x = page.x-page.w/2 + exitButton.w/2 + 5
+        exitButton.h = textHeight*0.75 - 10
+        exitButton.y = topTab.y
+        exitButton.color = color(150, 0, 0, 150)
+        exitButton.stroke = 0
+        exitButton.text='close'
+        exitButton.layer = topTab.layer+1
       
         //Header Tab Elements
         headerLine = new pageLine.Sprite()

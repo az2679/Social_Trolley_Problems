@@ -16,6 +16,8 @@ let searchBar, ss3Instruction, ss3CloseSearch, ss3SearchBox
 
 let ss3Agent, ss3CameraMan, ss3CorrectionX, ss3CorrectionY
 
+let windowButtons
+
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
@@ -119,6 +121,11 @@ function draw(){
   // ss3Agent.x = ss3CorrectionX
   // ss3Agent.y = ss3CorrectionY
 
+  if(windowButtons.mouse.released()){
+    window.close()
+  }
+
+  // console.log(windowButtons.mouse.released())
 
 
 }
@@ -204,13 +211,15 @@ class SS3{
 
         searchBar.text = 'For help, click here!'
   
-      let windowButtons = new emailInterface.Sprite()
+      windowButtons = new emailInterface.Sprite()
         windowButtons.w = 60
         windowButtons.x = (emailWindow.x - emailWindow.w/2) + windowButtons.h * 0.75
         windowButtons.h = 25
         windowButtons.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h
-        windowButtons.color = interfaceColor1+30
+        // windowButtons.color = interfaceColor1+30
+        windowButtons.color = color(150, 0, 0, 150)
         windowButtons.stroke = windowButtons.color 
+        windowButtons.text = 'close'
   
       let windowButtons1 = new emailInterface.Sprite()
         windowButtons1.w = 60
