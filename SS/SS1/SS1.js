@@ -178,12 +178,34 @@ function draw(){
 
 
   if(exitButton.mouse.released()){
-    window.close()
+    let jiraDecision = assignArray[4].text 
+    save(jiraDecision, 'jira.txt');
+
+    // window.close()
+
+    asyncCall()
+    
   }
-  console.log(exitButton.mouse.released())
+  // console.log(exitButton.mouse.released())
 
 
 }
+
+
+
+function resolveAfterSaving() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 500);
+  });
+}
+
+async function asyncCall() {
+  const result = await resolveAfterSaving();
+  window.close()
+}
+
 
 
 

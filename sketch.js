@@ -207,12 +207,12 @@ async function asyncCall() {
   console.log('calling');
   const result = await resolveAfter1Seconds();
   console.log(result);
-  if(window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')){
-    // agent.visible = true
-    // noCursor()
+  // if(window.confirm('You go on with the rest of your day until a colleague comes to you for advice on their predicament. ')){
+  //   // agent.visible = true
+  //   // noCursor()
+  // }
 
-
-  }
+  window.confirm('test test. place holder alert, turn into dialogue box. [insert trolley problem?]')
 }
 
 
