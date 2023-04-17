@@ -20,7 +20,7 @@ let windowButtons
 
 
 function setup(){
-  createCanvas(windowWidth, windowHeight)
+  createCanvas(windowWidth, windowHeight)  
 
   email =  new SS3(50, 50, windowWidth*0.9, windowHeight*0.9)
   email.openEmail()
@@ -122,10 +122,10 @@ function draw(){
   // ss3Agent.y = ss3CorrectionY
 
   if(windowButtons.mouse.released()){
+    localStorage.setItem("lie",tabToggle);
     window.close()
   }
 
-  // console.log(windowButtons.mouse.released())
 
 
 }

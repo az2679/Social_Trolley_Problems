@@ -18,7 +18,7 @@ let friendInQ, leftBound, removeButton
 
 
 let searchBar, searchIcon, ss2Instruction, ss2CloseSearch
-let ss2InstructionArray, ss2InstructionText
+let ss2InstructionArray, ss2InstructionText, ss2SearchBox
 
 let ss2Agent, ss2CameraMan, ss2CorrectionX, ss2CorrectionY
 
@@ -245,6 +245,9 @@ function draw(){
 
 
   if (windowButtons.mouse.released()){
+
+    localStorage.setItem("removeFriend",removeToggle);
+
     window.close()
   }
 

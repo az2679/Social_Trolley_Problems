@@ -27,6 +27,7 @@ let testCursor
   // let sceneW = browserWidth*1.5
   // let sceneH = browserHeight*1.5
 
+  let jira, chat, email
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -36,6 +37,9 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  localStorage.clear();
+
 
   toolBarArray = []
 
@@ -137,6 +141,10 @@ function setup() {
 function draw() {
   background(220);
 
+  jira = localStorage.getItem("taskAssigned");
+  chat = localStorage.getItem("removeFriend");
+  email = localStorage.getItem("lie");
+
   // cameraMan.x = mouseX
   // cameraMan.y = mouseY
 
@@ -148,12 +156,6 @@ function draw() {
 
   // agent.x = correctionX
   // agent.y = correctionY
-  
-
-
-
-
-
 
 
 //idk why it keeps switching  

@@ -23,10 +23,12 @@ let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 
 let exitButton
 
+let jiraDecision;
 
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
+
 
   jira = new SS1(200, 50, 1000, 700)
   jira.openJira()
@@ -113,6 +115,7 @@ function setup(){
 function draw(){
   background(220)
 
+
   if (ss1SearchBox.mouse.released()){
     ss1Instruction.visible = true
   }
@@ -178,33 +181,34 @@ function draw(){
 
 
   if(exitButton.mouse.released()){
-    let jiraDecision = assignArray[4].text 
-    save(jiraDecision, 'jira.txt');
+    jiraDecision = assignArray[4].text 
+    // save(jiraDecision, 'jira.txt');
+    localStorage.setItem("taskAssigned", jiraDecision);
+    
 
-    // window.close()
+    window.close()
 
-    asyncCall()
+    // asyncCall()
     
   }
-  // console.log(exitButton.mouse.released())
 
 
 }
 
 
 
-function resolveAfterSaving() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve('resolved');
-    }, 500);
-  });
-}
+// function resolveAfterSaving() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve('resolved');
+//     }, 500);
+//   });
+// }
 
-async function asyncCall() {
-  const result = await resolveAfterSaving();
-  window.close()
-}
+// async function asyncCall() {
+//   const result = await resolveAfterSaving();
+//   window.close()
+// }
 
 
 
