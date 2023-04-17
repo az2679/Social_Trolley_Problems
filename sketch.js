@@ -28,12 +28,17 @@ let testCursor
   // let sceneH = browserHeight*1.5
 
   let jira, chat, email
+  let folder, notif
+
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
   imsgImg = loadImage('assets/imsgApp.png')
   emailImg = loadImage('assets/emailApp.png')
 }
+
+
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -96,7 +101,7 @@ function setup() {
   ss3App.x = toolBarArray[7].x
   ss3App.y = toolBarArray[7].y
 
-  let notif = new Group()
+  notif = new Group()
   notif.collider='s'
   notif.color = 'red'
   notif.stroke = 'red'
@@ -118,6 +123,37 @@ function setup() {
   ss3Notif.y = ss3App.y - notif.d*1.5
 
 
+  folder = new Group()
+  folder.collider = 's'
+  folder.color = color(150, 200, 255)
+  folder.w = 75
+  folder.h = 50
+  folder.x = width - (folder.w *2)
+  folder.y = folder.h *2
+  folder.visible = false
+
+  let vmargin = folder.h
+
+  let trolleyFolder = new folder.Sprite()
+  trolleyFolder.text = 'Trolley'
+  //instead of making separate text box, why not have it as part of png image?
+  
+  let ss1Folder = new folder.Sprite()
+  ss1Folder.y = folder.y + folder.h + vmargin
+  ss1Folder.text = 'Jira'
+
+  let ss2Folder = new folder.Sprite()
+  ss2Folder.y = folder.y + (folder.h + vmargin)*2
+  ss2Folder.text = 'Chat'
+
+  let ss3Folder = new folder.Sprite()
+  ss3Folder.y = folder.y+ (folder.h + vmargin)*3
+  ss3Folder.text = 'Email'
+
+
+
+
+
   // agent = new Sprite(width/2, height/2, 25)
   // agent.color =255
   // // agent.text = 'agent'
@@ -130,7 +166,9 @@ function setup() {
   // camera.x = width/2
   // camera.y = height/2
 
-  asyncCall();
+  // asyncCall();
+
+
 }
 
 
@@ -144,6 +182,9 @@ function draw() {
   jira = localStorage.getItem("taskAssigned");
   chat = localStorage.getItem("removeFriend");
   email = localStorage.getItem("lie");
+
+
+
 
   // cameraMan.x = mouseX
   // cameraMan.y = mouseY
@@ -190,8 +231,22 @@ function draw() {
     ss3Notif.visible = false
   }
 
+  if (ss1Notif.visible == false && ss2Notif.visible == false && ss3Notif.visible == false) {
+    asyncFolder()
+    // folder.visible = true
 
+  }
 
+  const trolley = document.getElementById('trolley');
+  trolley.style.width = "500px"
+  // trolley.style.height = "150px"
+
+  // trolley.style.objectPosition= "center center"
+  // trolley.style.backgroundPosition= "center center"
+
+  // document.getElementById("trolley").style.objectPosition = "200px 40px";
+  // document.getElementById("trolley").style.backgroundPosition = "200px 40px";
+  // document.getElementById("trolley").style.position = "200px 40px";
 
 }
 
@@ -215,6 +270,12 @@ async function asyncCall() {
   // }
 
   window.confirm('test test. place holder alert, turn into dialogue box. [insert trolley problem?]')
+}
+
+
+async function asyncFolder(){
+  const result = await resolveAfter1Seconds();
+  folder.visible = true
 }
 
 
