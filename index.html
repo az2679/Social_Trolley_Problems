@@ -24,15 +24,106 @@
   <body>
     <script src="sketch.js" ></script>
 
-    <dialog id="trolley" open>
-      <p> </p>
+    <dialog id="trolley"  open >
       <p>You notice five individuals tied to some train tracks. A train is coming right at them and you do not have the ability to untie them in time.</p>
       <p>However, you could pull a lever diverting the train to another set of tracks, but in so doing, you would kill an innocent bystander who is tied to those tracks.</p>
       <form method="dialog">
-        <button>Pull the lever</button>
-        <button>Don't pull the lever</button>
+        <button>Pull the Lever</button>
+        <button>Don't Pull the Lever</button>
       </form>
     </dialog>
+
+    <dialog id="trolleyExplain">
+      <header>
+        <h2 class="header">Trolley</h2>
+        <button onclick="closeDialog()" id="closeDialogBox">&#x2716</button>
+      </header>
+      <section>
+        <p>
+          The trolley problem refers to a thought experiment discussed in philosophy and psychology with regards to ethics and moral choice. The dilemma posed juxtaposes two concepts in morality: utilitarianism and deontology. 
+        </p>
+        <p>
+          Utilitarianism represents the belief that we should act in ways that result in the greatest good for the greatest number of people, arguing that it is morally permissible to kill one person to save five. Deontological ethics supports the idea that an action is inherently right or wrong regardless of the consequences, deeming it morally impermissible to take actions that would kill an individual. 
+        </p>
+        <p>
+          Would your answer change if you are letting 5 people die to save 1 person instead of killing 1 person to save 5 people? <br>
+          What if you are standing on a footbridge over the track and could only stop the trolley set to run into 5 people by pushing a fat man off the bridge, killing the 1 person in the process? <br>
+          The subtleties in trolley problem variations highlight concepts like responsibility, doctrine of double effect, and actively killing/passively letting die.
+        </p>
+      </section>
+    </dialog>
+
+    <dialog id="jiraExplain">
+      <header>
+        <h2 class="header">Jira</h2>
+        <button onclick="closeDialog()" id="closeDialogBox">&#x2716</button>
+      </header>
+      <section>
+        <p>
+          A challenge present with working in teams is overcoming diverse backgrounds, talents, and skill levels. While such diversity is meant to be complimentary and enhance performance, it can also lead to exploitation and conflicts. I wanted to represent such potential exploitation in the form of unfair distribution of tasks in a group project to see how people address the issue.
+        </p>
+        <p>
+          A utilitarian leader may value efficiency and find it [socially acceptable/reasonable] to delegate a greater amount of tasks to the skilled individual. They may reason that the team, as a whole, would benefit greatly from the completion of the project and efficient work allocation at the sacrifice of one competent individual contributing more than others. 
+          <br>
+          On the other hand, a deontological leader may cite that the responsibility of the work falls equally on all the team members, as no one member should be responsible for the work of another. They may reason that making one person do more because they are able to is not socially acceptable and that everyone should contribute equally. 
+        </p>
+        <p>
+          Consider the case that the team leader chooses to assign a proportionate amount of tasks to the skilled individual. Assuming there may be consequences of not completing the project on time or decrease in project quality, should the skilled individual volunteer to take on more tasks because they are capable of doing it?
+          <br>
+          Consider the case that the team leader chooses to assign more tasks to the skilled individual. If the skilled individual is unable to complete the tasks, leading to delays in project completion or decrease in project quality, is the skilled individual at fault for not completing the tasks?
+        </p>
+
+      </section>
+    </dialog>
+
+    <dialog id="chatExplain">
+      <header>
+        <h2 class="header">Chat</h2>
+        <button onclick="closeDialog()" id="closeDialogBox">&#x2716</button>
+      </header>
+      <section>
+        <p>
+          Conflicts within interpersonal relationships, such as friendships, can result from exclusion/rejection, unfounded judgements, mis/distrust or lack thereof (caused by doubts of honesty, integrity, sincerity, or character of a person), and personality differences (poor cooperation, butting heads). In face of such conflicts, I wanted to look at how people resolve and address these sources of tension in the form of a friend group. 
+        </p>
+        <p>
+          A utilitarian friend may find that ensuring and improving the group dynamic justifies the harm of one person when excluding the friend in question. Regardless of how certain the utilitarian friend is in the validity of the rumors, the utilitarian friend prioritizes maintaining peace within the group and the feelings of the remaining friends of the group. They would consider removing the source of discordance justifiable even if the friend in question feels rejected as a result.
+          <br>
+          A deontologist friend may feel disinclined towards hurting the friend in question, as exclusion is categorically a socially unacceptable act to do. They may defend that it is wrong to harm others even if they have been harmed themselves or that it is wrong hurt the friend in question to make the rest of the group feel better. 
+        </p>
+        <p>
+          Consider the case that the friend in question is removed from the group. Assume that the rumors turn out to be false. While their feelings of mistrust and the momentary tensions are valid, is the friend group at fault for excluding the friend in question? Is it the friend group’s responsibility to apologize to or even befriend the excluded friend? 
+          <br>
+          Consider the case that the friend in question is not removed from the group. Assume that the rumors turn out to be true. Would it then be acceptable to reject the friend in question from the group? Should they exclude the friend?
+        </p>
+
+      </section>
+    </dialog>
+
+    <dialog id="emailExplain">
+      <header>
+        <h2 class="header">Email</h2>
+        <button onclick="closeDialog()" id="closeDialogBox">&#x2716</button>
+      </header>
+      <section>
+        <p>
+          When looking at communities, there are strong cases of ingroup vs. outgroup distinctions that can lead to conflict within a larger group. I wanted to see whether there is room for moral considerations within the social dimension of ingroup and outgroup conflict when it relates to the ethical concept of honesty. 
+        </p>
+        <p>
+          A utilitarian representative may reason that lying in such a case is socially acceptable and should be done. The benefit of extra credit, especially since it is also distributed to the rest of the class, justifies the means of lying to the teacher. They may be influenced by the bonds between classmates to act beneficially on the behalf of the classmates. 
+          <br>
+          A deontologist representative may insist that lying is inherently wrong. They may reason that no one’s livelihood is at stake in this situation nor would they be preventing greater harm from befalling anyone by lying. Thus, they would find it socially unacceptable and even morally impermissible to lie in this situation. They may be aware yet still disregard the will of their classmates because such factors are not relevant in their consideration of whether to lie or not. 
+        </p>
+        <p>
+          Consider the case that the representative did not lie. Is it socially acceptable for the class to blame the representative that the class did not receive extra credit?
+          <br>
+          Consider the case that the representative did lie. Assume that the teacher found out that the representative lied. Should the representative be punished for the false report? Should the teacher take away the extra credit from everyone?
+        </p>
+
+      </section>
+    </dialog>
+
+
+    
 
   </body>
 </html>

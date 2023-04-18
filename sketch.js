@@ -21,15 +21,16 @@ let agent
 let cameraMan
 let testCursor
 
-  // // windowSize = 1440 x 875 (outer), 1440 x 795 (inner)
-  // let browserWidth = 1440
-  // let browserHeight = 795
-  // let sceneW = browserWidth*1.5
-  // let sceneH = browserHeight*1.5
+let jira, chat, email
+let folder, notif
 
-  let jira, chat, email
-  let folder, notif
+let trolley
+let trolleyExplain, jiraExplain, chatExplain, emailExplain
 
+  
+let trolleyFolder, ss1Folder, ss2Folder, ss3Folder
+let trolleyToggle = false
+let jiraToggle = false
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -130,28 +131,30 @@ function setup() {
   folder.h = 50
   folder.x = width - (folder.w *2)
   folder.y = folder.h *2
-  folder.visible = false
+  folder.visible = true
 
   let vmargin = folder.h
 
-  let trolleyFolder = new folder.Sprite()
+  trolleyFolder = new folder.Sprite()
   trolleyFolder.text = 'Trolley'
   //instead of making separate text box, why not have it as part of png image?
   
-  let ss1Folder = new folder.Sprite()
+  ss1Folder = new folder.Sprite()
   ss1Folder.y = folder.y + folder.h + vmargin
   ss1Folder.text = 'Jira'
 
-  let ss2Folder = new folder.Sprite()
+  ss2Folder = new folder.Sprite()
   ss2Folder.y = folder.y + (folder.h + vmargin)*2
   ss2Folder.text = 'Chat'
 
-  let ss3Folder = new folder.Sprite()
+  ss3Folder = new folder.Sprite()
   ss3Folder.y = folder.y+ (folder.h + vmargin)*3
   ss3Folder.text = 'Email'
 
 
-
+  // let explaination = new Group()
+  // let ss1Explain = new explaination.Sprite()
+  
 
 
   // agent = new Sprite(width/2, height/2, 25)
@@ -169,8 +172,32 @@ function setup() {
   // asyncCall();
 
 
+
+  trolley = document.getElementById('trolley');
+
+  trolleyExplain = document.getElementById('trolleyExplain')
+
+
+  jiraExplain = document.getElementById('jiraExplain')
+  jiraExplain.style.borderRadius = "8px"
+  jiraExplain.style.border = "none"
+  jiraExplain.style.width = "700px"
+
+  chatExplain = document.getElementById('chatExplain')
+  chatExplain.style.borderRadius = "8px"
+  chatExplain.style.border = "none"
+  chatExplain.style.width = "700px"
+
+  emailExplain = document.getElementById('emailExplain')
+  emailExplain.style.borderRadius = "8px"
+  emailExplain.style.border = "none"
+  emailExplain.style.width = "700px"
+  
+
+
 }
 
+  
 
 
 
@@ -183,7 +210,7 @@ function draw() {
   chat = localStorage.getItem("removeFriend");
   email = localStorage.getItem("lie");
 
-
+  
 
 
   // cameraMan.x = mouseX
@@ -231,22 +258,29 @@ function draw() {
     ss3Notif.visible = false
   }
 
-  if (ss1Notif.visible == false && ss2Notif.visible == false && ss3Notif.visible == false) {
-    asyncFolder()
+  // if (ss1Notif.visible == false && ss2Notif.visible == false && ss3Notif.visible == false) {
+    // asyncFolder()
     // folder.visible = true
 
+  // }
+
+
+  if(trolleyFolder.mouse.released()){
+    trolleyExplain.showModal()
+  }
+  if(ss1Folder.mouse.released()){
+    jiraExplain.showModal()
+  }
+  if(ss2Folder.mouse.released()){
+    chatExplain.showModal()
+  }
+  if(ss3Folder.mouse.released()){
+    emailExplain.showModal()
   }
 
-  const trolley = document.getElementById('trolley');
-  trolley.style.width = "500px"
-  // trolley.style.height = "150px"
-
-  // trolley.style.objectPosition= "center center"
-  // trolley.style.backgroundPosition= "center center"
-
-  // document.getElementById("trolley").style.objectPosition = "200px 40px";
-  // document.getElementById("trolley").style.backgroundPosition = "200px 40px";
-  // document.getElementById("trolley").style.position = "200px 40px";
+  
+  // toggle()
+  
 
 }
 
@@ -279,6 +313,47 @@ async function asyncFolder(){
 }
 
 
+function showDialog(){
+  trolley.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+    }
+  });
+  trolleyExplain.showModal()
+  jiraExplain.showModal()
+  chatExplain.showModal()
+  emailExplain.showModal()
+}
+
+
+function closeDialog(){
+  trolleyExplain.close(); 
+  jiraExplain.close()
+  chatExplain.close()
+  emailExplain.close()
+}
+
+// function toggle(){
+//   if(trolleyFolder.mouse.released()){
+//     trolleyToggle = !trolleyToggle
+//   }
+//   if(trolleyToggle){
+//     trolleyExplain.showModal()
+//   }
+//   if(!trolleyToggle){
+//     trolleyExplain.close
+//   }
+
+//   if(ss1Folder.mouse.released()){
+//     jiraToggle = !jiraToggle
+//   }
+//   if(jiraToggle){
+//     jiraExplain.showModal()
+//   }
+//   if(!jiraToggle){
+//     jiraExplain.close
+//   }
+// }
 
 
 function openSS1() {
