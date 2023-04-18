@@ -58,8 +58,13 @@ canvas {
 }
 #trolleyExplain header{
   display: flex;
-  align-items: center;
-  justify-content: space-between
+  align-items: right;
+}
+#closeTrolley{
+  height: 15px;
+  width: 10px;
+  border-radius: 50%;
+  top: 50px;
 }
 
 #jiraExplain {
