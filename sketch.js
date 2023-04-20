@@ -32,10 +32,36 @@ let trolleyFolder, ss1Folder, ss2Folder, ss3Folder
 let trolleyToggle = false
 let jiraToggle = false
 
+
+let user;
+let spriteSheet, userAnimation
+
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
   imsgImg = loadImage('assets/imsgApp.png')
   emailImg = loadImage('assets/emailApp.png')
+
+
+  // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
+  // userAnimation = loadAnimation(spriteSheet)
+
+  user = new Sprite(width/2, height/2, 16, 16)
+  user.spriteSheet = 'assets/userSprite.png'
+
+  user.anis.offset.x=2
+  user.anis.frameDelay=8
+
+  user.addAnis({
+    down: { row:0, frames: 4 },
+    downLeft: { row:1, frames: 4},
+    left: { row:2, frames: 4 },
+    upLeft: { row:3, frames: 4},
+    up: { row:4, frames: 4 },
+    upRight: { row:5, frames: 4},
+    right: { row:6, frames: 4 },
+    downRight: { row:7, frames: 4}
+  })
+  user.ani = 'down'
 }
 
 
@@ -171,10 +197,7 @@ function setup() {
 
   // asyncCall();
 
-
-
   trolley = document.getElementById('trolley');
-
   trolleyExplain = document.getElementById('trolleyExplain')
 
 
@@ -192,14 +215,10 @@ function setup() {
   emailExplain.style.borderRadius = "8px"
   emailExplain.style.border = "none"
   emailExplain.style.width = "700px"
-  
 
+  //coding train dom element video 
 
 }
-
-  
-
-
 
 
 
@@ -210,8 +229,8 @@ function draw() {
   chat = localStorage.getItem("removeFriend");
   email = localStorage.getItem("lie");
 
-  
-
+  // noCursor()
+  // user.moveTowards(mouse);
 
   // cameraMan.x = mouseX
   // cameraMan.y = mouseY
@@ -277,11 +296,7 @@ function draw() {
   if(ss3Folder.mouse.released()){
     emailExplain.showModal()
   }
-
-  
   // toggle()
-  
-
 }
 
 
@@ -306,12 +321,10 @@ async function asyncCall() {
   window.confirm('test test. place holder alert, turn into dialogue box. [insert trolley problem?]')
 }
 
-
 async function asyncFolder(){
   const result = await resolveAfter1Seconds();
   folder.visible = true
 }
-
 
 function showDialog(){
   trolley.addEventListener("keydown", (e) => {
@@ -324,7 +337,6 @@ function showDialog(){
   chatExplain.showModal()
   emailExplain.showModal()
 }
-
 
 function closeDialog(){
   trolleyExplain.close(); 

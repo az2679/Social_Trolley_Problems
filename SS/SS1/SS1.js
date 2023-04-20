@@ -5,7 +5,6 @@ let pageColor = 255
 let interfaceColor = 230
 let interfaceColor1 = 150
 
-
 //SS1
 let jira
 let page, pageLine, headerLine, sideBarLine, projectLine
@@ -18,17 +17,13 @@ let newHireBox, hire1Box, hire2Box, personSelect
 
 let projectMembers, ss1Instruction, ss1SearchBox, ss1CloseSearch
 let searchPerson
-
 let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
-
 let exitButton
-
 let jiraDecision;
 
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
-
 
   jira = new SS1(200, 50, 1000, 700)
   jira.openJira()
@@ -79,7 +74,6 @@ function setup(){
   ss1InstructionArray[5].text = 'interacting with the'
   ss1InstructionArray[6].text = 'drop down menu.'
 
-
   ss1CloseSearch = new ss1Instruction.Sprite()
   ss1CloseSearch.w = 50 
   ss1CloseSearch.x = ss1SearchBox.x + ss1SearchBox.w/2  - ss1CloseSearch.w/2 -4
@@ -88,33 +82,14 @@ function setup(){
   ss1CloseSearch.text = 'x'
   ss1CloseSearch.stroke = 255
 
-
   assignIconGroup.overlap(assignGroup)
-  
+
   newHireBox.y = assignArray[7].y + 7
   newHireBox.w = assignGroup.w -10
-
-  // noCursor()
-  // ss1Agent = new Sprite(width/2, height/2, 20)
-  // ss1Agent.color =255
-  // // ss1Agent.text = 'agent'
-  // ss1Agent.visible = true
-  // ss1Agent.color = 0
-  // ss1CameraMan = new Sprite(width/2, height/2, 25)
-  // ss1CameraMan.color = 200
-  // ss1CameraMan.text = 'camera man'
-  // ss1CameraMan.visible = false
-
-  // camera.x = width/2
-  // camera.y = height/2
-
-
-
 }
 
 function draw(){
   background(220)
-
 
   if (ss1SearchBox.mouse.released()){
     ss1Instruction.visible = true
@@ -122,7 +97,6 @@ function draw(){
   if (ss1CloseSearch.mouse.released()){
     ss1Instruction.visible = false
   }
-
 
   // ss1CameraMan.x = mouseX
   // ss1CameraMan.y = mouseY
@@ -212,7 +186,7 @@ function draw(){
 
 
 
-  
+
 
 }
 
