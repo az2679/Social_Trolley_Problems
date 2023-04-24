@@ -37,6 +37,7 @@ let user;
 let spriteSheet, userAnimation
 
 let folderTrolleyImg, folderJiraImg, folderChatImg, folderEmailImg
+let project, projectImg
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -47,6 +48,8 @@ function preload(){
   folderJiraImg = loadImage('assets/folder/folderJira.png')
   folderChatImg = loadImage('assets/folder/folderChat.png')
   folderEmailImg = loadImage('assets/folder/folderEmail.png')
+
+  projectImg = loadImage('assets/folder/project.png')
 
 
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
@@ -171,30 +174,37 @@ function setup() {
 
   let vmargin = folder.h*1.5
 
+  project = new folder.Sprite()
+  project.x = folder.x -5
+  projectImg.resize(105, 110)
+  project.img = projectImg
+
   trolleyFolder = new folder.Sprite()
+  trolleyFolder.y = folder.y+ (folder.h + vmargin)
   folderTrolleyImg.resize(75, 90)
   trolleyFolder.img = folderTrolleyImg
   
   ss1Folder = new folder.Sprite()
-  ss1Folder.y = folder.y + folder.h + vmargin
+  ss1Folder.y = folder.y + (folder.h + vmargin) *2
   folderJiraImg.resize(75, 90)
   ss1Folder.img = folderJiraImg
 
   ss2Folder = new folder.Sprite()
-  ss2Folder.y = folder.y + (folder.h + vmargin)*2
+  ss2Folder.y = folder.y + (folder.h + vmargin) *3
   folderChatImg.resize(75, 90)
   ss2Folder.img = folderChatImg
 
   ss3Folder = new folder.Sprite()
-  ss3Folder.y = folder.y+ (folder.h + vmargin)*3
+  ss3Folder.y = folder.y+ (folder.h + vmargin)*4
   folderEmailImg.resize(75, 90)
   ss3Folder.img = folderEmailImg
+
+ 
 
 
   // let explaination = new Group()
   // let ss1Explain = new explaination.Sprite()
   
-
 
   // agent = new Sprite(width/2, height/2, 25)
   // agent.color =255
@@ -211,26 +221,12 @@ function setup() {
   // asyncCall();
 
   trolley = document.getElementById('trolley');
+  projectExplain = document.getElementById('projectExplain')
   trolleyExplain = document.getElementById('trolleyExplain')
-
-
   jiraExplain = document.getElementById('jiraExplain')
-  jiraExplain.style.borderRadius = "8px"
-  jiraExplain.style.border = "none"
-  jiraExplain.style.width = "700px"
-
   chatExplain = document.getElementById('chatExplain')
-  chatExplain.style.borderRadius = "8px"
-  chatExplain.style.border = "none"
-  chatExplain.style.width = "700px"
-
   emailExplain = document.getElementById('emailExplain')
-  emailExplain.style.borderRadius = "8px"
-  emailExplain.style.border = "none"
-  emailExplain.style.width = "700px"
-
-  //coding train dom element video 
-
+  
 }
 
 
@@ -296,7 +292,9 @@ function draw() {
 
   // }
 
-
+  if(project.mouse.released()){
+    projectExplain.showModal()
+  }
   if(trolleyFolder.mouse.released()){
     trolleyExplain.showModal()
   }
@@ -309,7 +307,7 @@ function draw() {
   if(ss3Folder.mouse.released()){
     emailExplain.showModal()
   }
-  // toggle()
+  
 }
 
 
@@ -345,6 +343,7 @@ function showDialog(){
       e.preventDefault();
     }
   });
+  projectExplain.showModal()
   trolleyExplain.showModal()
   jiraExplain.showModal()
   chatExplain.showModal()
@@ -352,6 +351,7 @@ function showDialog(){
 }
 
 function closeDialog(){
+  projectExplain.close()
   trolleyExplain.close(); 
   jiraExplain.close()
   chatExplain.close()
