@@ -11,6 +11,9 @@ body{
 button{
   font-family: "Silver";
   font-size: 20pt;
+}
+
+.lever-button {
   background-image: url("assets/pixelWindow/blankButton.png"); background-repeat: no-repeat; 
   background-size: cover;
   margin-right: 1rem;
@@ -72,18 +75,29 @@ canvas {
 
 #trolleyExplain {
   width: 700px;
-  border-radius: 8px;
   border:none;
+  padding: 10px 24px;
 }
 #trolleyExplain header{
   display: flex;
-  align-items: right;
+  
 }
 #closeTrolley{
-  height: 15px;
-  width: 10px;
-  border-radius: 50%;
-  top: 50px;
+  height: 14px;
+  width: 14px;
+  margin-left: auto;
+  margin-right: 7px;
+  margin-top: 4px;
+  color: transparent;
+  background-color: transparent;
+  border: none;
+}
+
+.background-window {
+  background-image: url('assets/pixelWindow/bigWindow.png'); 
+  background-repeat: no-repeat; 
+  background-size: contain; 
+  background-color: transparent;
 }
 
 #jiraExplain {
@@ -117,5 +131,10 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: space-between
+}
+
+.header {
+  margin: 0; 
+  color: white;
 }
 
