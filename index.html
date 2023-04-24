@@ -25,7 +25,7 @@
     <script src="sketch.js" ></script>
 
     <!-- add open after id -->
-    <dialog id="trolley" style="background-image: url('assets/pixelWindow/blankMsg.png'); background-repeat: no-repeat; background-size: cover;" open>
+    <dialog id="trolley" style="background-image: url('assets/pixelWindow/messageWindow.png'); background-repeat: no-repeat; background-size: cover;" open>
       <p>You notice five individuals tied to some train tracks. A train is coming right at them and you do not have the ability to untie them in time.</p>
       <p>However, you could pull a lever diverting the train to another set of tracks, but in so doing, you would kill an innocent bystander who is tied to those tracks.</p>
       <form method="dialog">
@@ -37,7 +37,7 @@
     <dialog id="trolleyExplain" class="background-window">
       <header>
         <h3 class="header">Trolley</h3>
-        <button onclick="closeDialog()" id="closeTrolley"></button>
+        <button onclick="closeDialog()" class="closeWindow"></button>
       </header>
       <section style="padding-right: 24px;">
         <p>
@@ -57,7 +57,7 @@
     <dialog id="jiraExplain" class="background-window">
       <header>
         <h3 class="header">Jira</h3>
-        <button onclick="closeDialog()" id="closeJira">&#x2716</button>
+        <button onclick="closeDialog()" class="closeWindow">/button>
       </header>
       <section>
         <p>
@@ -80,7 +80,7 @@
     <dialog id="chatExplain" class="background-window">
       <header>
         <h3 class="header">Chat</h3>
-        <button onclick="closeDialog()" id="closeChat">&#x2716</button>
+        <button onclick="closeDialog()" class="closeWindow"></button>
       </header>
       <section>
         <p>
@@ -103,7 +103,7 @@
     <dialog id="emailExplain" class="background-window">
       <header>
         <h3 class="header">Email</h3>
-        <button onclick="closeDialog()" id="closeEmail">&#x2716</button>
+        <button onclick="closeDialog()" class="closeWindow"></button>
       </header>
       <section>
         <p>

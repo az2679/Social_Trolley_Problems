@@ -36,7 +36,7 @@ let jiraToggle = false
 let user;
 let spriteSheet, userAnimation
 
-let folderTrolleyImg
+let folderTrolleyImg, folderJiraImg, folderChatImg, folderEmailImg
 
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
@@ -44,6 +44,9 @@ function preload(){
   emailImg = loadImage('assets/emailApp.png')
 
   folderTrolleyImg = loadImage('assets/folder/folderTrolley.png')
+  folderJiraImg = loadImage('assets/folder/folderJira.png')
+  folderChatImg = loadImage('assets/folder/folderChat.png')
+  folderEmailImg = loadImage('assets/folder/folderEmail.png')
 
 
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
@@ -162,28 +165,30 @@ function setup() {
   folder.w = 75
   folder.h = 50
   folder.x = width - (folder.w *2)
-  folder.y = folder.h *2
+  folder.y = folder.h *2.5
   folder.visible = true
   folder.textColor = 255
 
-  let vmargin = folder.h
+  let vmargin = folder.h*1.5
 
   trolleyFolder = new folder.Sprite()
-  trolleyFolder.text = 'Trolley'
+  folderTrolleyImg.resize(75, 90)
   trolleyFolder.img = folderTrolleyImg
-  //instead of making separate text box, why not have it as part of png image?
   
   ss1Folder = new folder.Sprite()
   ss1Folder.y = folder.y + folder.h + vmargin
-  ss1Folder.text = 'Jira'
+  folderJiraImg.resize(75, 90)
+  ss1Folder.img = folderJiraImg
 
   ss2Folder = new folder.Sprite()
   ss2Folder.y = folder.y + (folder.h + vmargin)*2
-  ss2Folder.text = 'Chat'
+  folderChatImg.resize(75, 90)
+  ss2Folder.img = folderChatImg
 
   ss3Folder = new folder.Sprite()
   ss3Folder.y = folder.y+ (folder.h + vmargin)*3
-  ss3Folder.text = 'Email'
+  folderEmailImg.resize(75, 90)
+  ss3Folder.img = folderEmailImg
 
 
   // let explaination = new Group()
