@@ -1,7 +1,21 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: "Silver";
 }
+
+body{
+  font-size: 18pt;
+}
+
+button{
+  font-family: "Silver";
+  font-size: 20pt;
+  background-image: url("assets/pixelWindow/blankButton.png"); background-repeat: no-repeat; 
+  background-size: cover;
+  margin-right: 1rem;
+}
+
 
 canvas {
   display: block;
@@ -40,6 +54,11 @@ canvas {
     align-items: center;
     justify-content: space-between;
   } */
+}
+
+@font-face {
+  font-family: "Silver";
+  src: url("assets/Silver.ttf");
 }
 
 

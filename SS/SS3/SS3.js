@@ -19,6 +19,8 @@ let ss3Agent, ss3CameraMan, ss3CorrectionX, ss3CorrectionY
 let windowButtons
 
 
+
+
 function setup(){
   createCanvas(windowWidth, windowHeight)  
 

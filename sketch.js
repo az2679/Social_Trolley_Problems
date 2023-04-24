@@ -36,10 +36,15 @@ let jiraToggle = false
 let user;
 let spriteSheet, userAnimation
 
+let popUp
+
 function preload(){
   jiraImg = loadImage('assets/jiraApp.png')
   imsgImg = loadImage('assets/imsgApp.png')
   emailImg = loadImage('assets/emailApp.png')
+
+
+  popUp = loadImage('assets/pixelWindow/blankWindow.png')
 
 
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
@@ -69,6 +74,8 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  textFont("Silver")
+  textSize(20)
 
   localStorage.clear();
 
@@ -133,6 +140,7 @@ function setup() {
   notif.color = 'red'
   notif.stroke = 'red'
   notif.textColor = 255
+  notif.textSize = 14
   notif.text = '1'
   notif.d = 15
   notif.visible = true
@@ -148,7 +156,6 @@ function setup() {
   ss3Notif = new notif.Sprite()
   ss3Notif.x = ss3App.x + notif.d*1.5
   ss3Notif.y = ss3App.y - notif.d*1.5
-
 
   folder = new Group()
   folder.collider = 's'
