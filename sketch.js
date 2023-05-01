@@ -38,18 +38,21 @@ let spriteSheet, userAnimation
 
 let folderTrolleyImg, folderJiraImg, folderChatImg, folderEmailImg
 let project, projectImg
+let toolBarImg
 
 function preload(){
-  jiraImg = loadImage('assets/jiraApp.png')
-  imsgImg = loadImage('assets/imsgApp.png')
-  emailImg = loadImage('assets/emailApp.png')
+  jiraImg = loadImage('assets/apps/jiraPixel.png')
+  imsgImg = loadImage('assets/apps/imsgPixel.png')
+  emailImg = loadImage('assets/apps/emailPixel.png')
+  notifImg = loadImage('assets/apps/notifPixel.png')
 
   folderTrolleyImg = loadImage('assets/folder/folderTrolley.png')
   folderJiraImg = loadImage('assets/folder/folderJira.png')
   folderChatImg = loadImage('assets/folder/folderChat.png')
   folderEmailImg = loadImage('assets/folder/folderEmail.png')
-
   projectImg = loadImage('assets/folder/project.png')
+
+  toolBarImg = loadImage('assets/pixelWindow/toolBar.png')
 
 
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
@@ -110,6 +113,8 @@ function setup() {
   toolBar.color = 235
   toolBar.stroke = toolBar.color
   // toolBar.visible = false
+  toolBarImg.resize(900, 100)
+  toolBar.img = toolBarImg
 
   toolBarArray[9].w = 0
   toolBarArray[9].stroke = 0
@@ -146,9 +151,11 @@ function setup() {
   notif.stroke = 'red'
   notif.textColor = 255
   notif.textSize = 14
-  notif.text = '1'
+  // notif.text = '1'
   notif.d = 15
   notif.visible = true
+  notifImg.resize(15,15)
+  notif.img = notifImg
 
   ss1Notif = new notif.Sprite()
   ss1Notif.x = ss1App.x + notif.d*1.5
@@ -166,13 +173,14 @@ function setup() {
   folder.collider = 's'
   folder.color = color(150, 200, 255)
   folder.w = 75
-  folder.h = 50
+  folder.h = 100
   folder.x = width - (folder.w *2)
-  folder.y = folder.h *2.5
+  folder.y = (folder.h/2) *1.5
   folder.visible = true
   folder.textColor = 255
+  folder.debug=false
 
-  let vmargin = folder.h*1.5
+  let vmargin = (folder.h/2)*2.5
 
   project = new folder.Sprite()
   project.x = folder.x -5
@@ -180,22 +188,22 @@ function setup() {
   project.img = projectImg
 
   trolleyFolder = new folder.Sprite()
-  trolleyFolder.y = folder.y+ (folder.h + vmargin)
+  trolleyFolder.y = folder.y+ (vmargin)
   folderTrolleyImg.resize(75, 90)
   trolleyFolder.img = folderTrolleyImg
   
   ss1Folder = new folder.Sprite()
-  ss1Folder.y = folder.y + (folder.h + vmargin) *2
+  ss1Folder.y = folder.y + (vmargin *2)
   folderJiraImg.resize(75, 90)
   ss1Folder.img = folderJiraImg
 
   ss2Folder = new folder.Sprite()
-  ss2Folder.y = folder.y + (folder.h + vmargin) *3
+  ss2Folder.y = folder.y + (vmargin*3)
   folderChatImg.resize(75, 90)
   ss2Folder.img = folderChatImg
 
   ss3Folder = new folder.Sprite()
-  ss3Folder.y = folder.y+ (folder.h + vmargin)*4
+  ss3Folder.y = folder.y+ (vmargin *4)
   folderEmailImg.resize(75, 90)
   ss3Folder.img = folderEmailImg
 
