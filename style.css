@@ -16,11 +16,13 @@ canvas {
 
 button{
   font-family: "Silver";
-  font-size: 20pt;
+  font-size: 18pt;
+  padding-top: 10pt;
+  vertical-align: text-bottom;
 }
 
 .lever-button {
-  background-image: url("assets/pixelWindow/blankButton.png"); background-repeat: no-repeat; 
+  /* background-image: url("assets/pixelWindow/blankButton.png"); */background-repeat: no-repeat;
   background-size: cover;
   margin-right: 1rem;
   color: white
@@ -50,9 +52,16 @@ button{
   background-size: contain; 
   background-color: transparent;
 }
+.bigger-background-window {
+  background-image: url('assets/pixelWindow/biggerWindow.png'); 
+  background-repeat: no-repeat; 
+  background-size: contain; 
+  background-color: transparent;
+}
 
 #trolley {
   width: 500px;
+  height: 275px;
   position: fixed;
   top: 200px;
   border-radius: 8px;
@@ -79,7 +88,7 @@ button{
 
 
 #jiraExplain {
-  width: 700px;
+  width: 800px;
   border:none;
   padding: 10px 24px;
 }
@@ -88,7 +97,7 @@ button{
 }
 
 #chatExplain {
-  width: 700px;
+  width: 848px;
   border:none;
   padding: 10px 24px;
 }
@@ -97,7 +106,7 @@ button{
 }
 
 #emailExplain {
-  width: 700px;
+  width: 800px;
   border:none;
   padding: 10px 24px;
 }
