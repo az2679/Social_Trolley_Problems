@@ -21,66 +21,24 @@ let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 let exitButton
 let jiraDecision;
 
+let jiraPageImg, closeButtonImg
+
+function preload(){
+  jiraPageImg = loadImage('biggerWindow.png')
+  closeButtonImg = loadImage('closeButton.png')
+}
+
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
+  textFont("Silver")
+  textSize(20)
 
   jira = new SS1(200, 50, 1000, 700)
   jira.openJira()
   jira.makeTable()
+  jira.instructions()
 
-  ss1Instruction = new Group()
-  ss1Instruction.collider = 's'
-  ss1Instruction.color = 230
-  ss1Instruction.visible = false
-
-  ss1SearchBox = new Sprite()
-  ss1SearchBox.w = 200
-  ss1SearchBox.x = 570
-  ss1SearchBox.h = textHeight
-  ss1SearchBox.y = 230
-  ss1SearchBox.color = 245
-  ss1SearchBox.stroke = ss1SearchBox.color
-  ss1SearchBox.textSize = 10
-  ss1SearchBox.collider = 's'
-  ss1SearchBox.text = 'For help, click here!                 '
-
-  let ss1DropDown = new ss1Instruction.Sprite()
-  ss1DropDown.w = ss1SearchBox.w
-  ss1DropDown.x = ss1SearchBox.x
-  ss1DropDown.h = 150
-  ss1DropDown.y = ss1SearchBox.y + ss1SearchBox.h/2 + ss1DropDown.h/2 +5
-  ss1DropDown.color = 245
-  ss1DropDown.stroke = ss1DropDown.color
-
-  let ss1InstructionArray = []
-  while (ss1InstructionArray.length < 7){
-    let ss1InstructionText = new ss1Instruction.Sprite()
-    ss1InstructionText.w = ss1DropDown.w
-    ss1InstructionText.x = ss1DropDown.x
-    ss1InstructionText.h = textHeight
-    ss1InstructionText.y = (ss1DropDown.y - ss1DropDown.h/2) + ss1InstructionText.h/2 + (ss1InstructionText.h * ss1InstructionArray.length)
-    ss1InstructionText.stroke = ss1InstructionText.color
-    ss1InstructionText.textSize = 12
-    ss1InstructionText.textColor = 0
-    ss1InstructionArray.push(ss1InstructionText)
-  }
-
-  ss1InstructionArray[0].text = 'Hello! '
-  ss1InstructionArray[1].text = 'This is a table used to manage'
-  ss1InstructionArray[2].text = 'subtasks within a project.'
-  ss1InstructionArray[3].text = 'Read the context about the situation'
-  ss1InstructionArray[4].text = 'provided and make a decision by'
-  ss1InstructionArray[5].text = 'interacting with the'
-  ss1InstructionArray[6].text = 'drop down menu.'
-
-  ss1CloseSearch = new ss1Instruction.Sprite()
-  ss1CloseSearch.w = 50 
-  ss1CloseSearch.x = ss1SearchBox.x + ss1SearchBox.w/2  - ss1CloseSearch.w/2 -4
-  ss1CloseSearch.h = ss1SearchBox.h -4
-  ss1CloseSearch.y = ss1SearchBox.y
-  ss1CloseSearch.text = 'x'
-  ss1CloseSearch.stroke = 255
 
   assignIconGroup.overlap(assignGroup)
 
@@ -232,34 +190,40 @@ class SS1{
       page.color=255
       page.stroke=0
       page.layer = 1
+      jiraPageImg.resize(this.w*1.05, this.h* 1.05)
+      page.img = jiraPageImg
+
   
       pageLine = new Group()
         pageLine.collider = 's'
         pageLine.stroke = interfaceColor
         pageLine.layer = 2
 
-        let topTab = new pageLine.Sprite()
-        topTab.w = page.w +2
-        topTab.x = page.x-page.w/2 + topTab.w/2 -1
-        topTab.h = textHeight*0.75
-        topTab.y = page.y-page.h/2 - topTab.h/2
-        topTab.color = 200
-        topTab.stroke = 0
+        // let topTab = new pageLine.Sprite()
+        // topTab.w = page.w +2
+        // topTab.x = page.x-page.w/2 + topTab.w/2 -1
+        // topTab.h = textHeight*0.75
+        // topTab.y = page.y-page.h/2 - topTab.h/2
+        // topTab.color = 200
+        // topTab.stroke = 0
 
         exitButton = new pageLine.Sprite()
-        exitButton.w = 40
-        exitButton.x = page.x-page.w/2 + exitButton.w/2 + 5
-        exitButton.h = textHeight*0.75 - 10
-        exitButton.y = topTab.y
-        exitButton.color = color(150, 0, 0, 150)
+        exitButton.w = textHeight*0.75
+        exitButton.x = page.x+page.w/2 - exitButton.w/4 +10
+        exitButton.h = textHeight*0.75
+        exitButton.y = page.y-page.h/2 + exitButton.h/4 - 2
+        // exitButton.color = color(150, 0, 0, 150)
         exitButton.stroke = 0
-        exitButton.text='close'
-        exitButton.layer = topTab.layer+1
+        // exitButton.text='close'
+        // exitButton.layer = topTab.layer+1
+        closeButtonImg.resize(exitButton.w+1, exitButton.h)
+        exitButton.img = closeButtonImg
+        exitButton.debug=false
       
         //Header Tab Elements
         headerLine = new pageLine.Sprite()
           headerLine.x = page.x
-          headerLine.y = page.y - page.h/2 + 50
+          headerLine.y = page.y - page.h/2 + 75
             // headerLine.y = page.y - page.h/2 + page.h*.07
           headerLine.h = 1
           headerLine.w = page.w -4
@@ -312,11 +276,11 @@ class SS1{
   
         //Project Elements
         projectLine = new pageLine.Sprite()
-          projectLine.y = (page.y-page.h/2) + (headerLine.y - (page.y-page.h/2)) *3
+          projectLine.y = (page.y-page.h/2) + (headerLine.y - (page.y-page.h/2)) *2.5
           projectLine.h = 1
           projectLine.w = page.w - (sideBarLine.x - (page.x-page.w/2)) - page.w*0.03
           projectLine.x = sideBarLine.x + projectLine.w/2 + page.w*0.015 
-  
+
           let project = new Group()
             project.collider = 's'
             project.color = interfaceColor
@@ -475,18 +439,19 @@ class SS1{
     searchPerson.h = textHeight
     searchPerson.layer = 5
     searchPerson.color = 210
-    searchPerson.textColor = 0
-    searchPerson.text = 'Search for a person...      '
+    // searchPerson.textColor = 0
+    searchPerson.textSize = 20
+    searchPerson.text = '     Search for a person...      '
   
     let selectInstruct = new personSelect.Sprite()
     selectInstruct.x = assignArray[4].x
-    selectInstruct.y = assignArray[5].y
+    selectInstruct.y = assignArray[5].y + 4
     selectInstruct.w = (colmAssign.x - colmStat.x)- 8
     selectInstruct.h = textHeight - 8
     selectInstruct.layer = personSelect.layer + 1
     selectInstruct.color = 255
     selectInstruct.stroke = selectInstruct.color 
-    selectInstruct.textSize = 10
+    selectInstruct.textSize = 18
     selectInstruct.text = 'Select one or more person'
   
     newHireBox = new personSelect.Sprite()
@@ -540,4 +505,62 @@ class SS1{
   
     }
   
+    instructions(){
+      ss1Instruction = new Group()
+      ss1Instruction.collider = 's'
+      ss1Instruction.color = 230
+      ss1Instruction.visible = false
+    
+      ss1SearchBox = new Sprite()
+      ss1SearchBox.w = 200
+      ss1SearchBox.x = projectMembers.x - projectMembers.w/2 + ss1SearchBox.w/2 + 5
+      ss1SearchBox.h = textHeight
+      ss1SearchBox.y = projectMembers.y
+      ss1SearchBox.color = 245
+      ss1SearchBox.stroke = ss1SearchBox.color
+      ss1SearchBox.textSize = 20
+      ss1SearchBox.collider = 's'
+      ss1SearchBox.text = '    For help, click here!                 '
+      // ss1SearchBox.debug=true
+
+      let ss1DropDown = new ss1Instruction.Sprite()
+      ss1DropDown.w = ss1SearchBox.w
+      ss1DropDown.x = ss1SearchBox.x
+      ss1DropDown.h = 150
+      ss1DropDown.y = ss1SearchBox.y + ss1SearchBox.h/2 + ss1DropDown.h/2 +5
+      ss1DropDown.color = 245
+      ss1DropDown.stroke = ss1DropDown.color
+    
+      let ss1InstructionArray = []
+      while (ss1InstructionArray.length < 7){
+        let ss1InstructionText = new ss1Instruction.Sprite()
+        ss1InstructionText.w = ss1DropDown.w
+        ss1InstructionText.x = ss1DropDown.x
+        ss1InstructionText.h = textHeight
+        ss1InstructionText.y = (ss1DropDown.y - ss1DropDown.h/2) + ss1InstructionText.h/2 + (ss1InstructionText.h * ss1InstructionArray.length)
+        ss1InstructionText.stroke = ss1InstructionText.color
+        ss1InstructionText.textSize = 20
+        ss1InstructionText.textColor = 0
+        ss1InstructionArray.push(ss1InstructionText)
+      }
+    
+      ss1InstructionArray[0].text = 'Hello! '
+      ss1InstructionArray[1].text = 'This is a table used to manage'
+      ss1InstructionArray[2].text = 'subtasks within a project.'
+      ss1InstructionArray[3].text = 'Read the context about the'
+      ss1InstructionArray[4].text = 'situation provided and make a '
+      ss1InstructionArray[5].text = 'decision by interacting with '
+      ss1InstructionArray[6].text = 'the drop down menu.'
+    
+      ss1CloseSearch = new ss1Instruction.Sprite()
+      ss1CloseSearch.w = 50 
+      ss1CloseSearch.x = ss1SearchBox.x + ss1SearchBox.w/2  - ss1CloseSearch.w/2 -4
+      ss1CloseSearch.h = ss1SearchBox.h -4
+      ss1CloseSearch.y = ss1SearchBox.y
+      ss1CloseSearch.text = 'x'
+      ss1CloseSearch.stroke = 255
+
+    }
+
+    
   }
