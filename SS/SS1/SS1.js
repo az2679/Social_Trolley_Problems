@@ -21,11 +21,11 @@ let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 let exitButton
 let jiraDecision;
 
-let jiraPageImg, closeButtonImg
+let jiraPageImg, jiraCloseButtonImg
 
 function preload(){
   jiraPageImg = loadImage('biggerWindow.png')
-  closeButtonImg = loadImage('closeButton.png')
+  jiraCloseButtonImg = loadImage('closeButton.png')
 }
 
 
@@ -90,9 +90,9 @@ function draw(){
   hire1Box.color = 255
   hire2Box.color = 255
 
-  if (newHireBox.mouse.hovering()) newHireBox.color = interfaceColor;
-  if (hire1Box.mouse.hovering()) hire1Box.color = interfaceColor;
-  if (hire2Box.mouse.hovering()) hire2Box.color = interfaceColor;
+  if (newHireBox.mouse.hovering()) newHireBox.color = color(211, 240, 253);
+  if (hire1Box.mouse.hovering()) hire1Box.color = color(211, 240, 253);
+  if (hire2Box.mouse.hovering()) hire2Box.color = color(211, 240, 253);
 
   if(newHireBox.mouse.released()){
     assignIconArray[3].color = assignIconArray[11].color
@@ -196,7 +196,7 @@ class SS1{
   
       pageLine = new Group()
         pageLine.collider = 's'
-        pageLine.stroke = interfaceColor
+        pageLine.stroke = color(127, 209, 247)
         pageLine.layer = 2
 
         // let topTab = new pageLine.Sprite()
@@ -216,8 +216,8 @@ class SS1{
         exitButton.stroke = 0
         // exitButton.text='close'
         // exitButton.layer = topTab.layer+1
-        closeButtonImg.resize(exitButton.w+1, exitButton.h)
-        exitButton.img = closeButtonImg
+        jiraCloseButtonImg.resize(exitButton.w+1, exitButton.h)
+        exitButton.img = jiraCloseButtonImg
         exitButton.debug=false
       
         //Header Tab Elements
@@ -230,8 +230,9 @@ class SS1{
   
           let topBar = new Group()
           topBar.collider = 's'
-          topBar.color = interfaceColor
-          topBar.stroke = topBar.color
+          topBar.strokeWeight = 2
+          topBar.stroke = color(211, 240, 253)
+          topBar.color = 255
           topBar.y = headerLine.y - 25
           topBar.h = textHeight * 0.75
           
@@ -240,11 +241,24 @@ class SS1{
             siteIcon.w = min(page.w * 0.025, page.h * 0.045)
             siteIcon.h = siteIcon.w 
           let siteLogo = new topBar.Sprite()
-            siteLogo.w = page.w * 0.25
+            siteLogo.w = page.w * 0.20
             siteLogo.x = siteIcon.x + siteIcon.w/2 + siteLogo.w/2 + page.w*0.015
+            siteLogo.textSize = 30
+            siteLogo.text = 'Work Management'
+            siteLogo.color = 255
+            siteLogo.stroke = 255
           let siteTabs = new topBar.Sprite()
             siteTabs.w = page.w * 0.3
             siteTabs.x = siteLogo.x + siteLogo.w/2 + siteTabs.w/2 + page.w*0.015
+            siteTabs.text = 'Your Work  Projects  Filters  Dashboards  Apps'
+            siteTabs.color = 255
+            siteTabs.stroke = 255
+          let projectUnderline = new pageLine.Sprite()
+            projectUnderline.w = page.w * 0.05
+            projectUnderline.h = 2
+            projectUnderline.x = siteLogo.x + siteLogo.w/2 + siteTabs.w/2 - page.w*0.032
+            projectUnderline.y = siteTabs.y + siteTabs.h/2
+            projectUnderline.strokeWeight = 3
           let searchAccount = new topBar.Sprite()
             searchAccount.w = page.w * 0.3
             searchAccount.x = (page.x + page.w/2) - (searchAccount.w/2) - (page.w*0.015)
@@ -261,15 +275,19 @@ class SS1{
             sideBar.w = headerLine.w / 5
             sideBar.x = (page.x - page.w/2) + (sideBar.w * 0.6)
             sideBar.h = 1
-            sideBar.color = interfaceColor
-            sideBar.stroke = sideBar.color 
+            sideBar.strokeWeight = 2
+            sideBar.stroke = color(211, 240, 253)
+            sideBar.color = 255
       
           let sideBarProjects = new sideBar.Sprite ()
             sideBarProjects.h = page.h * 0.05
             sideBarProjects.y = (page.y-page.h/2) + (headerLine.y - (page.y-page.h/2)) + sideBarProjects.h/2 + 25
+            sideBarProjects.textSize = 28
+            // sideBarProjects.text = 'Projects                '
           let sideBarList = new sideBar.Sprite()
             sideBarList.h = textHeight* 8
             sideBarList.y = (sideBarProjects.y + sideBarProjects.h) + sideBarList.h/2
+            
           let feedback = new sideBar.Sprite()
             feedback.h = textHeight* 1.5
             feedback.y = (sideBarLine.y + (sideBarLine.h/2)) - (feedback.h/2) - 30
@@ -280,23 +298,38 @@ class SS1{
           projectLine.h = 1
           projectLine.w = page.w - (sideBarLine.x - (page.x-page.w/2)) - page.w*0.03
           projectLine.x = sideBarLine.x + projectLine.w/2 + page.w*0.015 
+          projectLine.color = color(127, 209, 247)
 
           let project = new Group()
             project.collider = 's'
-            project.color = interfaceColor
-            project.stroke = project.color
+            project.strokeWeight = 2
+            project.stroke = color(211, 240, 253)
+            project.color = 255
           
           let projectTabs = new project.Sprite()
             projectTabs.y = projectLine.y - 25
             projectTabs.w = projectLine.w
             projectTabs.x = projectLine.x
+            projectTabs.color = 255
+            projectTabs.stroke = 255
             projectTabs.h = textHeight * 0.75
+            projectTabs.text = "Summary   Board   List   Calendar   Timeline  Forms   Pages   Issues   Reports   Shortcuts   Apps   Project settings    "
      
           let projectTitle = new project.Sprite()
             projectTitle.y = projectLine.y - (textHeight * 2.25)
             projectTitle.h = textHeight*1.25
             projectTitle.w = projectLine.w * 0.3
             projectTitle.x = (projectLine.x - projectLine.w/2) + (projectTitle.w/2)
+            projectTitle.color = 255
+            projectTitle.stroke = 255
+            projectTitle.textSize=30
+            projectTitle.text = '     Task Assignment    '
+
+            let projectTitleIcon = new project.Sprite()
+            projectTitleIcon.y = projectTitle.y
+            projectTitleIcon.h = textHeight
+            projectTitleIcon.w = projectTitleIcon.h
+            projectTitleIcon.x = projectTitle.x - projectTitle.w/2 + projectTitleIcon.w/2
   
           projectMembers = new project.Sprite()
             projectMembers.y = projectLine.y + textHeight
@@ -317,7 +350,7 @@ class SS1{
       let table = new Group()
       table.collider='s'
       table.color = interfaceColor
-      table.stroke = interfaceColor
+      table.stroke = color(172, 220, 242)
       table.strokeWeight=0.5
       table.layer = 2
   
@@ -342,11 +375,15 @@ class SS1{
         tableCreateButton.y = (projectLine.y - projectLine.h/2)+ (textHeight*1.75) + (textHeight*(13)) + tableCreateButton.h/2 + (textHeight*0.25)
         tableCreateButton.w = projectLine.w * 0.1
         tableCreateButton.x = (projectLine.x - projectLine.w/2) + (tableCreateButton.w/2) + projectLine.w*0.025
+        tableCreateButton.color = 255
+        tableCreateButton.stroke = 255
+        tableCreateButton.textSize = 16
+        tableCreateButton.text = '+ Create'
   
       let tableColm = new Group()
         tableColm.collider='s'
         tableColm.color=interfaceColor
-        tableColm.stroke=interfaceColor
+        tableColm.stroke=color(172, 220, 242)
         tableColm.strokeWeight=0.5
         tableColm.layer= 3
   
@@ -377,7 +414,7 @@ class SS1{
         summaryText.h = textHeight
         summaryText.y = (page.y-page.h/2) + (projectLine.y - (page.y-page.h/2)) + textHeight*2.75 + (textHeight*summaryArray.length) - summaryText.h/2
       }
-      summaryArray[0].text='Summary'
+      summaryArray[0].text='Summary           '
   
       assignGroup = new Group()
         assignGroup.color = 255
@@ -438,7 +475,7 @@ class SS1{
     searchPerson.w = colmAssign.x - colmStat.x
     searchPerson.h = textHeight
     searchPerson.layer = 5
-    searchPerson.color = 210
+    searchPerson.color = color(172,220, 242)
     // searchPerson.textColor = 0
     searchPerson.textSize = 20
     searchPerson.text = '     Search for a person...      '
@@ -508,7 +545,7 @@ class SS1{
     instructions(){
       ss1Instruction = new Group()
       ss1Instruction.collider = 's'
-      ss1Instruction.color = 230
+      ss1Instruction.color = color(211, 240, 253)
       ss1Instruction.visible = false
     
       ss1SearchBox = new Sprite()
@@ -516,7 +553,7 @@ class SS1{
       ss1SearchBox.x = projectMembers.x - projectMembers.w/2 + ss1SearchBox.w/2 + 5
       ss1SearchBox.h = textHeight
       ss1SearchBox.y = projectMembers.y
-      ss1SearchBox.color = 245
+      ss1SearchBox.color = color(211, 240, 253)
       ss1SearchBox.stroke = ss1SearchBox.color
       ss1SearchBox.textSize = 20
       ss1SearchBox.collider = 's'

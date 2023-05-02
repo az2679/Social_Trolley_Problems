@@ -26,6 +26,8 @@ let windowButtons
 
 function setup(){
   createCanvas(windowWidth, windowHeight)
+  textFont("Silver")
+  textSize(20)
 
   chat = new SS2(150, 50, 1000, 700)
   chat.openChat()

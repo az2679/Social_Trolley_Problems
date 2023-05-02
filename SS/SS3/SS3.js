@@ -12,17 +12,28 @@ let email
 let inboxEmailReply, replyHeading, sendHeading, inboxDividerArray
 let interactionElement, textCursor, autoComplete, tabToggle, backSpaceExtended, contextQuestion2
 
-let searchBar, ss3Instruction, ss3CloseSearch, ss3SearchBox
+let newMessageTab, sideBar, textCover, instructTextBox, ss3Instruction, ss3CloseSearch, ss3SearchBox
+let textCoverToggle = true
 
 let ss3Agent, ss3CameraMan, ss3CorrectionX, ss3CorrectionY
 
 let windowButtons
 
 
+let emailPageImg, emailCloseButtonImg, longButtonImg, shortButtonImg, artistImg
 
+function preload(){
+  emailPageImg = loadImage('widerWindow.png')
+  emailCloseButtonImg = loadImage('closeButton.png')
+  longButtonImg = loadImage('longButton.png')
+  shortButtonImg = loadImage('shortButton.png')
+  artistImg = loadImage('Frame 23.png')
+}
 
 function setup(){
   createCanvas(windowWidth, windowHeight)  
+  textFont("Silver")
+  textSize(20)
 
   email =  new SS3(50, 50, windowWidth*0.9, windowHeight*0.9)
   email.openEmail()
@@ -31,7 +42,6 @@ function setup(){
   ss3Instruction.collider ='s'
   ss3Instruction.color = 255
   ss3Instruction.stroke =0
-  ss3Instruction.visible = false
   
   ss3SearchBox = new ss3Instruction.Sprite()
   ss3SearchBox.x = 755
@@ -39,6 +49,7 @@ function setup(){
   ss3SearchBox.h = textHeight*1.25 + 4
   ss3SearchBox.y = 50 + ss3SearchBox.h/2 + 8
   ss3SearchBox.textColor = 0
+  ss3SearchBox.visible = false
 
 
   let currentMail = new ss3Instruction.Sprite()
@@ -47,32 +58,47 @@ function setup(){
   currentMail.h = ss3SearchBox.h
   currentMail.y = ss3SearchBox.y
   currentMail.color = 100
+  currentMail.visible = false
 
   let searchDropDown = new ss3Instruction.Sprite()
   searchDropDown.x = ss3SearchBox.x
   searchDropDown.w = ss3SearchBox.w
   searchDropDown.h = 300
   searchDropDown.y = 50 + searchDropDown.h*0.62 + 8 + 5
+  searchDropDown.visible = false
 
   let instructTextArray = []
-  while (instructTextArray.length < 7){
-    let instructTextBox = new ss3Instruction.Sprite()
-    instructTextBox.w = searchDropDown.w - 4
-    instructTextBox.h = textHeight *1.25 -4
-    instructTextBox.x = searchDropDown.x
-    instructTextBox.y = (searchDropDown.y - searchDropDown.h/2) + (instructTextBox.h * instructTextArray.length) + instructTextBox.h/2 +2
+  while (instructTextArray.length < 8){
+    instructTextBox = new ss3Instruction.Sprite()
+    // instructTextBox.w = searchDropDown.w - 4
+    // instructTextBox.h = textHeight *1.25 -4
+    // instructTextBox.x = searchDropDown.x
+    // instructTextBox.y = (searchDropDown.y - searchDropDown.h/2) + (instructTextBox.h * instructTextArray.length) + instructTextBox.h/2 +2
+    instructTextBox.w = sideBar.w * 0.75
+    instructTextBox.x = sideBar.x + 5
+    instructTextBox.y = (sideBar.y - sideBar.h/2) + (instructTextBox.h *0.8 * instructTextArray.length) + instructTextBox.h/2 + 5
+    instructTextBox.h = textHeight *1.2
     instructTextBox.stroke = 255
-    instructTextBox.textSize = 14
+    // instructTextBox.textSize = 14
     instructTextBox.textColor = 0
     instructTextArray.push(instructTextBox)
   }
 
+  textCover = new ss3Instruction.Sprite()
+  textCover.w = instructTextBox.w * 1.1
+  textCover.x = instructTextBox.x
+  textCover.h = instructTextBox.h * 9
+  textCover.y = sideBar.y - sideBar.h/2 + textCover.h/2 + instructTextBox.h
+  textCover.color = 255
+  textCover.stroke = textCover.color
+
   instructTextArray[1].text = 'Dear User, '
-  instructTextArray[2].text = 'This is an email inbox with an email draft open.'
-  // instructTextArray[2].text = 'Press "tab" to accept the suggestion or "backspace" to reject the suggestion. ' 
-  instructTextArray[3].text = 'Read the context about the situation provided'
-  instructTextArray[4].text = ' and make a decision by interacting with'
-  instructTextArray[5].text = 'your keyboard ("tab", "backspace" or "w").'
+  instructTextArray[2].text = 'This is an email inbox with an '
+  instructTextArray[3].text = 'email draft open. Read the context '
+  instructTextArray[4].text = 'about the situation provided and '
+  instructTextArray[5].text = 'make a decision by interacting with'
+  instructTextArray[6].text = 'your keyboard '
+  instructTextArray[7].text = '("tab", "backspace" or "w").'
 
   ss3CloseSearch = new ss3Instruction.Sprite()
   ss3CloseSearch.w = 50 
@@ -81,6 +107,7 @@ function setup(){
   ss3CloseSearch.y = ss3SearchBox.y
   ss3CloseSearch.text = 'x'
   ss3CloseSearch.stroke = 255
+  ss3CloseSearch.visible = false
 
 
   // noCursor()
@@ -102,13 +129,18 @@ function setup(){
 function draw(){
   background(220)
 
-  if (searchBar.mouse.released() || ss3SearchBox.mouse.released()){
-    ss3Instruction.visible = true
+  if (newMessageTab.mouse.released()) {
+    textCover.visible = false
   }
 
-  if (ss3CloseSearch.mouse.released()){
-    ss3Instruction.visible = false
-  }
+
+  // || ss3SearchBox.mouse.released()){
+    // ss3Instruction.visible = true
+  // }
+
+  // if (ss3CloseSearch.mouse.released()){
+  //   ss3Instruction.visible = false
+  // }
 
 
   // ss3CameraMan.x = mouseX
@@ -159,69 +191,76 @@ class SS3{
         emailWindow.h = this.h  
         emailWindow.x = this.x + this.w/2
         emailWindow.y = this.y + this.h/2
+        emailPageImg.resize(emailWindow.w, emailWindow.h)
+        emailWindow.img = emailPageImg
       
       let emailWindowTab1 = new emailSections.Sprite()
-        emailWindowTab1.w = emailWindow.w 
+        emailWindowTab1.w = emailWindow.w
         emailWindowTab1.x = emailWindow.x
         emailWindowTab1.h = emailWindow.h*0.075
         emailWindowTab1.y = (emailWindow.y-emailWindow.h/2) + emailWindowTab1.h/2
-        emailWindowTab1.color = interfaceColor1
+        // emailWindowTab1.color = interfaceColor1
+        emailWindowTab1.visible = false
       
       let emailWindowTab2 = new emailSections.Sprite()
         emailWindowTab2.w = emailWindowTab1.w -2
         emailWindowTab2.x = emailWindowTab1.x
         emailWindowTab2.h = emailWindowTab1.h
         emailWindowTab2.y = (emailWindowTab1.y+emailWindowTab1.h/2) + emailWindowTab2.h/2
+        emailWindowTab2.color = 'red'
         emailWindowTab2.stroke = emailWindowTab2.color
+        emailWindowTab2.visible = false
       
-      let sideBar = new emailSections.Sprite()
+      sideBar = new emailSections.Sprite()
         sideBar.w = emailWindow.w*0.2 
         sideBar.x = (emailWindow.x-emailWindow.w/2) + sideBar.w/2 +2
         sideBar.h = emailWindow.h - emailWindowTab1.h - emailWindowTab2.h -2
         sideBar.y = emailWindow.y + emailWindowTab1.h
         sideBar.stroke = sideBar.color
+        sideBar.visible = false
       
       let margin = 10
       
       let inboxBar = new emailSections.Sprite()
         inboxBar.w = emailWindow.w*0.25
         inboxBar.x = (sideBar.x+sideBar.w/2) + inboxBar.w/2 + margin/2
-        inboxBar.h = emailWindow.h - emailWindowTab1.h - emailWindowTab2.h
-        inboxBar.y = emailWindow.y + emailWindowTab1.h
+        inboxBar.h = emailWindow.h - emailWindowTab1.h - emailWindowTab2.h - 15
+        inboxBar.y = emailWindow.y + emailWindowTab1.h -7.5
         inboxBar.color = pageColor
-        inboxBar.stroke = emailSections.color
+        inboxBar.strokeWeight = 2
+        inboxBar.stroke = color(211, 240, 253)
       
       let emailDraft = new emailSections.Sprite()
-        emailDraft.w = emailWindow.w*0.53
-        emailDraft.x = (emailWindow.x+emailWindow.w/2) - emailDraft.w/2 - margin
-        emailDraft.h = emailWindow.h - emailWindowTab1.h - emailWindowTab2.h - margin
-        emailDraft.y = emailWindow.y + emailWindowTab1.h - margin/2
+        emailDraft.w = emailWindow.w*0.53 - 10
+        emailDraft.x = (emailWindow.x+emailWindow.w/2) - emailDraft.w/2 - margin -10
+        emailDraft.h = emailWindow.h - emailWindowTab1.h - emailWindowTab2.h - margin - 5
+        emailDraft.y = emailWindow.y + emailWindowTab1.h - margin/2 -2.5
         emailDraft.color = pageColor
+        emailDraft.strokeWeight = 2
+        emailDraft.stroke = color(127,209, 247)
   
       let emailInterface = new Group()
         emailInterface.collider = 's'
-        emailInterface.color = pageColor-10
-        emailInterface.stroke = emailInterface.color 
   
-      searchBar = new emailInterface.Sprite()
+  
+      let searchBar = new emailInterface.Sprite()
         searchBar.w = emailWindowTab1.w*0.6
         searchBar.x = emailWindowTab1.x
         searchBar.h = emailWindowTab1.h - margin *1.5
         searchBar.y = emailWindowTab1.y
         searchBar.color = interfaceColor1+30
         searchBar.stroke = searchBar.color 
-
-        searchBar.text = 'For help, click here!'
+        searchBar.visible = false
   
       windowButtons = new emailInterface.Sprite()
-        windowButtons.w = 60
-        windowButtons.x = (emailWindow.x - emailWindow.w/2) + windowButtons.h * 0.75
-        windowButtons.h = 25
-        windowButtons.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h
-        // windowButtons.color = interfaceColor1+30
-        windowButtons.color = color(150, 0, 0, 150)
-        windowButtons.stroke = 0
-        windowButtons.text = 'close'
+        windowButtons.w = 22
+        windowButtons.x = (emailWindow.x + emailWindow.w/2) - windowButtons.h * 0.4
+        windowButtons.h = 22
+        windowButtons.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h -2
+        emailCloseButtonImg.resize(windowButtons.w, windowButtons.h) 
+        windowButtons.img = emailCloseButtonImg
+        windowButtons.debug = false
+
   
       let windowButtons1 = new emailInterface.Sprite()
         windowButtons1.w = 60
@@ -230,56 +269,68 @@ class SS3{
         windowButtons1.y = (emailWindow.y - emailWindow.h/2) + windowButtons.h
         windowButtons1.color = interfaceColor1+30
         windowButtons1.stroke = windowButtons1.color 
+        windowButtons1.visible = false
   
   
       let emailDraftTab = new emailInterface.Sprite()
-        emailDraftTab.w = emailDraft.w
-        emailDraftTab.x = emailDraft.x
+        emailDraftTab.w = emailDraft.w 
+        emailDraftTab.x = emailDraft.x - 0.5
         emailDraftTab.h = emailWindowTab2.h - margin/2
         emailDraftTab.y = emailWindowTab2.y
+        emailDraftTab.color = 255
+        emailDraftTab.strokeWeight = 2
+        emailDraftTab.stroke = color(211, 240, 253)
   
-      let newMessageTab = new emailInterface.Sprite()
+      newMessageTab = new emailInterface.Sprite()
         newMessageTab.w = sideBar.w*0.75
         newMessageTab.x = (sideBar.x - sideBar.w/2) + newMessageTab.w/2 + margin*2
         newMessageTab.h = emailWindowTab2.h -margin/2
         newMessageTab.y = emailWindowTab2.y + margin/2
+        longButtonImg.resize(newMessageTab.w, newMessageTab.h)
+        newMessageTab.img = longButtonImg
+        newMessageTab.text = 'For help, click here!'
   
       let sideBarTab = new emailInterface.Sprite()
-        sideBarTab.w = sideBar.w * 0.95
-        sideBarTab.x = sideBar.x
+        sideBarTab.w = sideBar.w * 0.9
+        sideBarTab.x = sideBar.x + (sideBar.w * 0.025)
         sideBarTab.h = sideBar.h * 0.96
         sideBarTab.y = sideBar.y - sideBar.h * 0.005
+        sideBarTab.color = 255
+        sideBarTab.strokeWeight = 2
+        sideBarTab.stroke = color(211, 240, 253)
   
       let focusedInbox = new emailInterface.Sprite()
         focusedInbox.w = inboxBar.w
         focusedInbox.x = inboxBar.x
         focusedInbox.h = inboxBar.h* 0.125
         focusedInbox.y = (inboxBar.y - inboxBar.h/2) + focusedInbox.h/2
-        focusedInbox.stroke = emailSections.color
+        focusedInbox.color = color(211, 240, 253)
+        focusedInbox.stroke = color(127, 209, 247)
   
   
       let inboxEmail = new Group()
         inboxEmail.collider = 's'
         inboxEmail.color = inboxBar.color
+        inboxEmail.stroke = color(127, 209, 247)
         inboxEmail.w = inboxBar.w
         inboxEmail.x = inboxBar.x
-        inboxEmail.h = textHeight*1.6
+        inboxEmail.h = textHeight*1.2
   
       let inboxEmailReplyArray = []
         while (inboxEmailReplyArray.length < 3){
           inboxEmailReply = new inboxEmail.Sprite()
-          inboxEmailReply.stroke = emailSections.color
+          inboxEmailReply.stroke = color(211, 240, 253)
           inboxEmailReply.y = ((inboxBar.y-inboxBar.h/2) + focusedInbox.h)  + inboxEmail.h/2 + (inboxEmail.h * inboxEmailReplyArray.length)
           inboxEmailReplyArray.push(inboxEmailReply)
         }
-  
-      inboxEmailReplyArray[1].color = 210
+        inboxEmailReplyArray[1].color = color(211, 240, 253)
+      inboxEmailReplyArray[1].color = color(127, 209, 247)
   
       inboxDividerArray = []
         while (inboxDividerArray.length < 6){
           let inboxDivider = new inboxEmail.Sprite()
           inboxDivider.h = 0
-          inboxDivider.stroke = emailSections.color
+          // inboxDivider.stroke = emailSections.color
           inboxDivider.y = (inboxEmailReply.y + inboxEmailReply.h/2) +  (textHeight * inboxDividerArray.length * 2.2)
           inboxDividerArray.push(inboxDivider)
         }
@@ -288,6 +339,9 @@ class SS3{
         draftElements.collider = 's'
         draftElements.color = 255
         draftElements.stroke = 0
+        draftElements.color = 255
+        draftElements.strokeWeight = 2
+        draftElements.stroke = color(211, 240, 253)
   
       let draftHeading = new draftElements.Sprite()
         draftHeading.w = emailDraft.w
@@ -311,8 +365,7 @@ class SS3{
         replyHeading.x = (draftReplyTo.x - draftReplyTo.w/2) + replyHeading.w/2 + margin*2
         replyHeading.h = textHeight
         replyHeading.y = (draftReplyTo.y - draftReplyTo.h/2) + (replyHeadingArray.length * replyHeading.h) - draftReplyTo.h*0.2
-        replyHeading.color=230
-        replyHeading.stroke = replyHeading.color +10
+        
         }
   
       let replyHeadingTextArray = []
@@ -323,8 +376,6 @@ class SS3{
           replyHeadingText.x = (replyHeading.x + replyHeading.w/2) + replyHeadingText.w/2
           replyHeadingText.h = textHeight
           replyHeadingText.y = (draftReplyTo.y - draftReplyTo.h/2) + (replyHeadingTextArray.length * replyHeadingText.h) - draftReplyTo.h*0.2
-          replyHeadingText.color=230
-          replyHeadingText.stroke = replyHeadingText.color +10
         }
   
       let replyLine = new draftElements.Sprite()
@@ -332,15 +383,21 @@ class SS3{
         replyLine.x = (draftReplyTo.x - draftReplyTo.w/2) + replyLine.w/2 + margin*2
         replyLine.h = 0
         replyLine.y = draftReplyTo.y - draftReplyTo.h*0.65
-        replyLine.stroke = 0
+
   
       let draftSaved = new draftElements.Sprite()
         draftSaved.w = draftReplyTo.w * 0.3
         draftSaved.x = (draftReplyTo.x + draftReplyTo.w/2) - draftSaved.w/2 - margin*1.5
         draftSaved.h = textHeight*0.75
         draftSaved.y = emailDraft.y+emailDraft.h/2 - draftSaved.h/2 - margin
-        draftSaved.color = 230
-        draftSaved.stroke = draftSaved.color
+
+        let artist = new draftElements.Sprite()
+        artist.w = draftSaved.w /4
+        artist.x = draftSaved.x + draftSaved.w/2 - artist.w/2 - 10
+        artist.y = draftSaved.y
+        artist.h = draftSaved.h -5
+        artist.img = artistImg
+        artist.debug=false
   
   
       let sendHeadingArray = []
@@ -351,8 +408,6 @@ class SS3{
           sendHeading.x = (draftHeading.x - draftHeading.w/2) + sendHeading.w/2 + margin*2
           sendHeading.h = textHeight
           sendHeading.y = (draftHeading.y - draftHeading.h/2) + (sendHeadingArray.length * sendHeading.h * 1.3) 
-          sendHeading.color=230
-          sendHeading.stroke = sendHeading.color + 10
         }
   
       let sendHeadingLinesArray = []
@@ -363,7 +418,7 @@ class SS3{
           sendHeadingLines.x = (draftHeading.x + draftHeading.w/2) - sendHeadingLines.w/2 - margin*2
           sendHeadingLines.h = 0
           sendHeadingLines.y = (draftHeading.y - draftHeading.h/2) + (sendHeadingLinesArray.length * (textHeight) * 1.3) + textHeight*0.4
-          sendHeadingLines.stroke=200
+          sendHeadingLines.stroke = color(211, 240, 253)
         }
   
       let textEditor = new draftElements.Sprite()
@@ -371,8 +426,7 @@ class SS3{
         textEditor.x = draftHeading.x - draftHeading.w/2 + textEditor.w/2 + margin*2
         textEditor.h = sendHeading.h*1.1
         textEditor.y = draftHeading.y + draftHeading.h/2 - textEditor.h/2 
-        textEditor.color = 240
-        textEditor.stroke = textEditor.color
+
   
       let contextPlacement = new Group()
         contextPlacement.collider = 's'
@@ -438,7 +492,7 @@ class SS3{
         contextQuestion.x = textEditor.x
         contextQuestion.h = textHeight
         contextQuestion.y = textEditor.y + textEditor.h/2 + contextQuestion.h/2 + emailDraft.h*0.15
-        contextQuestion.textSize = 15
+        // contextQuestion.textSize = 20
         contextQuestion.text = 'When the teacher asked the class representative if everyone participated,'
   
       let contextQuestion1 = new contextPlacement.Sprite()
@@ -446,7 +500,7 @@ class SS3{
         contextQuestion1.x = textEditor.x
         contextQuestion1.h = textHeight
         contextQuestion1.y = textEditor.y + textEditor.h/2 + contextQuestion.h*1.5 + emailDraft.h*0.15
-        contextQuestion1.textSize = 15
+        contextQuestion1.textSize = 22
         contextQuestion1.text = 'should they lie and say that everyone participated?                                    '
         // contextQuestion1.color = 255
   
@@ -455,7 +509,7 @@ class SS3{
         contextQuestion2.x = textEditor.x 
         contextQuestion2.h = textHeight 
         contextQuestion2.y = textEditor.y + textEditor.h/2 + contextQuestion.h/2 + emailDraft.h*0.15 - textHeight
-        contextQuestion2.textSize = 15
+        contextQuestion2.textSize = 22
         contextQuestion2.text = '  However, when conducting the experiment, a few classmates were absent.'
   
   
@@ -467,15 +521,16 @@ class SS3{
 
       autoComplete = new interactionElement.Sprite()
         autoComplete.w = contextQuestion1.w * 0.577
-        autoComplete.x = contextQuestion1.x+contextQuestion1.w/2 - autoComplete.w/2
+        autoComplete.x = contextQuestion1.x+contextQuestion1.w/2 - autoComplete.w*0.575
         autoComplete.h = contextQuestion1.h
         autoComplete.y = contextQuestion1.y
-        autoComplete.textSize = 15
+        autoComplete.textSize = 22
         autoComplete.textColor = 200
         // autoComplete.text = 'veryone participated?                                             '
-        autoComplete.text = 'veryone participated?                                                       '
+        autoComplete.text = 'veryone participated?                                       '
         autoComplete.color = 255
         autoComplete.stroke = autoComplete.color
+
 
 
       let tabButton = new interactionElement.Sprite()
@@ -486,10 +541,13 @@ class SS3{
         tabButton.y = autoComplete.y
         autoComplete.color = 255
           //need to set color or it wont show
-        tabButton.text = 'tab'
-        tabButton.textSize = 12
-        tabButton.textColor = 200
-        tabButton.stroke = 200
+        tabButton.text = 'tab   '
+        // tabButton.textSize = 12
+        tabButton.textColor = 255
+        // tabButton.stroke = color(127,209,247)
+        shortButtonImg.resize(tabButton.w*1.3, tabButton.h)
+        tabButton.img = shortButtonImg
+        tabButton.debug=false
   
       textCursor = new Sprite()
         textCursor.w = 1
