@@ -27,7 +27,7 @@ function preload(){
   emailCloseButtonImg = loadImage('closeButton.png')
   longButtonImg = loadImage('longButton.png')
   shortButtonImg = loadImage('shortButton.png')
-  artistImg = loadImage('Frame 23.png')
+  artistImg = loadImage('artist.png')
 }
 
 function setup(){
