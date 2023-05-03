@@ -24,8 +24,8 @@ let jiraDecision;
 let jiraPageImg, jiraCloseButtonImg
 
 function preload(){
-  jiraPageImg = loadImage('biggerWindow.png')
-  jiraCloseButtonImg = loadImage('closeButton.png')
+  jiraPageImg = loadImage('assets/biggerWindow.png')
+  jiraCloseButtonImg = loadImage('assets/closeButton.png')
 }
 
 

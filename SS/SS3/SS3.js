@@ -20,14 +20,16 @@ let ss3Agent, ss3CameraMan, ss3CorrectionX, ss3CorrectionY
 let windowButtons
 
 
-let emailPageImg, emailCloseButtonImg, longButtonImg, shortButtonImg, artistImg
+let emailPageImg, emailCloseButtonImg, longButtonImg, shortButtonImg, artistImg, emailBodyImg, inboxEmailImg
 
 function preload(){
-  emailPageImg = loadImage('widerWindow.png')
-  emailCloseButtonImg = loadImage('closeButton.png')
-  longButtonImg = loadImage('longButton.png')
-  shortButtonImg = loadImage('shortButton.png')
-  artistImg = loadImage('artist.png')
+  emailPageImg = loadImage('assets/widerWindow.png')
+  emailCloseButtonImg = loadImage('assets/closeButton.png')
+  longButtonImg = loadImage('assets/longButton.png')
+  shortButtonImg = loadImage('assets/shortButton.png')
+  artistImg = loadImage('assets/artist.png')
+  emailBodyImg = loadImage('assets/emailBody.png')
+  inboxEmailImg = loadImage('assets/inboxEmail.png')
 }
 
 function setup(){
@@ -249,6 +251,10 @@ class SS3{
         emailDraft.color = pageColor
         emailDraft.strokeWeight = 2
         emailDraft.stroke = color(127,209, 247)
+
+        //CHECK
+        emailBodyImg.resize(emailDraft.w, emailDraft.h)
+        emailDraft.img = emailBodyImg
   
       let emailInterface = new Group()
         emailInterface.collider = 's'
@@ -341,9 +347,10 @@ class SS3{
       inboxDividerArray = []
         while (inboxDividerArray.length < 6){
           let inboxDivider = new inboxEmail.Sprite()
-          inboxDivider.h = 0
+          inboxDivider.h = textHeight *2
           // inboxDivider.stroke = emailSections.color
-          inboxDivider.y = (inboxEmailReply.y + inboxEmailReply.h/2) +  (textHeight * inboxDividerArray.length * 2.2)
+          inboxDivider.stroke = 'red'
+          inboxDivider.y = (inboxEmailReply.y + inboxEmailReply.h/2) +  (textHeight * inboxDividerArray.length * 1.2)
           inboxDividerArray.push(inboxDivider)
         }
   
