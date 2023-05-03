@@ -87,10 +87,11 @@ function setup(){
   textCover = new ss3Instruction.Sprite()
   textCover.w = instructTextBox.w * 1.1
   textCover.x = instructTextBox.x
-  textCover.h = instructTextBox.h * 9
-  textCover.y = sideBar.y - sideBar.h/2 + textCover.h/2 + instructTextBox.h
+  textCover.h = instructTextBox.h * 10
+  textCover.y = sideBar.y - sideBar.h/2 + textCover.h/2 + instructTextBox.h*0.6
   textCover.color = 255
   textCover.stroke = textCover.color
+
 
   instructTextArray[1].text = 'Dear User, '
   instructTextArray[2].text = 'This is an email inbox with an '
@@ -101,10 +102,15 @@ function setup(){
   instructTextArray[7].text = '("tab", "backspace" or "w").'
 
   ss3CloseSearch = new ss3Instruction.Sprite()
-  ss3CloseSearch.w = 50 
-  ss3CloseSearch.x = ss3SearchBox.x + ss3SearchBox.w/2  - ss3CloseSearch.w/2 -4
-  ss3CloseSearch.h = ss3SearchBox.h -4
-  ss3CloseSearch.y = ss3SearchBox.y
+  // ss3CloseSearch.w = 50 
+  // ss3CloseSearch.x = ss3SearchBox.x + ss3SearchBox.w/2  - ss3CloseSearch.w/2 -4
+  // ss3CloseSearch.h = ss3SearchBox.h -4
+  // ss3CloseSearch.y = ss3SearchBox.y
+  ss3CloseSearch.w = 30 
+  ss3CloseSearch.x = sideBar.x + sideBar.w/2  - ss3CloseSearch.w/2 - 20
+  ss3CloseSearch.h = ss3CloseSearch.w
+  ss3CloseSearch.y = sideBar.y - sideBar.h/2 + ss3CloseSearch.h
+
   ss3CloseSearch.text = 'x'
   ss3CloseSearch.stroke = 255
   ss3CloseSearch.visible = false
@@ -131,6 +137,11 @@ function draw(){
 
   if (newMessageTab.mouse.released()) {
     textCover.visible = false
+    ss3CloseSearch.visible = true
+  }
+  if (ss3CloseSearch.mouse.released()){
+    textCover.visible = true
+    ss3CloseSearch.visible = false
   }
 
 
@@ -288,6 +299,7 @@ class SS3{
         newMessageTab.y = emailWindowTab2.y + margin/2
         longButtonImg.resize(newMessageTab.w, newMessageTab.h)
         newMessageTab.img = longButtonImg
+        newMessageTab.textColor = 255
         newMessageTab.text = 'For help, click here!'
   
       let sideBarTab = new emailInterface.Sprite()
@@ -492,8 +504,8 @@ class SS3{
         contextQuestion.x = textEditor.x
         contextQuestion.h = textHeight
         contextQuestion.y = textEditor.y + textEditor.h/2 + contextQuestion.h/2 + emailDraft.h*0.15
-        // contextQuestion.textSize = 20
-        contextQuestion.text = 'When the teacher asked the class representative if everyone participated,'
+        contextQuestion.textSize = 22
+        contextQuestion.text = 'When the teacher asked the class representative if everyone participated,           '
   
       let contextQuestion1 = new contextPlacement.Sprite()
         contextQuestion1.w = textEditor.w
@@ -510,7 +522,7 @@ class SS3{
         contextQuestion2.h = textHeight 
         contextQuestion2.y = textEditor.y + textEditor.h/2 + contextQuestion.h/2 + emailDraft.h*0.15 - textHeight
         contextQuestion2.textSize = 22
-        contextQuestion2.text = '  However, when conducting the experiment, a few classmates were absent.'
+        contextQuestion2.text = 'However, when conducting the experiment, a few classmates were absent.              '
   
   
   

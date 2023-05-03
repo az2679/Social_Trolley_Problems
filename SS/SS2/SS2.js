@@ -24,6 +24,14 @@ let ss2Agent, ss2CameraMan, ss2CorrectionX, ss2CorrectionY
 
 let windowButtons
 
+let chatWindowImg, infoWindowImg, infoWindowCoverImg
+
+function preload(){
+  chatWindowImg = loadImage('chatWindow.png')
+  infoWindowImg = loadImage('infoWindow.png')
+  infoWindowCoverImg = loadImage('windowCover.png')
+}
+
 function setup(){
   createCanvas(windowWidth, windowHeight)
   textFont("Silver")
@@ -286,6 +294,9 @@ class SS2{
     chatWindow.h = this.h
     chatWindow.x = this.x + this.w/2
     chatWindow.y = this.y + this.h/2
+    chatWindowImg.resize(chatWindow.w, chatWindow.h)
+    chatWindow.img = chatWindowImg
+
   let sideBar = new chat.Sprite()
     sideBar.y = chatWindow.y
     sideBar.h = chatWindow.h 
@@ -293,6 +304,8 @@ class SS2{
     sideBar.x = (chatWindow.x - (chatWindow.w/2)) + (sideBar.w/2)
     // sideBar.x = this.x + (sideBar.w/2)
     sideBar.color = interfaceColor
+    sideBar.visible = false
+
   let chatName = new chat.Sprite()
     chatName.w = chatWindow.w - sideBar.w
     chatName.x = (sideBar.x + (sideBar.w/2)) + (chatName.w/2)
@@ -338,14 +351,16 @@ class SS2{
     infoWindow.h = (chatWindow.h - chatName.h) * 0.95
     infoWindow.y = (infoButtonHover.y + infoButtonHover.h/2) + (infoWindow.h/2)
     infoWindow.color = 200
-    infoWindow.stroke=0
+    infoWindow.stroke='red'
+    infoWindowImg.resize(infoWindow.w, infoWindow.h)
+    infoWindow.img = infoWindowImg
 
   let infoIconArray = []
   while(infoIconArray.length < 4){
     let infoIcon = new infoTab.Sprite()
     infoIconArray.push(infoIcon)
     infoIcon.d = 50 - (infoIconArray.length*8)
-    infoIcon.y = (infoWindow.y - infoWindow.h/2) + infoWindow.h*0.1
+    infoIcon.y = (infoWindow.y - infoWindow.h/2) + infoWindow.h*0.125
     infoIcon.x = infoWindow.x +5
     infoIcon.stroke = infoIcon.color
   }
@@ -450,8 +465,8 @@ class SS2{
   let hideChat = new chat.Sprite()
   hideChat.h = chatWindow.h/2
   hideChat.y = chatWindow.y + chatName.h
-  hideChat.w = (infoWindow.x-infoWindow.w/2) - (sideBar.x+sideBar.w/2) 
-  hideChat.x = (sideBar.x+sideBar.w/2) + hideChat.w/2
+  hideChat.w = (infoWindow.x-infoWindow.w/2) - (sideBar.x+sideBar.w/2) - 40
+  hideChat.x = (sideBar.x+sideBar.w/2) + hideChat.w/2 + 40
   hideChat.color = chatWindow.color
   hideChat.stroke = chatWindow.color
   hideChat.layer = 35
@@ -461,7 +476,17 @@ class SS2{
   infoWindowLine.w=0
   infoWindowLine.h = infoWindow.h
   infoWindowLine.y = infoWindow.y
-  infoWindowLine.stroke = 0
+  infoWindowLine.stroke = 'blue'
+  infoWindowLine.visible = false
+
+  let infoWindowCover = new infoTab.Sprite()
+  infoWindowCover.w = 15
+  infoWindowCover.x = infoWindowLine.x + infoWindowCover.w/2 +1
+  infoWindowCover.h = friendInQ.h * 1.5
+  infoWindowCover.y = infoWindowLine.y + infoWindowLine.h*0.25
+  infoWindowCoverImg.resize(infoWindowCover.w, infoWindowCover.h)
+  infoWindowCover.img = infoWindowCoverImg
+  
 
   infoDivider = new infoTab.Sprite()
   infoDivider.w = infoWindow.w - (2*((infoLocShare.x-infoLocShare.w/2) - (infoWindow.x-infoWindow.w/2)))
@@ -608,6 +633,7 @@ class SS2{
       hideChatLine.h = 0
       hideChatLine.y = sideBar.y+sideBar.h/2 -1
       hideChatLine.stroke = 0
+
 
   let chatMessageX = (chatWindow.x-chatWindow.w/2) + (sideBar.w) 
 
