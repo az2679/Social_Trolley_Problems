@@ -28,7 +28,7 @@ let trolley
 let trolleyExplain, jiraExplain, chatExplain, emailExplain
 
   
-let trolleyFolder, ss1Folder, ss2Folder, ss3Folder
+let trolleyFolder, ss1Folder, ss2Folder, ss3Folder, folderHover
 let trolleyToggle = false
 let jiraToggle = false
 
@@ -55,26 +55,27 @@ function preload(){
   toolBarImg = loadImage('assets/pixelWindow/toolBar.png')
 
 
+
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
   // userAnimation = loadAnimation(spriteSheet)
 
-  user = new Sprite(width/2, height/2, 16, 16)
-  user.spriteSheet = 'assets/userSprite.png'
+  // user = new Sprite(width/2, height/2, 16, 16)
+  // user.spriteSheet = 'assets/userSprite.png'
 
-  user.anis.offset.x=2
-  user.anis.frameDelay=8
+  // user.anis.offset.x=2
+  // user.anis.frameDelay=8
 
-  user.addAnis({
-    down: { row:0, frames: 4 },
-    downLeft: { row:1, frames: 4},
-    left: { row:2, frames: 4 },
-    upLeft: { row:3, frames: 4},
-    up: { row:4, frames: 4 },
-    upRight: { row:5, frames: 4},
-    right: { row:6, frames: 4 },
-    downRight: { row:7, frames: 4}
-  })
-  user.ani = 'down'
+  // user.addAnis({
+  //   down: { row:0, frames: 4 },
+  //   downLeft: { row:1, frames: 4},
+  //   left: { row:2, frames: 4 },
+  //   upLeft: { row:3, frames: 4},
+  //   up: { row:4, frames: 4 },
+  //   upRight: { row:5, frames: 4},
+  //   right: { row:6, frames: 4 },
+  //   downRight: { row:7, frames: 4}
+  // })
+  // user.ani = 'down'
 }
 
 
@@ -96,8 +97,9 @@ function setup() {
     toolBarApps.h = appSize
     toolBarApps.y = height - toolBarApps.h*2
     toolBarApps.x = width*0.25 + (toolBarApps.w * toolBarArray.length * 1.25)
-    toolBarApps.color = 245
-    toolBarApps.stroke = toolBarApps.color
+    toolBarApps.color = 255
+    toolBarApps.stroke = color(211, 240, 253)
+    toolBarApps.strokeWeight = 3
     toolBarApps.collider ='s'
     toolBarApps.layer = 2
     toolBarArray.push(toolBarApps)
@@ -117,7 +119,7 @@ function setup() {
   toolBar.img = toolBarImg
 
   toolBarArray[9].w = 0
-  toolBarArray[9].stroke = 0
+  toolBarArray[9].stroke = color(211, 240, 253)
   toolBarArray[2].visible = false
   toolBarArray[5].visible = false
   toolBarArray[7].visible = false
@@ -176,7 +178,7 @@ function setup() {
   folder.h = 100
   folder.x = width - (folder.w *2)
   folder.y = (folder.h/2) *1.5
-  folder.visible = true
+  folder.visible = false
   folder.textColor = 255
   folder.debug=false
 
@@ -208,6 +210,18 @@ function setup() {
   ss3Folder.img = folderEmailImg
 
  
+  folderHover = new Sprite()
+  folderHover.collider = 's'
+  folderHover.w = folder.w + 15
+  folderHover.h = folder.h + 20
+  folderHover.x = project.x 
+  folderHover.y = project.y -5
+  folderHover.layer = project.layer-5
+  folderHover.color = 220
+  folderHover.stroke = color(211, 240, 253)
+  folderHover.strokeWeight = 5
+  folderHover.visible = false
+
 
 
   // let explaination = new Group()
@@ -235,6 +249,8 @@ function setup() {
   chatExplain = document.getElementById('chatExplain')
   emailExplain = document.getElementById('emailExplain')
   
+
+
 }
 
 
@@ -294,25 +310,40 @@ function draw() {
     ss3Notif.visible = false
   }
 
-  // if (ss1Notif.visible == false && ss2Notif.visible == false && ss3Notif.visible == false) {
-    // asyncFolder()
-    // folder.visible = true
+  if (ss1Notif.visible == false && ss2Notif.visible == false && ss3Notif.visible == false) {
+    asyncFolder()
+    folder.visible = true
 
-  // }
+  }
 
   if(project.mouse.released()){
     projectExplain.showModal()
+    folderHover.visible = true
+    folderHover.x = project.x 
+    folderHover.y = project.y -5
   }
   if(trolleyFolder.mouse.released()){
+    folderHover.visible = true
+    folderHover.x = trolleyFolder.x 
+    folderHover.y = trolleyFolder.y -5
     trolleyExplain.showModal()
   }
   if(ss1Folder.mouse.released()){
+    folderHover.visible = true
+    folderHover.x = ss1Folder.x 
+    folderHover.y = ss1Folder.y -5
     jiraExplain.showModal()
   }
   if(ss2Folder.mouse.released()){
+    folderHover.visible = true
+    folderHover.x = ss2Folder.x 
+    folderHover.y = ss2Folder.y -5
     chatExplain.showModal()
   }
   if(ss3Folder.mouse.released()){
+    folderHover.visible = true
+    folderHover.x = ss3Folder.x 
+    folderHover.y = ss3Folder.y -5
     emailExplain.showModal()
   }
   

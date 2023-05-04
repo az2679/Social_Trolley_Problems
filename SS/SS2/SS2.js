@@ -24,15 +24,18 @@ let ss2Agent, ss2CameraMan, ss2CorrectionX, ss2CorrectionY
 
 let windowButtons
 
-let chatWindowImg, infoWindowImg, infoWindowCoverImg, closeButtonImg, chatNameImg, chatBodyImg
+let chatWindowImg, infoWindowImg, infoWindowCoverImg, chatCloseButtonImg, chatNameImg, chatBodyImg, instructionBoxImg, selectedChatImg, infoButtonImg
 
 function preload(){
   chatWindowImg = loadImage('assets/whiteChat.png')
   infoWindowImg = loadImage('assets/infoWindow.png')
   infoWindowCoverImg = loadImage('assets/infoWindowCover.png')
-  closeButtonImg = loadImage('assets/closeButton.png')
+  chatCloseButtonImg = loadImage('assets/closeButton.png')
   chatNameImg = loadImage('assets/chatHeader.png')
   chatBodyImg = loadImage('assets/chatBody.png')
+  instructionBoxImg = loadImage('assets/squareText.png')
+  selectedChatImg = loadImage('assets/textBox.png')
+  infoButtonImg = loadImage('assets/infoButton.png')
 }
 
 function setup(){
@@ -104,6 +107,8 @@ function setup(){
   ss2InstructionBG.x = ss2SearchBG.x
   ss2InstructionBG.y = ss2SearchBG.y + ss2InstructionBG.h*0.1
   ss2InstructionBG.color = 255
+  instructionBoxImg.resize(ss2InstructionBG.w, ss2InstructionBG.h)
+  ss2InstructionBG.img = instructionBoxImg
 
   // ss2InstructionBG.text = 'This is a messaging app, opened to the friend group chat. Interact with the information tab on the top right corner, as well as the items on the information tabs panel.'
 
@@ -152,8 +157,9 @@ function setup(){
   ss2CloseSearch.w = ss2CloseSearch.h
   ss2CloseSearch.y = ss2SearchBox.y-ss2CloseSearch.h/2 -2
   ss2CloseSearch.x = ss2SearchBox.x+ ss2SearchBox.w/2 - ss2CloseSearch.w/2 - 2.5
-  ss2CloseSearch.text = 'x'
+  // ss2CloseSearch.text = 'x'
   ss2CloseSearch.layer = 50
+  ss2CloseSearch.img = chatCloseButtonImg
 
   infoTab.visible = true
 
@@ -336,8 +342,11 @@ class SS2{
     infoButton.x = (chatName.x + (chatName.w/2)) - textHeight*1.5
     // infoButton.x = chatWindow.x + chatWindow.w/2 - infoButton.y* 0.3
     infoButton.layer = 3
-    infoButton.strokeWeight = 2
-    infoButton.stroke = color(137,213, 247)
+    // infoButton.strokeWeight = 2
+    // infoButton.stroke = color(137,213, 247)
+    // infoButton.text='i'
+    infoButtonImg.resize(infoButton.d, infoButton.d)
+    infoButton.img = infoButtonImg
 
 
 
@@ -373,7 +382,7 @@ class SS2{
     infoIcon.d = 50 - (infoIconArray.length*8)
     infoIcon.y = (infoWindow.y - infoWindow.h/2) + infoWindow.h*0.125
     infoIcon.x = infoWindow.x +5
-    infoIcon.stroke = infoIcon.color
+    infoIcon.stroke = color(127, 209, 247)
   }
   infoIconArray[0].x = (infoWindow.x +5) - (infoIconArray[0].r + 3)
   infoIconArray[1].x = (infoWindow.x +5)  + (infoIconArray[1].r + 3)
@@ -530,12 +539,22 @@ class SS2{
     windowButtons = new chatElement.Sprite()
     //doesn't resize so hard code placement
     windowButtons.w = 20
-    windowButtons.x = (chatWindow.x - chatWindow.w/2) + windowButtons.h*0.32
+    windowButtons.x = (chatWindow.x - chatWindow.w/2) + windowButtons.h*0.32 + 1
     windowButtons.h = windowButtons.w
     windowButtons.y = (chatWindow.y - chatWindow.h/2) + windowButtons.h*1
-    closeButtonImg.resize(windowButtons.w, windowButtons.h)
-    windowButtons.img = closeButtonImg
+    chatCloseButtonImg.resize(windowButtons.w, windowButtons.h)
+    windowButtons.img = chatCloseButtonImg
     windowButtons.debug = false
+
+    let closeHighlight = new chatElement.Sprite()
+        closeHighlight.w = windowButtons.w + 2
+        closeHighlight.x = windowButtons.x 
+        closeHighlight.h = windowButtons.h + 2
+        closeHighlight.y = windowButtons.y
+        closeHighlight.layer = windowButtons.layer -1
+        closeHighlight.stroke = 255
+        closeHighlight.strokeWeight = 3
+        closeHighlight.color = closeHighlight.stroke
     
 
     searchBar = new chatElement.Sprite()
@@ -544,10 +563,11 @@ class SS2{
     searchBar.x = sideBar.x
     searchBar.h = textHeight
     searchBar.y = (sideBar.y - sideBar.h/2) + searchBar.h/2 + windowButtons.h*2.5
-    searchBar.textColor = 0
-    searchBar.text = 'For help, click here                         '
+    searchBar.textColor = 255
+    searchBar.textSize = 22
+    searchBar.text = 'Instructions                             '
     searchBar.color = 255
-    searchBar.strokeWeight =2
+    searchBar.strokeWeight =3
     searchBar.stroke = color(211,240, 253)
 
     searchIcon = new chatElement.Sprite()
@@ -651,7 +671,10 @@ class SS2{
     selectedChat.color = 255
     // selectedChat.stroke = selectedChat.color
     selectedChat.strokeWeight = 2
-    selectedChat.stroke = color(211,240,253)
+    selectedChat.color = color(211, 240, 253)
+    selectedChat.stroke = color(211, 240, 253)
+    // selectedChatImg.resize(selectedChat.w, selectedChat.h)
+    // selectedChat.img = selectedChatImg
 
     sideIconArray[0].layer = selectedChat.layer+1
     sideNameArray[0].layer = selectedChat.layer+1

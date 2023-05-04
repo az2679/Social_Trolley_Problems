@@ -21,11 +21,15 @@ let ss1Agent, ss1CameraMan, ss1CorrectionX, ss1CorrectionY
 let exitButton
 let jiraDecision;
 
-let jiraPageImg, jiraCloseButtonImg
+let project2, closeInstructions, sideBarInstruction
+let jiraPageImg, jiraCloseButtonImg, jiraInstructionImg, createButtonImg, contextImg
 
 function preload(){
   jiraPageImg = loadImage('assets/biggerWindow.png')
   jiraCloseButtonImg = loadImage('assets/closeButton.png')
+  jiraInstructionImg = loadImage('assets/rectText.png')
+  createButtonImg = loadImage('assets/shortButton.png')
+  contextImg = loadImage('assets/squareText.png')
 }
 
 
@@ -37,7 +41,7 @@ function setup(){
   jira = new SS1(200, 50, 1000, 700)
   jira.openJira()
   jira.makeTable()
-  jira.instructions()
+  // jira.instructions()
 
 
   assignIconGroup.overlap(assignGroup)
@@ -49,11 +53,18 @@ function setup(){
 function draw(){
   background(220)
 
-  if (ss1SearchBox.mouse.released()){
-    ss1Instruction.visible = true
+  // if (ss1SearchBox.mouse.released()){
+  //   ss1Instruction.visible = true
+  // }
+  // if (ss1CloseSearch.mouse.released()){
+  //   ss1Instruction.visible = false
+  // }
+
+  if (project2.mouse.released()){
+    sideBarInstruction.visible = true
   }
-  if (ss1CloseSearch.mouse.released()){
-    ss1Instruction.visible = false
+  if(closeInstructions.mouse.released()){
+    sideBarInstruction.visible = false
   }
 
   // ss1CameraMan.x = mouseX
@@ -110,6 +121,7 @@ function draw(){
     toggleAssignBox = !toggleAssignBox
   }
 
+ 
 
 
   if(exitButton.mouse.released()){
@@ -219,7 +231,17 @@ class SS1{
         jiraCloseButtonImg.resize(exitButton.w+1, exitButton.h)
         exitButton.img = jiraCloseButtonImg
         exitButton.debug=false
-      
+
+        let closeHighlight = new pageLine.Sprite()
+        closeHighlight.w = exitButton.w + 2
+        closeHighlight.x = exitButton.x
+        closeHighlight.h = exitButton.h + 2
+        closeHighlight.y = exitButton.y
+        closeHighlight.layer = exitButton.layer -1
+        closeHighlight.stroke = 255
+        closeHighlight.strokeWeight = 3
+        closeHighlight.color = closeHighlight.stroke
+
         //Header Tab Elements
         headerLine = new pageLine.Sprite()
           headerLine.x = page.x
@@ -275,18 +297,126 @@ class SS1{
             sideBar.w = headerLine.w / 5
             sideBar.x = (page.x - page.w/2) + (sideBar.w * 0.6)
             sideBar.h = 1
-            sideBar.strokeWeight = 2
-            sideBar.stroke = color(211, 240, 253)
             sideBar.color = 255
+            sideBar.stroke = sideBar.color
       
-          let sideBarProjects = new sideBar.Sprite ()
+            let sideBarProjects = new sideBar.Sprite()
             sideBarProjects.h = page.h * 0.05
             sideBarProjects.y = (page.y-page.h/2) + (headerLine.y - (page.y-page.h/2)) + sideBarProjects.h/2 + 25
-            sideBarProjects.textSize = 28
-            // sideBarProjects.text = 'Projects                '
-          let sideBarList = new sideBar.Sprite()
+            sideBarProjects.textSize = 30
+            sideBarProjects.text = 'Projects                '
+            // sideBarProjects.strokeWeight = 2
+            // sideBarProjects.stroke = color(211, 240, 253)
+            // sideBarProjects.color = 255
+
+            let sideBarList = new sideBar.Sprite()
             sideBarList.h = textHeight* 8
-            sideBarList.y = (sideBarProjects.y + sideBarProjects.h) + sideBarList.h/2
+            sideBarList.y = (sideBarProjects.y + sideBarProjects.h) + sideBarList.h/2 - sideBarProjects.h/2
+            sideBarList.strokeWeight = 2
+            // sideBarList.stroke = color(211, 240, 253)
+            sideBarList.color = 255
+
+            let starred = new sideBar.Sprite()
+              starred.h = textHeight 
+              starred.y = sideBarList.y - sideBarList.h/2 + starred.h/2 + 20
+              starred.w = sideBarList.w/2
+              starred.x = sideBarList.x - sideBarList.w/2 + starred.w/2 
+              starred.textSize = 18
+              starred.text = 'STARRED'
+            let project1Hover = new sideBar.Sprite()
+              project1Hover.h = textHeight *1.5
+              project1Hover.y = starred.y + starred.h/2 + project1Hover.h/2 - textHeight/4
+              project1Hover.w = sideBarList.w+20
+              project1Hover.x = sideBarList.x - sideBarList.w/2 + project1Hover.w/2 -10
+              project1Hover.color = color(211, 240, 253)
+            let project1Icon = new sideBar.Sprite()
+              project1Icon.h = textHeight 
+              project1Icon.y = starred.y + starred.h/2 + project1Icon.h/2 
+              project1Icon.w = project1Icon.h
+              project1Icon.x = sideBarList.x - sideBarList.w/2 + project1Icon.w/2 
+              project1Icon.color = 255
+              project1Icon.stroke = project1Icon.color
+            let project1 = new sideBar.Sprite()
+              project1.h = textHeight 
+              project1.y = starred.y + starred.h/2 + project1.h/2 +3
+              project1.w = sideBarList.w/2
+              project1.x = sideBarList.x - sideBarList.w/2 + project1.w/2 + project1Icon.w *1.25
+              project1.color = color(211, 240, 253)
+              project1.stroke = project1.color
+              project1.textSize = 22
+              project1.text = 'Task Assignment'
+            
+            let recent = new sideBar.Sprite()
+              recent.h = textHeight 
+              recent.y = project1Hover.y + project1Hover.h/2 + recent.h/2
+              recent.w = sideBarList.w/2
+              recent.x = sideBarList.x - sideBarList.w/2 + recent.w/2 
+              recent.textSize = 18
+              recent.text = 'RECENT'
+
+            let project2Icon = new sideBar.Sprite()
+              project2Icon.h = textHeight 
+              project2Icon.y = recent.y + recent.h/2 + project2Icon.h/2 
+              project2Icon.w = project2Icon.h
+              project2Icon.x = sideBarList.x - sideBarList.w/2 + project2Icon.w/2 
+              project2Icon.color = 255
+              project2Icon.strokeSize = 2
+              project2Icon.stroke = color(211, 240, 253)
+            project2 = new sideBar.Sprite()
+              project2.h = textHeight 
+              project2.y = recent.y + recent.h/2 + project2.h/2 +5
+              project2.w = sideBarList.w/2 
+              project2.x = sideBarList.x - sideBarList.w/2 + project2.w/2 + project2Icon.w +2
+              project2.color = 255
+              project2.stroke = project2.color
+              project2.textSize = 22
+              project2.text = 'Instructions  '
+            
+          sideBarInstruction = new Group()
+            sideBarInstruction.collider = 's'
+            sideBarInstruction.color = 255
+            sideBarInstruction.stroke = sideBarInstruction.color
+            sideBarInstruction.visible = false
+
+          let sideBarInstructionBox = new sideBarInstruction.Sprite()
+            sideBarInstructionBox.w = sideBar.w
+            sideBarInstructionBox.x = sideBar.x
+            sideBarInstructionBox.h = sideBarList.h*1.1
+            sideBarInstructionBox.y = sideBarList.h*2
+            sideBarInstructionBox.stroke = 0
+            jiraInstructionImg.resize(sideBarInstructionBox.w, sideBarInstructionBox.h)
+            sideBarInstructionBox.img = jiraInstructionImg
+
+            
+            
+            let sideBarInstructionArray = []
+              while (sideBarInstructionArray.length < 7){
+                let sideBarInstructionText = new sideBarInstruction.Sprite()
+                sideBarInstructionText.w = sideBarInstructionBox.w -10
+                sideBarInstructionText.x = sideBarInstructionBox.x
+                sideBarInstructionText.h = textHeight
+                // sideBarInstructionText.y = (project2.y + project2.h/2) + sideBarInstructionText.h/2 + (sideBarInstructionText.h * sideBarInstructionArray.length) + project2.h/2
+                sideBarInstructionText.y = (sideBarInstructionBox.y - sideBarInstructionBox.h/2) + (sideBarInstructionText.h * sideBarInstructionArray.length) + sideBarInstructionText.h*1.5
+                sideBarInstructionText.textSize = 20
+                sideBarInstructionArray.push(sideBarInstructionText)
+              }
+              sideBarInstructionArray[0].text = 'Hello! '
+              sideBarInstructionArray[1].text = 'This is a table used to manage'
+              sideBarInstructionArray[2].text = 'subtasks within a project.'
+              sideBarInstructionArray[3].text = 'Read the context about the'
+              sideBarInstructionArray[4].text = 'situation provided and make a '
+              sideBarInstructionArray[5].text = 'decision by interacting with '
+              sideBarInstructionArray[6].text = 'the drop down menu.'
+
+
+          closeInstructions = new sideBarInstruction.Sprite()
+            closeInstructions.w = 20
+            closeInstructions.h = closeInstructions.w
+            closeInstructions.x = sideBarInstructionBox.x+sideBarInstructionBox.w/2 - closeInstructions.w *1.25
+            closeInstructions.y = sideBarInstructionBox.y-sideBarInstructionBox.h/2 + closeInstructions.h*1.5
+            closeInstructions.stroke = 0
+            closeInstructions.img = jiraCloseButtonImg
+
             
           let feedback = new sideBar.Sprite()
             feedback.h = textHeight* 1.5
@@ -378,7 +508,10 @@ class SS1{
         tableCreateButton.color = 255
         tableCreateButton.stroke = 255
         tableCreateButton.textSize = 16
+        tableCreateButton.textColor = 255
         tableCreateButton.text = '+ Create'
+        createButtonImg.resize(tableCreateButton.w, tableCreateButton.h)
+        tableCreateButton.img = createButtonImg
   
       let tableColm = new Group()
         tableColm.collider='s'
@@ -413,8 +546,19 @@ class SS1{
         summaryText.x = colmSum.x - (summaryText.w /2)
         summaryText.h = textHeight
         summaryText.y = (page.y-page.h/2) + (projectLine.y - (page.y-page.h/2)) + textHeight*2.75 + (textHeight*summaryArray.length) - summaryText.h/2
+        summaryText.textSize = 22
       }
       summaryArray[0].text='Summary           '
+
+      let contextWindow = new summaryGroup.Sprite()
+        contextWindow.w = (colmAssign.x - colmKey.x)*0.75
+        contextWindow.x = summaryArray[0].x + contextWindow.w*0.05
+        contextWindow.h = textHeight*10
+        contextWindow.y = summaryArray[5].y + 20
+        contextWindow.stroke = 0
+        contextImg.resize(contextWindow.w, contextWindow.h)
+        contextWindow.img = contextImg
+        contextWindow.layer = 40
   
       assignGroup = new Group()
         assignGroup.color = 255
@@ -458,7 +602,7 @@ class SS1{
     //drop down menu
     personSelect = new Group()
       personSelect.color=255
-      personSelect.stroke=0
+      // personSelect.stroke=0
       personSelect.collider = 's'
       personSelect.layer = 4
   
@@ -476,8 +620,8 @@ class SS1{
     searchPerson.h = textHeight
     searchPerson.layer = 5
     searchPerson.color = color(172,220, 242)
-    // searchPerson.textColor = 0
     searchPerson.textSize = 20
+    searchPerson.textColor = 255
     searchPerson.text = '     Search for a person...      '
   
     let selectInstruct = new personSelect.Sprite()
@@ -528,17 +672,22 @@ class SS1{
       assignIconArray[14].y = assignIconArray[8].y +10
   
     //situation context
-    for(let i=0; i<10; i++){
+    for(let i=1; i<10; i++){
       summaryArray[i].x = summaryArray[i].x+20
+      summaryArray[i].y = summaryArray[i].y+20
+      summaryArray[i].layer = contextWindow.layer+1
     }
-      summaryArray[2].text = 'Another team member has just been added to a project.'
-      summaryArray[3].text = 'The new member is very skilled and can help the team meet'
-      summaryArray[4].text = 'their goals and deadlines in a faster and more efficient way.'
-      summaryArray[5].text = 'However, to do so, the amount of work they must do is'
-      summaryArray[6].text = 'significantly greater than that of the other team members.'
-      summaryArray[7].text = 'Yet, due to their capabilities, they will be able to'
-      summaryArray[8].text = 'handle the amount of tasks given. '
-      summaryArray[9].text = 'Should the team leader assign the new member such tasks?'
+    summaryArray[0].x = summaryArray[0].x+30
+
+      summaryArray[1].text = 'Another team member has just been added to'
+      summaryArray[2].text = 'the project. The new member is very skilled and can'
+      summaryArray[3].text = 'help the team meet their goals and deadlines in a '
+      summaryArray[4].text = 'faster and more efficient way. However, to do so,'
+      summaryArray[5].text = 'the amount of work they must do is significantly'
+      summaryArray[6].text = 'greater than that of the other team members.'
+      summaryArray[7].text = 'Yet, due to their, capabilities they will be able to '
+      summaryArray[8].text = 'handle the amount of tasks given. Should the team '
+      summaryArray[9].text = 'leader assign the new member such tasks?'
   
     }
   
@@ -596,7 +745,9 @@ class SS1{
       ss1CloseSearch.y = ss1SearchBox.y
       ss1CloseSearch.text = 'x'
       ss1CloseSearch.stroke = 255
+      ss1CloseSearch.img = jiraCloseButtonImg
 
+      
     }
 
     
