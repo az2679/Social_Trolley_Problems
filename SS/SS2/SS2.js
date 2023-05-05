@@ -26,6 +26,8 @@ let windowButtons
 
 let chatWindowImg, infoWindowImg, infoWindowCoverImg, chatCloseButtonImg, chatNameImg, chatBodyImg, instructionBoxImg, selectedChatImg, infoButtonImg
 
+let bg1, bg2, bg3
+
 function preload(){
   chatWindowImg = loadImage('assets/whiteChat.png')
   infoWindowImg = loadImage('assets/infoWindow.png')
@@ -36,6 +38,10 @@ function preload(){
   instructionBoxImg = loadImage('assets/squareText.png')
   selectedChatImg = loadImage('assets/textBox.png')
   infoButtonImg = loadImage('assets/infoButton.png')
+
+  bg1 = loadImage('assets/background/1.png')
+  bg2 = loadImage('assets/background/2.png')
+  bg3 = loadImage('assets/background/3.png')
 }
 
 function setup(){
@@ -188,6 +194,12 @@ function setup(){
 function draw(){
   background(220)
 
+  bg1.resize(width, height)
+  bg2.resize(width, height)
+  bg3.resize(width, height)
+  image(bg1, 0,0)
+  image(bg2, 0,0)
+  image(bg3, 0,0)
 
   if(searchBar.mouse.released() || searchIcon.mouse.released()){
     ss2Instruction.visible = true

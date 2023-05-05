@@ -39,6 +39,7 @@ let spriteSheet, userAnimation
 let folderTrolleyImg, folderJiraImg, folderChatImg, folderEmailImg
 let project, projectImg
 let toolBarImg
+let bg1, bg2, bg3
 
 function preload(){
   jiraImg = loadImage('assets/apps/jiraPixel.png')
@@ -54,6 +55,9 @@ function preload(){
 
   toolBarImg = loadImage('assets/pixelWindow/toolBar.png')
 
+  bg1 = loadImage('assets/background/1.png')
+  bg2 = loadImage('assets/background/2.png')
+  bg3 = loadImage('assets/background/3.png')
 
 
   // spriteSheet = loadSpriteSheet('assets/userSprite.png', 16, 16, 37)
@@ -85,6 +89,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont("Silver")
   textSize(20)
+
+  // ethicsExpressImg.resize(windowWidth/2, windowHeight/2)
 
   localStorage.clear();
 
@@ -256,7 +262,15 @@ function setup() {
 
 
 function draw() {
-  background(220);
+
+  background(240);
+  bg1.resize(width, height)
+  bg2.resize(width, height)
+  bg3.resize(width, height)
+  image(bg1, 0,0)
+  image(bg2, 0,0)
+  image(bg3, 0,0)
+
 
   jira = localStorage.getItem("taskAssigned");
   chat = localStorage.getItem("removeFriend");

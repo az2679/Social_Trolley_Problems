@@ -24,12 +24,18 @@ let jiraDecision;
 let project2, closeInstructions, sideBarInstruction
 let jiraPageImg, jiraCloseButtonImg, jiraInstructionImg, createButtonImg, contextImg
 
+let bg1, bg2, bg3
+
 function preload(){
   jiraPageImg = loadImage('assets/biggerWindow.png')
   jiraCloseButtonImg = loadImage('assets/closeButton.png')
   jiraInstructionImg = loadImage('assets/rectText.png')
   createButtonImg = loadImage('assets/shortButton.png')
   contextImg = loadImage('assets/squareText.png')
+
+  bg1 = loadImage('assets/background/1.png')
+  bg2 = loadImage('assets/background/2.png')
+  bg3 = loadImage('assets/background/3.png')
 }
 
 
@@ -52,6 +58,13 @@ function setup(){
 
 function draw(){
   background(220)
+
+  bg1.resize(width, height)
+  bg2.resize(width, height)
+  bg3.resize(width, height)
+  image(bg1, 0,0)
+  image(bg2, 0,0)
+  image(bg3, 0,0)
 
   // if (ss1SearchBox.mouse.released()){
   //   ss1Instruction.visible = true

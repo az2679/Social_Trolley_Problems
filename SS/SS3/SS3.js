@@ -22,6 +22,8 @@ let windowButtons, newInstructionGroup
 
 let emailPageImg, emailCloseButtonImg, longButtonImg, shortButtonImg, artistImg, emailBodyImg, inboxEmailImg, sideBarImg, emailBarImg
 
+let bg1, bg2, bg3
+
 function preload(){
   emailPageImg = loadImage('assets/widerWindow1.png')
   emailCloseButtonImg = loadImage('assets/closeButton.png')
@@ -32,6 +34,10 @@ function preload(){
   inboxEmailImg = loadImage('assets/inboxEmail.png')
   sideBarImg = loadImage('assets/inboxWindow.png')
   emailBarImg = loadImage('assets/infoWindow1.png')
+
+  bg1 = loadImage('assets/background/1.png')
+  bg2 = loadImage('assets/background/2.png')
+  bg3 = loadImage('assets/background/3.png')
 }
 
 function setup(){
@@ -154,7 +160,13 @@ function draw(){
   if (ss3CloseSearch.mouse.released()){
     newInstructionGroup.visible = false
   }
-
+  
+  bg1.resize(width, height)
+  bg2.resize(width, height)
+  bg3.resize(width, height)
+  image(bg1, 0,0)
+  image(bg2, 0,0)
+  image(bg3, 0,0)
 
   // || ss3SearchBox.mouse.released()){
     // ss3Instruction.visible = true
