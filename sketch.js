@@ -223,7 +223,7 @@ function setup() {
   folderHover.x = project.x 
   folderHover.y = project.y -5
   folderHover.layer = project.layer-5
-  folderHover.color = 220
+  folderHover.color = 255
   folderHover.stroke = color(211, 240, 253)
   folderHover.strokeWeight = 5
   folderHover.visible = false
